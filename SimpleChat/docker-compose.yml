@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  chatserver:
+    image: "hang2loose/pythonchatserver:01"
+    container_name: "chatserver"
+    ports:
+      - "8080:8080"
+
+  hellobot:
+    image: "hang2loose/hellobot:01"
+    container_name: "hellobot"
+    depends_on:
+      - chatserver

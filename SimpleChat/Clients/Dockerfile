@@ -6,4 +6,4 @@ EXPOSE 8080
 
 COPY ./HelloBot.py .
 
-CMD [ "python", "./Hellobot.py" ]
+CMD [ "python", "./HelloBot.py" ]

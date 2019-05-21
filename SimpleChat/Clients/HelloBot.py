@@ -8,7 +8,7 @@ class Client:
         self.sock.send(bytes(msg, 'utf-8'))
 
     def __init__(self):
-        self.sock.connect(("127.0.0.1", 8080))
+        self.sock.connect(("192.168.0.59", 8080))
 
         while True:
             data = self.sock.recv(1024)
