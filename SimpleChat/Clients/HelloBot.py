@@ -3,22 +3,25 @@ import socket
 
 class Client:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    tmp_dic = {
+        "hello": "Hello World",
+        "test": "123",
+        "chuck": "Chuck Norris could use anything in java.util.* to kill you, including the javadocs."
+    }
 
     def sendMsg(self, msg: str):
         self.sock.send(bytes(msg, 'utf-8'))
 
     def __init__(self):
-        self.sock.connect(("192.168.0.59", 8080))
+        self.sock.connect(("chatserver", 8080))
 
         while True:
             data = self.sock.recv(1024)
             if not data:
                 break
             tmp_data = str(data, 'utf-8')
-            if tmp_data == "hello":
-                self.sendMsg("hello world")
-            if tmp_data == "test":
-                self.sendMsg("123")
+            if tmp_data in self.tmp_dic:
+                self.sendMsg(self.tmp_dic[tmp_data])
 
 
 client = Client()
