@@ -9,7 +9,8 @@ class Client:
         "chuck": "Chuck Norris could use anything in java.util.* to kill you, including the javadocs.",
         "chuck2": "All arrays Chuck Norris declares are of infinite size, because Chuck Norris knows no bounds.",
         "chuck3": "Chuck Norris doesn't use reflection, reflection asks politely for his help.",
-        "hunger": "pizza"
+        "hunger": "burger"
+        "hunger2": "pizza"
     }
 
     def sendMsg(self, msg: str):
