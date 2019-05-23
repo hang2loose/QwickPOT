@@ -60,7 +60,6 @@ class SignIn extends React.Component {
 
     usernameSubmitHandler = (event) => {
         event.preventDefault();
-        this.setState({username: this.state.username});
         this.props.submittedCheck();
     };
 
