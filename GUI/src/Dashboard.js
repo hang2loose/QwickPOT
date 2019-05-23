@@ -170,7 +170,7 @@ class Dashboard extends React.Component {
                     </div>
                     <Divider />
                     <List>
-                        <ListElements />
+                        <ListElements username={this.props.username}/>
                     </List>
                 </Drawer>
                 <main className={classes.content}>
@@ -183,7 +183,7 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.defaultProps = {
-    username: 'Anonymous'
+    username: ''
 };
 
 Dashboard.propTypes = {
