@@ -20,7 +20,7 @@ import Input from "@material-ui/core/Input";
 import TextField from '@material-ui/core/TextField';
 import InputBar from "./InputBar";
 import ChatWindow from "./ChatWindow";
-import { mainListItems } from "./ListElements";
+import ListElements from "./ListElements";
 
 const drawerWidth = 240;
 
@@ -168,8 +168,10 @@ class Dashboard extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
-                    <List>{mainListItems}</List>
                     <Divider />
+                    <List>
+                        <ListElements />
+                    </List>
                 </Drawer>
                 <main className={classes.content}>
                     <ChatWindow />
@@ -179,6 +181,10 @@ class Dashboard extends React.Component {
         );
     }
 }
+
+Dashboard.defaultProps = {
+    username: 'Anonymous'
+};
 
 Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
