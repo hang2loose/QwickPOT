@@ -10,6 +10,7 @@ class Client:
         "chuck2": "All arrays Chuck Norris declares are of infinite size, because Chuck Norris knows no bounds.",
         "chuck3": "Chuck Norris doesn't use reflection, reflection asks politely for his help.",
         "hunger": "burger"
+        "hunger2": "pizza"
     }
 
     def sendMsg(self, msg: str):
