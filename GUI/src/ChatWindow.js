@@ -47,7 +47,7 @@ class ChatWindow extends React.Component{
     addMessage(message) {
         // Append the message to the component state
         const messages = this.state.messages;
-        //messages.push(message);
+        messages.push(message);
         this.setState({ messages });
     }
 
@@ -69,6 +69,10 @@ class ChatWindow extends React.Component{
         );
     }
 }
+
+ChatWindow.defaultProps = {
+    messages: []
+};
 
 ChatWindow.propTypes = {
     classes: PropTypes.object.isRequired,

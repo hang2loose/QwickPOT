@@ -7,6 +7,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import LockOutlinedIcon from '@material-ui/icons/Lock';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
+import App from "./App";
 
 const styles = theme => ({
     container: {
@@ -20,6 +21,7 @@ const styles = theme => ({
 });
 
 class ListElements extends React.Component {
+
     render() {
         const {classes} = this.props;
 
@@ -43,6 +45,10 @@ class ListElements extends React.Component {
         );
     }
 }
+
+ListElements.defaultProps = {
+    username: '',
+};
 
 ListElements.propTypes = {
     classes: PropTypes.object.isRequired,
