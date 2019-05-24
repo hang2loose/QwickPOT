@@ -17,6 +17,9 @@
 
   <properties>
     <java.version>1.8</java.version>
+    <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
+    <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
+    <checkstyle.version>8.14</checkstyle.version>
   </properties>
 
   <dependencies>
@@ -50,6 +53,19 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>2.9.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>2.9.2</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -58,7 +74,61 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
+
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+          <encoding>UTF-8</encoding>
+          <failOnViolation>true</failOnViolation>
+          <failsOnError>true</failsOnError>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <linkXRef>false</linkXRef>
+          <suppressionsLocation>checkstyle-smartics-suppressions.xml</suppressionsLocation>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <artifactId>checkstyle</artifactId>
+            <groupId>com.puppycrawl.tools</groupId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>process-sources</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${checkstyle-plugin.version}</version>
+      </plugin>
+
+
     </plugins>
   </build>
 
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+          <encoding>UTF-8</encoding>
+          <failOnViolation>true</failOnViolation>
+          <failsOnError>true</failsOnError>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <linkXRef>false</linkXRef>
+          <suppressionsLocation>checkstyle-smartics-suppressions.xml</suppressionsLocation>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${checkstyle-plugin.version}</version>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
