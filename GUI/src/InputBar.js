@@ -25,26 +25,28 @@ class InputBar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { chatInput: '' };
+        this.state = {
+            chatInput: '',
+        };
 
         // React ES6 does not bind 'this' to event handlers by default
         this.submitHandler = this.submitHandler.bind(this);
-        this.textChangeHandler = this.textChangeHandler.bind(this);
+        this.chatInputHandler = this.chatInputHandler.bind(this);
     }
-    submitHandler(event) {
+    submitHandler = (event) => {
         // Stop the form from refreshing the page on submit
         event.preventDefault();
 
-        // Clear the input box
+        // Clear chat input field
         this.setState({ chatInput: '' });
 
         // Call the onSend callback with the chatInput message
         this.props.onSend(this.state.chatInput);
-    }
+    };
 
-    textChangeHandler(event)  {
-        this.setState({ chatInput: event.target.value });
-    }
+    chatInputHandler = (event) => {
+        this.setState({ chatInput: event.target.value});
+    };
 
     render() {
         const {classes} = this.props;
@@ -56,7 +58,8 @@ class InputBar extends React.Component {
                     label="Chat"
                     style={{margin: 8}}
                     helperText="Press Enter to Send!"
-                    onChange={this.textChangeHandler}
+                    onChange={this.chatInputHandler}
+                    value={this.state.chatInput}
                     fullWidth
                     margin="normal"
                     variant="outlined"

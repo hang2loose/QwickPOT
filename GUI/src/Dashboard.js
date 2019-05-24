@@ -106,8 +106,37 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-    state = {
-        open: false,
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            messages: [],
+        };
+
+        // Bind 'this' to event handlers. React ES6 does not do this by default
+
+        this.sendHandler = this.sendHandler.bind(this);
+        this.addMessage = this.addMessage.bind(this);
+        this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+        this.handleDrawerClose = this.handleDrawerClose.bind(this);
+
+    }
+
+    sendHandler = (message) => {
+        const messageObject = {
+            username: this.props.username,
+            message,
+        };
+
+        this.addMessage(messageObject);
+    };
+
+    addMessage = (message) => {
+        // Append the message to the component state
+        const messages = this.state.messages;
+        messages.push(message);
+        this.setState({ messages });
     };
 
     handleDrawerOpen = () => {
@@ -120,6 +149,8 @@ class Dashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
+
+        console.log(this.state.messages);
 
         return (
             <div className={classes.root}>
@@ -175,7 +206,7 @@ class Dashboard extends React.Component {
                 </Drawer>
                 <main className={classes.content}>
                     <ChatWindow />
-                    <InputBar />
+                    <InputBar onSend = {this.sendHandler}/>
                 </main>
             </div>
         );
