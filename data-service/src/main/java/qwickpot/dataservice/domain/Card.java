@@ -10,10 +10,11 @@ import lombok.Data;
 @Entity
 @Data
 public class Card {
+
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private UUID ID;
-  private String name;
-  private String description;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
+  private final String name;
+  private final String description;
 
 }
