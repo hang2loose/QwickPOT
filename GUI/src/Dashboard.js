@@ -205,7 +205,7 @@ class Dashboard extends React.Component {
                     </List>
                 </Drawer>
                 <main className={classes.content}>
-                    <ChatWindow />
+                    <ChatWindow messages = {this.state.messages} />
                     <InputBar onSend = {this.sendHandler}/>
                 </main>
             </div>
