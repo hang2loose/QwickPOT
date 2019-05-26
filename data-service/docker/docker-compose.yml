@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+
+  database:
+    build: ./mysql
+    container_name: qwickpot-db
+    environment:
+      MYSQL_ROOT_PASSWORD : "password"
+      MYSQL_DATABASE : "qwickpot"
+      MYSQL_USER : "luke"
+      MYSQL_PASSWORD : "yoda"
+    ports:
+      - "3306:3306"
