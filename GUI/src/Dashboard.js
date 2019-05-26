@@ -114,6 +114,8 @@ class Dashboard extends React.Component {
             messages: [],
         };
 
+        this.forceToBottom = React.createRef();
+
         // Bind 'this' to event handlers. React ES6 does not do this by default
 
         this.sendHandler = this.sendHandler.bind(this);
@@ -146,6 +148,11 @@ class Dashboard extends React.Component {
     handleDrawerClose = () => {
         this.setState({ open: false });
     };
+
+    // Scroll to bottom if a new message is added
+    componentDidUpdate() {
+        this.forceToBottom.current.scrollIntoView(false);
+    }
 
     render() {
         const { classes } = this.props;
@@ -204,9 +211,9 @@ class Dashboard extends React.Component {
                         <ListElements username={this.props.username}/>
                     </List>
                 </Drawer>
-                <main className={classes.content}>
+                <main className={classes.content} >
                     <ChatWindow messages = {this.state.messages} />
-                    <InputBar onSend = {this.sendHandler}/>
+                    <InputBar onSend = {this.sendHandler} toBottom={this.forceToBottom}/>
                 </main>
             </div>
         );
