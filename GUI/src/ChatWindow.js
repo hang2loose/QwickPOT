@@ -26,46 +26,9 @@ const styles = theme => ({
 
 class ChatWindow extends React.Component{
 
-    //socket = {};
     constructor(props) {
         super(props);
-
-        this.sendHandler = this.sendHandler.bind(this);
-
-        // Connect to the server
-        //this.socket = io(config.api, { query: `username=${props.username}` }).connect();
-
-        // Listen for messages from the server
-        //this.socket.on('server:message', message => {
-        //    this.addMessage(message);
-        //});
     }
-
-    componentDidUpdate() {
-        // There is a new message in the state, scroll to bottom of list
-        const objDiv = document.getElementById('messageList');
-        objDiv.scrollTop = objDiv.scrollHeight;
-    }
-
-    sendHandler(message) {
-        const messageObject = {
-            username: this.props.username,
-            message
-        };
-
-        // Emit the message to the server
-        //this.socket.emit('client:message', messageObject);
-
-        this.addMessage(messageObject);
-    }
-
-    addMessage(message) {
-        // Append the message to the component state
-        const messages = this.state.messages;
-        messages.push(message);
-        this.setState({ messages });
-    }
-
 
     render() {
 
@@ -83,7 +46,7 @@ class ChatWindow extends React.Component{
 
         return (
             <div>
-                <Paper className={classes.root} elevation={1} id='messageList'>
+                <Paper className={classes.root} elevation={1}>
                     { messages }
                 </Paper>
             </div>
