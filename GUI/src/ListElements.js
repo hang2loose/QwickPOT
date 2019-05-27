@@ -29,8 +29,8 @@ class ListElements extends React.Component {
             <div>
                 <ListItem button>
                     <ListItemIcon>
-                        <Avatar>
-                            <LockOutlinedIcon />
+                        <Avatar aria-label={this.props.username} className={classes.avatar}>
+                            {this.props.username[0]}
                         </Avatar>
                     </ListItemIcon>
                     <ListItemText primary={this.props.username} />
