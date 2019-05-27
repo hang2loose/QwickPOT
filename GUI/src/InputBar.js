@@ -64,6 +64,9 @@ class InputBar extends React.Component {
                     fullWidth
                     margin="normal"
                     variant="outlined"
+                    autoFocus={true}
+                    multiline={false}
+                    rowsMax={3}
                     InputLabelProps={{
                         shrink: true,
                     }}
