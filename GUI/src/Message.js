@@ -4,14 +4,15 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
     card: {
-        maxWidth: 400,
+        margin: theme.spacing.unit,
     },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
+    content: {
+        padding: theme.spacing.unit,
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -26,6 +27,9 @@ const styles = theme => ({
     avatar: {
         backgroundColor: 'red',
     },
+    title: {
+        fontSize: 14,
+    },
 });
 
 class Message extends React.Component {
@@ -34,18 +38,15 @@ class Message extends React.Component {
         const { classes } = this.props;
 
         return (
-            <Card>
-                <CardHeader
-                    avatar={
-                        <Avatar aria-label={this.props.username} className={classes.avatar}>
-                            {this.props.username[0]}
-                        </Avatar>
-                    }
-                    subheader={this.props.username}
-                />
-                <div>
-                    { this.props.message }
-                </div>
+            <Card className={classes.card}>
+                <CardContent className={classes.content}>
+                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        {this.props.username}
+                    </Typography>
+                    <Typography>
+                        { this.props.message }
+                    </Typography>
+                </CardContent>
             </Card>
         );
     }
