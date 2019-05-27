@@ -33,6 +33,7 @@ class InputBar extends React.Component {
         this.submitHandler = this.submitHandler.bind(this);
         this.chatInputHandler = this.chatInputHandler.bind(this);
     }
+    
     submitHandler = (event) => {
         // Stop the form from refreshing the page on submit
         event.preventDefault();
@@ -52,7 +53,7 @@ class InputBar extends React.Component {
         const {classes} = this.props;
 
         return (
-            <form className={classes.container} noValidate autoComplete="off" onSubmit={this.submitHandler}>
+            <form className={classes.container} noValidate autoComplete="off" onSubmit={this.submitHandler} ref={this.props.toBottom}>
                 <TextField
                     id="outlined-full-width"
                     label="Chat"
