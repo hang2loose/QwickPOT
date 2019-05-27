@@ -115,7 +115,7 @@ class Dashboard extends React.Component {
             messages: [],
         };
 
-        this.socket = io('localhost:3000');
+        this.socket = io('localhost:8080');
         this.forceToBottom = React.createRef();
 
 
@@ -134,13 +134,14 @@ class Dashboard extends React.Component {
             message,
         };
 
-        if(messageObject.message != '') {
+        if(messageObject.message !== '') {
             this.socket.emit('SEND_MESSAGE', {
                 messageObject
             });
         }
 
-        this.addMessage(messageObject);
+        this.socket.on('RECEIVE_MESSAGE', this.addMessage(messageObject));
+
     };
 
     addMessage = (message) => {
