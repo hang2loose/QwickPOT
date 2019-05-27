@@ -69,6 +69,11 @@
       <version>2.9.2</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>guru.springframework</groupId>
+      <artifactId>chuck-norris-for-actuator</artifactId>
+      <version>0.0.2</version>
+    </dependency>
   </dependencies>
 
 
