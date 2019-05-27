@@ -21,6 +21,7 @@ import TextField from '@material-ui/core/TextField';
 import InputBar from "./InputBar";
 import ChatWindow from "./ChatWindow";
 import ListElements from "./ListElements";
+import io from "socket.io-client";
 
 const drawerWidth = 240;
 
@@ -114,6 +115,8 @@ class Dashboard extends React.Component {
             messages: [],
         };
 
+        this.socket = io('localhost:3000');
+
         // Bind 'this' to event handlers. React ES6 does not do this by default
 
         this.sendHandler = this.sendHandler.bind(this);
@@ -128,6 +131,12 @@ class Dashboard extends React.Component {
             username: this.props.username,
             message,
         };
+
+        if(messageObject.message != '') {
+            this.socket.emit('SEND_MESSAGE', {
+                messageObject
+            });
+        }
 
         this.addMessage(messageObject);
     };
