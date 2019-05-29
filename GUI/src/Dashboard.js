@@ -106,8 +106,39 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-    state = {
-        open: false,
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            messages: [],
+        };
+
+        this.forceToBottom = React.createRef();
+
+        // Bind 'this' to event handlers. React ES6 does not do this by default
+
+        this.sendHandler = this.sendHandler.bind(this);
+        this.addMessage = this.addMessage.bind(this);
+        this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+        this.handleDrawerClose = this.handleDrawerClose.bind(this);
+
+    }
+
+    sendHandler = (message) => {
+        const messageObject = {
+            username: this.props.username,
+            message,
+        };
+
+        this.addMessage(messageObject);
+    };
+
+    addMessage = (message) => {
+        // Append the message to the component state
+        const messages = this.state.messages;
+        messages.push(message);
+        this.setState({ messages });
     };
 
     handleDrawerOpen = () => {
@@ -118,8 +149,15 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
+    // Scroll to bottom if a new message is added
+    componentDidUpdate() {
+        this.forceToBottom.current.scrollIntoView(false);
+    }
+
     render() {
         const { classes } = this.props;
+
+        console.log(this.state.messages);
 
         return (
             <div className={classes.root}>
@@ -173,9 +211,9 @@ class Dashboard extends React.Component {
                         <ListElements username={this.props.username}/>
                     </List>
                 </Drawer>
-                <main className={classes.content}>
-                    <ChatWindow />
-                    <InputBar />
+                <main className={classes.content} >
+                    <ChatWindow messages = {this.state.messages} />
+                    <InputBar onSend = {this.sendHandler} toBottom={this.forceToBottom}/>
                 </main>
             </div>
         );
