@@ -10,7 +10,7 @@ class Client:
       self.sock.send(bytes(input(""), 'utf-8'))
 
   def __init__(self):
-    self.sock.connect(("127.0.0.1", 8080))
+    self.sock.connect(("127.0.0.1", 8081))
 
     input_thread = threading.Thread(target=self.send_msg)
     input_thread.daemon = True

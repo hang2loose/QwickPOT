@@ -1,0 +1,15 @@
+dev:
+  chatserver:
+    address: chatserver
+    port: 8080
+  data-service:
+    address: data-service
+    port: 9090
+
+local:
+  chatserver:
+    address: chatserver
+    port: 8080
+  data-service:
+    address: 10.31.216.104
+    port: 9090
