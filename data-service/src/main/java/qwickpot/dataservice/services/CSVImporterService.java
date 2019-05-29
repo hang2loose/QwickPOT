@@ -1,7 +1,6 @@
-package qwickpot.dataservice.controllers;
+package qwickpot.dataservice.services;
 
 import java.util.LinkedList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -9,16 +8,17 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import qwickpot.dataservice.domain.Card;
 import qwickpot.dataservice.repositories.CardRepository;
+import qwickpot.dataservice.util.CSVReader;
 
 @Component
 @Order(value = 1)
-public class CSVImport implements CommandLineRunner {
+public class CSVImporterService implements CommandLineRunner {
 
-  private final Logger logger = LoggerFactory.getLogger(CSVImport.class);
+  private final Logger logger = LoggerFactory.getLogger(CSVImporterService.class);
 
   private CardRepository cardRepository;
 
-  public CSVImport(CardRepository cardRepository) {
+  public CSVImporterService(CardRepository cardRepository) {
     this.cardRepository = cardRepository;
   }
 
