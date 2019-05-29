@@ -2,7 +2,7 @@ import socket
 import requests
 
 
-class Client:
+class HelloBot:
   sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
   def send_msg(self, msg: str):
@@ -16,7 +16,9 @@ class Client:
       "chucky": self.get_chucky
     }
 
-    self.sock.connect(("127.0.0.1", 8080))
+    self.data_service_address = "NEEDS HOST IP"
+    self.sock.connect(("chatserver", 8080))
+
     while True:
       data = self.sock.recv(1024)
       if not data:
@@ -30,8 +32,9 @@ class Client:
         self.send_msg(tmp_msg)
 
   def get_chucky(self):
-    request_data = requests.get("http://127.0.0.1:9090/chucky")
+    request_data = requests.get(
+        "http://{}:9090/chucky".format(self.data_service_address))
     return request_data
 
 
-client = Client()
+client = HelloBot()
