@@ -1,27 +1,17 @@
 import asyncio
-import threading
-
+from contextlib import suppress
 import websockets
 
 
-class WebSocketClient:
-
-  async def send_message(self):
-    async with websockets.connect('ws://localhost:8080/echo') as websocket:
-      while True:
-        await websocket.send(input("Message: "))
-
-  async def recive_message(self):
-    async with websockets.connect('ws://localhost:8080/echo') as websocket:
-      while True:
-        response = await websocket.recv()
-        print(response)
-
-  def __init__(self):
-    asyncio.get_event_loop().run_until_complete(self.send_message())
-    input_thread = threading.Thread(target=self.send_message)
-    input_thread.daemon = True
-    input_thread.start()
+async def client(url: str):
+    async with websockets.connect(url) as websocket:
+        while True:
+            message = input("> ")
+            await websocket.send(message)
+            response = await websocket.recv()
+            print(response)
 
 
-client = WebSocketClient()
+with suppress(KeyboardInterrupt):
+    asyncio.run(client("ws://localhost:8080/echo"))
+
