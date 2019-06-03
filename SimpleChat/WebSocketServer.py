@@ -1,21 +1,32 @@
-import asyncio
-import websockets
+import eventlet
+import socketio
+
+sio = socketio.Server()
+app = socketio.WSGIApp(sio, static_files={
+  '/': {'content_type': 'text/html', 'filename': 'index.html'}
+})
 
 
-async def echo(websocket, path):
-    try:
-        async for message in websocket:
-            # send message to bot here using "message"
-            # answer = ...
-            print(message)
-
-            await websocket.send(message)
-            # send answer instead of message
-            # await websocket.send(answer)
-    except websockets.exceptions.ConnectionClosed:
-        print("Client disconnected.")
+@sio.event
+def connect(sid, environ):
+  print('connect ', sid)
 
 
-asyncio.get_event_loop().run_until_complete(
-    websockets.serve(echo, 'localhost', 8080))
-asyncio.get_event_loop().run_forever()
+@sio.event
+def my_message(sid, data):
+  print('message ', data)
+
+
+@sio.event
+def disconnect(sid):
+  print('disconnect ', sid)
+
+
+@sio.on('message')
+def echo_message(sid, message):
+  print(message)
+  sio.emit('message', message)
+
+
+if __name__ == '__main__':
+  eventlet.wsgi.server(eventlet.listen(('', 8080)), app)
