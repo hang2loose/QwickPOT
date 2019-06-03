@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,10 +14,6 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import TextField from '@material-ui/core/TextField';
 import InputBar from "./InputBar";
 import ChatWindow from "./ChatWindow";
 import ListElements from "./ListElements";
@@ -115,7 +111,7 @@ class Dashboard extends React.Component {
             messages: [],
         };
 
-        this.socket = io('192.168.0.60:8081').connect();
+      this.socket = io('{fill me with something}:8080').connect();
         this.forceToBottom = React.createRef();
 
 
