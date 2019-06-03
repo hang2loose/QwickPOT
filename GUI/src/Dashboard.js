@@ -115,7 +115,7 @@ class Dashboard extends React.Component {
             messages: [],
         };
 
-        this.socket = io('localhost:8080');
+        this.socket = io('192.168.0.60:8081').connect();
         this.forceToBottom = React.createRef();
 
 
@@ -126,6 +126,10 @@ class Dashboard extends React.Component {
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
 
+        this.socket.on('message', message => {
+            this.addMessage(message);
+        });
+
     }
 
     sendHandler = (message) => {
@@ -135,12 +139,11 @@ class Dashboard extends React.Component {
         };
 
         if(messageObject.message !== '') {
-            this.socket.emit('SEND_MESSAGE', {
-                messageObject
+            this.socket.emit('message', {
+                username: messageObject.username,
+                message: messageObject.message
             });
         }
-
-        this.socket.on('RECEIVE_MESSAGE', this.addMessage(messageObject));
 
     };
 
