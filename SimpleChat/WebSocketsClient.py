@@ -1,17 +1,23 @@
-import asyncio
-from contextlib import suppress
-import websockets
+import socketio
+
+sio = socketio.Client()
 
 
-async def client(url: str):
-    async with websockets.connect(url) as websocket:
-        while True:
-            message = input("> ")
-            await websocket.send(message)
-            response = await websocket.recv()
-            print(response)
+@sio.event
+def connect():
+  print('connection established')
 
 
-with suppress(KeyboardInterrupt):
-    asyncio.run(client("ws://localhost:8080/echo"))
+@sio.event
+def my_message(data):
+  print('message received with ', data)
+  sio.emit('my response', {'response': 'my response'})
 
+
+@sio.event
+def disconnect():
+  print('disconnected from server')
+
+
+sio.connect('http://localhost:8080')
+sio.wait()
