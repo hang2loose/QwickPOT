@@ -40,5 +40,5 @@ def create_message(message: str):
   return json.dumps(tmp_dict)
 
 
-sio.connect('http://localhost:8080')
+sio.connect('http://chatserver:8080')
 sio.wait()
