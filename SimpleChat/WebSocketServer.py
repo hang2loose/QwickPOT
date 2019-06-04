@@ -28,5 +28,10 @@ def echo_message(sid, message):
   sio.emit('message', message)
 
 
+@sio.on('message_bot')
+def echo_bot(sid, message):
+  print(message)
+  sio.emit('message_bot', message)
+
 if __name__ == '__main__':
   eventlet.wsgi.server(eventlet.listen(('', 8080)), app)
