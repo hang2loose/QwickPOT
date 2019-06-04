@@ -123,7 +123,7 @@ class Dashboard extends React.Component {
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
 
       this.socket.on('message_bot', message => {
-            this.addMessage(message);
+        this.addMessage(JSON.parse(message));
         });
 
     }
