@@ -3,7 +3,7 @@ version: '3'
 services:
 
   chatserver:
-    image: "simplechat_chatserver:latest"
+    image: "qwickpot-chatserver:latest"
     container_name: "chatserver"
     ports:
       - "8080:8080"
@@ -17,14 +17,14 @@ services:
       - chatserver
 
   hellobot:
-    image: "simplechat_hellobot:latest"
+    image: "qwickpot-chatbot:latest"
     container_name: "hellobot"
     depends_on:
       - chatserver
       - data-service
 
   data-service:
-    image: "data-service:1.0"
+    image: "qwickpot-data-service:1.0"
     container_name: "data-service"
     ports:
       - "9090:9090"
