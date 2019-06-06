@@ -124,7 +124,7 @@
             <image>fabric8/java-alpine-openjdk8-jdk:1.2</image>
           </from>
           <to>
-            <image>qwickpot-${artifactId}:${imageTag}</image>
+            <image>hang2loose/qwickpot-${artifactId}:${imageTag}</image>
           </to>
           <allowInsecureRegistries>true</allowInsecureRegistries>
           <container>

@@ -3,13 +3,13 @@ version: '3'
 services:
 
   chatserver:
-    image: "qwickpot-chatserver:latest"
+    image: "hang2loose/qwickpot-chatserver:01"
     container_name: "chatserver"
     ports:
       - "8080:8080"
 
   qwickpot-gui:
-    image: "qwickpot-gui:01"
+    image: "hang2loose/qwickpot-gui:01"
     container_name: "qwickpot-gui"
     ports:
       - "3000:3000"
@@ -17,14 +17,14 @@ services:
       - chatserver
 
   hellobot:
-    image: "qwickpot-chatbot:latest"
+    image: "hang2loose/qwickpot-chatbot:01"
     container_name: "hellobot"
     depends_on:
       - chatserver
       - data-service
 
   data-service:
-    image: "qwickpot-data-service:1.0"
+    image: "hang2loose/qwickpot-data-service:1.0"
     container_name: "data-service"
     ports:
       - "9090:9090"
@@ -32,7 +32,7 @@ services:
       - data-service-db
 
   data-service-db:
-    image: "qwickpot-db:01"
+    image: "hang2loose/qwickpot-db:01"
     container_name: data-service-db
     environment:
       MYSQL_ROOT_PASSWORD: "password"
