@@ -2,8 +2,11 @@ FROM python:3
 
 WORKDIR /usr/src/app
 
-EXPOSE 8081
+EXPOSE 8080
 
-COPY ./Server.py .
+RUN pip install python-socketio
+RUN pip install eventlet
 
-CMD [ "python", "./Server.py" ]
+COPY WebSocketServer.py .
+
+CMD [ "python", "./WebSocketServer.py" ]

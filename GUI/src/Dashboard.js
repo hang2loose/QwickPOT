@@ -111,7 +111,7 @@ class Dashboard extends React.Component {
             messages: [],
         };
 
-      this.socket = io('{fill me with something}:8080').connect();
+      this.socket = io('localhost:8080').connect();
         this.forceToBottom = React.createRef();
 
 
@@ -122,8 +122,8 @@ class Dashboard extends React.Component {
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
 
-        this.socket.on('message', message => {
-            this.addMessage(message);
+      this.socket.on('message_bot', message => {
+        this.addMessage(JSON.parse(message));
         });
 
     }

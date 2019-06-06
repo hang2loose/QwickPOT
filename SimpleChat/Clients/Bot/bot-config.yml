@@ -11,5 +11,5 @@ local:
     address: chatserver
     port: 8080
   data-service:
-    address: 10.31.216.104
+    address:
     port: 9090

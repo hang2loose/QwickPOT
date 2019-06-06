@@ -2,10 +2,10 @@ FROM python:3
 
 WORKDIR /usr/src/app
 
-EXPOSE 8081
-
 RUN pip install requests
+RUN pip install python-socketio
 
-COPY HelloBot.py .
+COPY HelloBot.py ./Clients/Bot/
+COPY Bot.py .
 
-CMD [ "python", "./HelloBot.py"]
+CMD [ "python", "./Bot.py"]
