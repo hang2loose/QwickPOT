@@ -5,20 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import lombok.Data;
 
-@Data
 @Entity
-public class Card {
+@Data
+public class DummyCard {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
-
   private String name;
   private String description;
 
-  @ManyToOne
-  private Theme theme;
+
+  public DummyCard(String name, String description) {
+    this.name = name;
+    this.description = description;
+  }
 }

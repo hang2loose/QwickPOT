@@ -1,34 +1,84 @@
 package qwickpot.dataservice.bootstrap;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import qwickpot.dataservice.domain.Card;
+import qwickpot.dataservice.domain.DummyCard;
+import qwickpot.dataservice.domain.Theme;
 import qwickpot.dataservice.repositories.CardRepository;
+import qwickpot.dataservice.repositories.DummyCardRepository;
+import qwickpot.dataservice.repositories.ThemeRepository;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+  private final DummyCardRepository dummyCardRepository;
   private final CardRepository cardRepository;
+  private final ThemeRepository themeRepository;
 
-  public DevBootstrap(CardRepository cardRepository) {
+  public DevBootstrap(DummyCardRepository dummyCardRepository,
+      CardRepository cardRepository, ThemeRepository themeRepository) {
+    this.dummyCardRepository = dummyCardRepository;
     this.cardRepository = cardRepository;
+    this.themeRepository = themeRepository;
   }
 
   @Override
   public void onApplicationEvent(ContextRefreshedEvent event) {
-    if (cardRepository.count() == 0L) {
-      initCards();
+    if (dummyCardRepository.count() == 0L) {
+      initDummyCards();
+      initDummyData();
     }
   }
 
-  private void initCards() {
+  private void initDummyCards() {
 
-    cardRepository.save(new Card("dummy", "1st dummy Card"));
-    cardRepository.save(new Card("tes", "1st Test Card"));
-    cardRepository.save(new Card("dummy", "2st dummy Card"));
-    cardRepository.save(new Card("bubu", "ProjectsLead"));
-    cardRepository.save(new Card("Jules", "Atanua4Life"));
+    dummyCardRepository.save(new DummyCard("dummy", "1st dummy DummyCard"));
+    dummyCardRepository.save(new DummyCard("tes", "1st Test DummyCard"));
+    dummyCardRepository.save(new DummyCard("dummy", "2st dummy DummyCard"));
+    dummyCardRepository.save(new DummyCard("bubu", "ProjectsLead"));
+    dummyCardRepository.save(new DummyCard("Jules", "Atanua4Life"));
+  }
+
+  private void initDummyData() {
+    Card card1 = generateCard("card1", "description");
+    cardRepository.save(card1);
+    Theme theme1 = generateTheme("theme1", card1);
+    card1.setTheme(theme1);
+    themeRepository.save(theme1);
+    cardRepository.save(card1);
+  }
+
+  private Theme generateTheme(String name, Card... cards) {
+    Theme tempTheme = new Theme();
+    tempTheme.setName(name);
+    tempTheme.setCards(Arrays.asList(cards));
+
+    return tempTheme;
+  }
+
+  private Card generateCard(String name, String description) {
+    Card tmpCard = new Card();
+
+    tmpCard.setName(name);
+    tmpCard.setDescription(description);
+
+    return tmpCard;
+  }
+
+  private List<Card> genereateCards(String name, String description) {
+    List<Card> tempList = new ArrayList<>();
+
+    Card tempCard = new Card();
+    tempCard.setName(name);
+    tempCard.setDescription(description);
+
+    tempList.add(tempCard);
+    return tempList;
   }
 }
 
