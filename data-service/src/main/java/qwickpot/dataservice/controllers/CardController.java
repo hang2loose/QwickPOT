@@ -1,6 +1,7 @@
 package qwickpot.dataservice.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import qwickpot.dataservice.dtos.CardDto;
 import qwickpot.dataservice.services.CardService;
@@ -15,7 +16,8 @@ public class CardController {
   }
 
   @GetMapping("/getCardByName")
-  public CardDto getCardByName(String name) {
+  public CardDto getCardByName(
+      @RequestParam(name = "CardName") String name) {
 
     return cardService.getCardFromRepoByName(name);
   }

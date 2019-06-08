@@ -1,7 +1,7 @@
 package qwickpot.dataservice.domain;
 
 import java.util.List;
-import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,14 +14,19 @@ import lombok.Data;
 public class Theme {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   private String name;
 
   //@OneToMany
   //private List<Theme> subThemes;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<Card> cards;
 
+
+  public void addCard(Card card) {
+    cards.add(card);
+    card.setTheme(this);
+  }
 }

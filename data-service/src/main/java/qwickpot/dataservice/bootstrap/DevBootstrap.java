@@ -7,11 +7,11 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import qwickpot.dataservice.domain.Card;
-import qwickpot.dataservice.domain.DummyCard;
 import qwickpot.dataservice.domain.Theme;
+import qwickpot.dataservice.domain.dummys.DummyCard;
 import qwickpot.dataservice.repositories.CardRepository;
-import qwickpot.dataservice.repositories.DummyCardRepository;
 import qwickpot.dataservice.repositories.ThemeRepository;
+import qwickpot.dataservice.repositories.dummys.DummyCardRepository;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -30,8 +30,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
   @Override
   public void onApplicationEvent(ContextRefreshedEvent event) {
     if (dummyCardRepository.count() == 0L) {
-      initDummyCards();
-      initDummyData();
+      initData();
     }
   }
 
@@ -44,13 +43,18 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     dummyCardRepository.save(new DummyCard("Jules", "Atanua4Life"));
   }
 
-  private void initDummyData() {
-    Card card1 = generateCard("card1", "description");
-    cardRepository.save(card1);
+  private void initData() {
+    Card card1 = generateCard("card1", "YYYYYYY");
+    Card card2 = generateCard("card2", "XXXXXXX");
+
     Theme theme1 = generateTheme("theme1", card1);
-    card1.setTheme(theme1);
     themeRepository.save(theme1);
+    Theme theme2 = generateTheme("theme2", card2);
+    themeRepository.save(theme2);
+    card1.setTheme(theme1);
+    card2.setTheme(theme2);
     cardRepository.save(card1);
+    cardRepository.save(card2);
   }
 
   private Theme generateTheme(String name, Card... cards) {

@@ -1,4 +1,4 @@
-package qwickpot.dataservice.domain;
+package qwickpot.dataservice.domain.dummys;
 
 import java.util.UUID;
 import javax.persistence.Entity;
