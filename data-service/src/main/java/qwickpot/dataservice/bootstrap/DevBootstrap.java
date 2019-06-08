@@ -1,14 +1,11 @@
 package qwickpot.dataservice.bootstrap;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import qwickpot.dataservice.domain.Card;
 import qwickpot.dataservice.domain.Theme;
-import qwickpot.dataservice.domain.dummys.DummyCard;
 import qwickpot.dataservice.repositories.CardRepository;
 import qwickpot.dataservice.repositories.ThemeRepository;
 import qwickpot.dataservice.repositories.dummys.DummyCardRepository;
@@ -34,34 +31,37 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
   }
 
-  private void initDummyCards() {
-
-    dummyCardRepository.save(new DummyCard("dummy", "1st dummy DummyCard"));
-    dummyCardRepository.save(new DummyCard("tes", "1st Test DummyCard"));
-    dummyCardRepository.save(new DummyCard("dummy", "2st dummy DummyCard"));
-    dummyCardRepository.save(new DummyCard("bubu", "ProjectsLead"));
-    dummyCardRepository.save(new DummyCard("Jules", "Atanua4Life"));
-  }
-
   private void initData() {
+    // init Cards
     Card card1 = generateCard("card1", "YYYYYYY");
     Card card2 = generateCard("card2", "XXXXXXX");
 
+    // inits Themes and save them
     Theme theme1 = generateTheme("theme1", card1);
     themeRepository.save(theme1);
     Theme theme2 = generateTheme("theme2", card2);
     themeRepository.save(theme2);
+
+    // Persist changes to cards
     card1.setTheme(theme1);
     card2.setTheme(theme2);
     cardRepository.save(card1);
     cardRepository.save(card2);
+
+    // adding 3rd Theme for testing of subthemes
+    Theme theme3 = new Theme();
+    theme3.setName("theme3");
+
+    theme3.setParentTheme(theme1);
+    theme2.setParentTheme(theme1);
+    theme1.setSubThemes(Arrays.asList(theme2, theme3));
+    themeRepository.save(theme1);
   }
 
   private Theme generateTheme(String name, Card... cards) {
     Theme tempTheme = new Theme();
     tempTheme.setName(name);
     tempTheme.setCards(Arrays.asList(cards));
-
     return tempTheme;
   }
 
@@ -74,15 +74,5 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     return tmpCard;
   }
 
-  private List<Card> genereateCards(String name, String description) {
-    List<Card> tempList = new ArrayList<>();
-
-    Card tempCard = new Card();
-    tempCard.setName(name);
-    tempCard.setDescription(description);
-
-    tempList.add(tempCard);
-    return tempList;
-  }
 }
 

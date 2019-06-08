@@ -18,6 +18,6 @@ public class CardService {
   public CardDto getCardFromRepoByName(String name) {
     Card card = cardRepository.getCardByName(name);
 
-    return new CardDto(card.getName(), card.getDescription());
+    return new CardDto(card);
   }
 }

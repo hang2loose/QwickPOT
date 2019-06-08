@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import qwickpot.dataservice.domain.DummyCard;
-import qwickpot.dataservice.repositories.DummyCardRepository;
+import qwickpot.dataservice.domain.dummys.DummyCard;
+import qwickpot.dataservice.repositories.dummys.DummyCardRepository;
 import qwickpot.dataservice.util.CSVReader;
 
 @Component

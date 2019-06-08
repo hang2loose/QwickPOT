@@ -1,28 +1,24 @@
 package qwickpot.dataservice.dtos;
 
+import lombok.Getter;
+import lombok.Setter;
+import qwickpot.dataservice.domain.Card;
+import qwickpot.dataservice.domain.Theme;
+
+@Setter
+@Getter
 public class CardDto {
 
   private String name;
   private String description;
 
-  public CardDto(String name, String description) {
-    this.name = name;
-    this.description = description;
+  private Theme theme;
+
+  public CardDto(Card card) {
+    this.name = card.getName();
+    this.description = card.getDescription();
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
 }
+
+// TODO build or ModelMapper
