@@ -18,7 +18,6 @@ public class CardController {
   @GetMapping("/getCardByName")
   public CardDto getCardByName(
       @RequestParam(name = "CardName") String name) {
-
     return cardService.getCardFromRepoByName(name);
   }
 }

@@ -1,5 +1,6 @@
 package qwickpot.dataservice.services;
 
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Card;
 import qwickpot.dataservice.dtos.CardDto;
@@ -16,8 +17,7 @@ public class CardService {
   }
 
   public CardDto getCardFromRepoByName(String name) {
-    Card card = cardRepository.getCardByName(name);
-
-    return new CardDto(card);
+    Optional<Card> card = cardRepository.getCardByName(name);
+    return card.map(CardDto::convertToDtoFromEntity).orElse(null);
   }
 }
