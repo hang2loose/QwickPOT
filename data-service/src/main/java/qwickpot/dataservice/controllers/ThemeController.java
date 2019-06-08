@@ -17,6 +17,6 @@ public class ThemeController {
 
   @GetMapping("/getThemeByName")
   public ThemeDto getTheme(@RequestParam(name = "ThemeName") String name) {
-    return themeService.getThemeFromRepoByName(name);
+    return themeService.getThemeFromRepo(name);
   }
 }
