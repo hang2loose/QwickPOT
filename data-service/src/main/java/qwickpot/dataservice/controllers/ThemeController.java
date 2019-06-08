@@ -1,5 +1,6 @@
 package qwickpot.dataservice.controllers;
 
+import java.util.UUID;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,5 +19,11 @@ public class ThemeController {
   @GetMapping("/getThemeByName")
   public ThemeDto getTheme(@RequestParam(name = "ThemeName") String name) {
     return themeService.getThemeFromRepo(name);
+  }
+
+  @GetMapping("/getThemeByID")
+  public ThemeDto getTheme(
+      @RequestParam(name = "ThemeId") UUID uuid) {
+    return themeService.getThemeFromRepo(uuid);
   }
 }
