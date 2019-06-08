@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  chatserver:
+    image: "hang2loose/qwickpot-chatserver:01"
+    container_name: "chatserver"
+    ports:
+      - "8080:8080"
+
+  qwickpot-gui:
+    image: "hang2loose/qwickpot-gui:01"
+    container_name: "qwickpot-gui"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - chatserver
+
+  hellobot:
+    image: "hang2loose/qwickpot-chatbot:01"
+    container_name: "hellobot"
+    depends_on:
+      - chatserver
+      - data-service
+
+  data-service:
+    image: "hang2loose/qwickpot-data-service:1.0"
+    container_name: "data-service"
+    ports:
+      - "9090:9090"
+    depends_on:
+      - data-service-db
+
+  data-service-db:
+    image: "hang2loose/qwickpot-db:01"
+    container_name: data-service-db
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "qwickpot"
+      MYSQL_USER: "luke"
+      MYSQL_PASSWORD: "yoda"
+    ports:
+      - "3306:3306"
+

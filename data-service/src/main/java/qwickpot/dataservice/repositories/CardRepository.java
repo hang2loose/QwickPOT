@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import qwickpot.dataservice.domain.Card;
 
 public interface CardRepository extends CrudRepository<Card, UUID> {
+
+  Card getCardByName(String name);
 }

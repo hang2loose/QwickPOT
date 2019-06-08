@@ -5,7 +5,7 @@ import socketio
 import Clients.Bot.HelloBot
 
 sio = socketio.Client()
-bot = Clients.Bot.HelloBot.HelloBot("localhost")
+bot = Clients.Bot.HelloBot.HelloBot("data-service")
 
 
 @sio.event

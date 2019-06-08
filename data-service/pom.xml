@@ -11,6 +11,7 @@
   </parent>
   <groupId>QwickPOT</groupId>
   <artifactId>data-service</artifactId>
+
   <version>0.0.1-SNAPSHOT</version>
   <name>data-service</name>
   <description>Demo project for Spring Boot</description>
@@ -20,6 +21,7 @@
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle.version>8.14</checkstyle.version>
+    <imageTag>1.0</imageTag>
   </properties>
 
 
@@ -112,6 +114,36 @@
         </executions>
         <groupId>org.apache.maven.plugins</groupId>
         <version>${checkstyle-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>1.0.2</version>
+        <configuration>
+          <from>
+            <image>fabric8/java-alpine-openjdk8-jdk:1.2</image>
+          </from>
+          <to>
+            <image>hang2loose/qwickpot-${artifactId}:${imageTag}</image>
+          </to>
+          <allowInsecureRegistries>true</allowInsecureRegistries>
+          <container>
+            <labels>
+              <key1>qwickpot-data-service${imageTag}</key1>
+            </labels>
+            <ports>
+              <port>9090</port>
+            </ports>
+          </container>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>dockerBuild</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

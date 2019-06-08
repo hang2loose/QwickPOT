@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import qwickpot.dataservice.domain.Card;
-import qwickpot.dataservice.repositories.CardRepository;
+import qwickpot.dataservice.domain.dummys.DummyCard;
+import qwickpot.dataservice.repositories.dummys.DummyCardRepository;
 import qwickpot.dataservice.util.CSVReader;
 
 @Component
@@ -16,10 +16,10 @@ public class CSVImporterService implements CommandLineRunner {
 
   private final Logger logger = LoggerFactory.getLogger(CSVImporterService.class);
 
-  private CardRepository cardRepository;
+  private DummyCardRepository dummyCardRepository;
 
-  public CSVImporterService(CardRepository cardRepository) {
-    this.cardRepository = cardRepository;
+  public CSVImporterService(DummyCardRepository dummyCardRepository) {
+    this.dummyCardRepository = dummyCardRepository;
   }
 
   private static final String IMPORT_ARG = "import";
@@ -53,6 +53,6 @@ public class CSVImporterService implements CommandLineRunner {
     if (description.length() > 255) {
       description = description.substring(0, 255);
     }
-    cardRepository.save(new Card(name, description));
+    dummyCardRepository.save(new DummyCard(name, description));
   }
 }
