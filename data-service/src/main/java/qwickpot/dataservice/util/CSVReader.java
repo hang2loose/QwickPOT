@@ -4,14 +4,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
 public class CSVReader {
-  public static final String CSV_DELIMITER = ";";
-  public static final int CSV_MIN_COLUMN_COUNT = 3;
 
-  public static LinkedList<String[]> readCSV(String csvFile) {
+  private static final String CSV_DELIMITER = ";";
+  private static final int CSV_MIN_COLUMN_COUNT = 3;
+
+  private CSVReader() {
+  }
+
+  public static List<String[]> readCSV(String csvFile) {
+    List<String[]> result = new LinkedList<>();
     String line = "";
-    LinkedList<String[]> result = new LinkedList<>();
     try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
       while ((line = br.readLine()) != null) {
         String[] entryArray = line.split(CSV_DELIMITER);
