@@ -10,7 +10,7 @@ import qwickpot.dataservice.dtos.builder.ThemeDtoBuilder;
 
 @Setter
 @Getter
-public class CardDto implements Serializable {
+public class CardDto implements Serializable, CsvReadable {
 
   private UUID id;
   private String name;
@@ -26,6 +26,15 @@ public class CardDto implements Serializable {
         .withTheme(new ThemeDtoBuilder()
             .withId(card.getTheme().getId())
             .build())
+        .build();
+  }
+
+  @Override
+  public CardDto convertFromCsvLine(String[] stringArray) {
+    return stringArray.length <= 4 ? null : new CardDtoBuilder()
+        .withId(UUID.fromString(stringArray[0]))
+        .withName(stringArray[1])
+        .withDescription(stringArray[2])
         .build();
   }
 }
