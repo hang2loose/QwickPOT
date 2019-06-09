@@ -41,13 +41,11 @@ public class ThemeService {
   }
 
   private Theme convertFromCsv(List<String> csvLine) {
-    String name = csvLine.get(1);
     UUID id = getUuid(csvLine.get(0));
-    Theme parentTheme = getParentTheme(csvLine.get(2));
     Theme theme = id == null ? new Theme() : getThemeFromRepo(id);
 
-    theme.setName(name);
-    theme.setParentTheme(parentTheme);
+    theme.setName(csvLine.get(1));
+    theme.setParentTheme(getParentTheme(csvLine.get(2)));
     return theme;
   }
 
