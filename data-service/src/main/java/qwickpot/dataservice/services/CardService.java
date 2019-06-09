@@ -12,7 +12,7 @@ import qwickpot.dataservice.util.CsvObject;
 @Service
 public class CardService {
 
-  public static final String COULD_NOT_FIND_MESSAGE = "Could not find: ";
+  private static final String COULD_NOT_FIND_MESSAGE = "Could not find: ";
   private CardRepository cardRepository;
 
   private ThemeService themeService;
@@ -35,7 +35,7 @@ public class CardService {
   }
 
   public void importCsvObject(CsvObject csvObject) {
-    csvObject.getLineiterator()
+    csvObject.getLineIterator()
         .forEachRemaining(line -> cardRepository.save(convertFromCsv(line)));
   }
 

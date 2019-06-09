@@ -13,20 +13,15 @@ public class CsvObject {
   private List<List<String>> lines;
   private String delimiter = ";";
 
+  public CsvObject() {
+    lines = new LinkedList<>();
+  }
+
   public List<String> getHead() {
     return head;
   }
 
-  public CsvObject(String headString) {
-    this.head = convertLine(headString);
-    lines = new LinkedList<>();
-  }
-
-  public void setDelimiter(String delimiter) {
-    this.delimiter = delimiter;
-  }
-
-  public Iterator<List<String>> getLineiterator() {
+  public Iterator<List<String>> getLineIterator() {
     return lines.iterator();
   }
 
@@ -38,5 +33,15 @@ public class CsvObject {
     List<String> valuesList = Arrays.asList(line.split(delimiter));
     valuesList.replaceAll(a -> a.equals("") || a.equals("null") ? null : a);
     return valuesList;
+  }
+
+  public CsvObject withHead(String csvLine) {
+    this.head = convertLine(csvLine);
+    return this;
+  }
+
+  public CsvObject withDelimiter(String delimiter) {
+    this.delimiter = delimiter;
+    return this;
   }
 }
