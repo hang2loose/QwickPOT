@@ -19,12 +19,12 @@ public class CardController {
   @GetMapping("/getCardByName")
   public CardDto getCardByName(
       @RequestParam(name = "CardName") String name) {
-    return cardService.getCardFromRepo(name);
+    return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(name));
   }
 
   @GetMapping("/getCardById")
   public CardDto getCardByName(
       @RequestParam(name = "ID") UUID uuid) {
-    return cardService.getCardFromRepo(uuid);
+    return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(uuid));
   }
 }
