@@ -26,7 +26,7 @@ public class Theme {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "parentTheme")
   private List<Theme> subThemes;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "theme")
   private List<Card> cards;
 
   public UUID getId() {
