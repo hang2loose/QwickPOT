@@ -1,6 +1,5 @@
 package qwickpot.dataservice.controllers;
 
-import java.util.UUID;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +23,7 @@ public class CardController {
 
   @GetMapping("/getCardById")
   public CardDto getCardByName(
-      @RequestParam(name = "ID") UUID uuid) {
-    return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(uuid));
+      @RequestParam(name = "ID") Long id) {
+    return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(id));
   }
 }

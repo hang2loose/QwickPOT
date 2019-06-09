@@ -2,7 +2,6 @@ package qwickpot.dataservice.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Theme;
@@ -28,10 +27,10 @@ public class ThemeService {
   }
 
   // TODO Error Handling Logging
-  public Theme getThemeFromRepo(UUID uuid) {
-    Optional<Theme> optionalTheme = themeRepository.findById(uuid);
+  public Theme getThemeFromRepo(Long id) {
+    Optional<Theme> optionalTheme = themeRepository.findById(id);
     return optionalTheme
-        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + uuid));
+        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + id));
   }
 
 
@@ -41,16 +40,12 @@ public class ThemeService {
   }
 
   private Theme convertFromCsv(List<String> csvLine) {
-    UUID id = getUuid(csvLine.get(0));
+    Long id = Long.getLong(csvLine.get(0));
     Theme theme = id == null ? new Theme() : getThemeFromRepo(id);
 
     theme.setName(csvLine.get(1));
     theme.setParentTheme(getParentTheme(csvLine.get(2)));
     return theme;
-  }
-
-  private UUID getUuid(String idString) {
-    return idString == null ? null : UUID.fromString(idString);
   }
 
   private Theme getParentTheme(String csvLine) {
