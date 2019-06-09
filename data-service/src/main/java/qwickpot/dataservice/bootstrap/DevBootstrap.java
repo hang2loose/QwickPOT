@@ -1,9 +1,12 @@
 package qwickpot.dataservice.bootstrap;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 import qwickpot.dataservice.domain.Card;
 import qwickpot.dataservice.domain.Theme;
 import qwickpot.dataservice.repositories.CardRepository;
@@ -37,15 +40,21 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
   @Override
   public void onApplicationEvent(ContextRefreshedEvent event) {
     if (dummyCardRepository.count() == 0L) {
-      initDataFromCSV();
+      try {
+        initDataFromCSV();
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
     }
   }
 
-  private void initDataFromCSV() {
-    themeRepository.save(generateTheme("masterTheme"));
-    themeService.importCsvObject(CSVReader.getCsv("ressources/ThemeImport.csv")
+  private void initDataFromCSV() throws FileNotFoundException {
+    File themeFile = ResourceUtils.getFile("classpath:ThemeImport.csv");
+    File cardFile = ResourceUtils.getFile("classpath:CardImport.csv");
+
+    themeService.importCsvObject(CSVReader.getCsv(themeFile.getPath())
         .orElseThrow(() -> new IllegalArgumentException("Import Failure no CSV Found")));
-    cardService.importCsvObject(CSVReader.getCsv("ressources/CardImport.csv")
+    cardService.importCsvObject(CSVReader.getCsv(cardFile.getPath())
         .orElseThrow(() -> new IllegalArgumentException("Import Failure no CSV Found")));
   }
 
