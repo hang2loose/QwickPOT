@@ -1,7 +1,6 @@
 package qwickpot.dataservice.domain;
 
 import java.util.List;
-import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +19,7 @@ public class Theme {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  private Long id;
   private String name;
 
   @ManyToOne

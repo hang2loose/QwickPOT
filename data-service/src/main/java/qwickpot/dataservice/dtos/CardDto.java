@@ -1,7 +1,6 @@
 package qwickpot.dataservice.dtos;
 
 import java.io.Serializable;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import qwickpot.dataservice.domain.Card;
@@ -12,7 +11,7 @@ import qwickpot.dataservice.dtos.builder.ThemeDtoBuilder;
 @Getter
 public class CardDto implements Serializable {
 
-  private UUID id;
+  private Long id;
   private String name;
   private String description;
 
