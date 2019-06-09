@@ -22,15 +22,14 @@ public class ThemeDto implements Serializable {
   private List<ThemeDto> subThemes;
   private List<CardDto> cards;
 
-  public static ThemeDto convertToDtoFromEntity(Theme theme) {
+  public static ThemeDto convertEntityToDto(Theme theme) {
     return new ThemeDtoBuilder()
         .withId(theme.getId())
         .withName(theme.getName())
-        /*.withParentTheme(new ThemeDtoBuilder()
+        .withParentTheme(new ThemeDtoBuilder()
             .withId(theme.getParentTheme().getId())
             .withName(theme.getParentTheme().getName())
             .build())
-         */
         .withSubThemes(theme.getSubThemes().stream()
             .map(subTheme -> new ThemeDtoBuilder()
                 .withId(subTheme.getId())
@@ -45,5 +44,4 @@ public class ThemeDto implements Serializable {
             .collect(Collectors.toList()))
         .build();
   }
-
 }

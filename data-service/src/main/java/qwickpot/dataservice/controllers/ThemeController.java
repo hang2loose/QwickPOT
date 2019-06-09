@@ -18,12 +18,12 @@ public class ThemeController {
 
   @GetMapping("/getThemeByName")
   public ThemeDto getTheme(@RequestParam(name = "ThemeName") String name) {
-    return themeService.getThemeFromRepo(name);
+    return ThemeDto.convertEntityToDto(themeService.getThemeFromRepo(name));
   }
 
   @GetMapping("/getThemeByID")
   public ThemeDto getTheme(
       @RequestParam(name = "ThemeId") UUID uuid) {
-    return themeService.getThemeFromRepo(uuid);
+    return ThemeDto.convertEntityToDto(themeService.getThemeFromRepo(uuid));
   }
 }

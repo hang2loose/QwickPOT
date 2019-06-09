@@ -9,6 +9,8 @@ import qwickpot.dataservice.domain.Theme;
 import qwickpot.dataservice.repositories.CardRepository;
 import qwickpot.dataservice.repositories.ThemeRepository;
 import qwickpot.dataservice.repositories.dummys.DummyCardRepository;
+import qwickpot.dataservice.services.ThemeService;
+import qwickpot.dataservice.util.CSVReader;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -16,19 +18,27 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
   private final DummyCardRepository dummyCardRepository;
   private final CardRepository cardRepository;
   private final ThemeRepository themeRepository;
+  private final ThemeService themeService;
 
   public DevBootstrap(DummyCardRepository dummyCardRepository,
-      CardRepository cardRepository, ThemeRepository themeRepository) {
+      CardRepository cardRepository, ThemeRepository themeRepository, ThemeService themeService) {
     this.dummyCardRepository = dummyCardRepository;
     this.cardRepository = cardRepository;
     this.themeRepository = themeRepository;
+    this.themeService = themeService;
   }
 
   @Override
   public void onApplicationEvent(ContextRefreshedEvent event) {
     if (dummyCardRepository.count() == 0L) {
-      initData();
+      initDataFromCSV();
     }
+  }
+
+  private void initDataFromCSV() {
+    themeRepository.save(generateTheme("masterTheme"));
+    themeService.importCsvObject(CSVReader.getCsv("ressources/ThemeImport.csv")
+        .orElseThrow(() -> new IllegalArgumentException("Import Failure no CSV Found")));
   }
 
   private void initData() {
