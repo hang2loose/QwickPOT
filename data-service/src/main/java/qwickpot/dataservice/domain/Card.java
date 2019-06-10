@@ -1,6 +1,5 @@
 package qwickpot.dataservice.domain;
 
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +17,7 @@ public class Card {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  private Long id;
 
   private String name;
 

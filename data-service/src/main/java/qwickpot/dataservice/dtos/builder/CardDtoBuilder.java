@@ -1,6 +1,5 @@
 package qwickpot.dataservice.dtos.builder;
 
-import java.util.UUID;
 import qwickpot.dataservice.dtos.CardDto;
 import qwickpot.dataservice.dtos.ThemeDto;
 
@@ -12,7 +11,7 @@ public class CardDtoBuilder {
     dtoUnderConstruktion = new CardDto();
   }
 
-  public CardDtoBuilder withId(UUID id) {
+  public CardDtoBuilder withId(Long id) {
     dtoUnderConstruktion.setId(id);
     return this;
   }

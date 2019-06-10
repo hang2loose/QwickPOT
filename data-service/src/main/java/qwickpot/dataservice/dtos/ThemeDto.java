@@ -2,7 +2,6 @@ package qwickpot.dataservice.dtos;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import qwickpot.dataservice.dtos.builder.ThemeDtoBuilder;
 @Setter
 public class ThemeDto implements Serializable {
 
-  private UUID id;
+  private Long id;
   private String name;
 
   private ThemeDto parentTheme;

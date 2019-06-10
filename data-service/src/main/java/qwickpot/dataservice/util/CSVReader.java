@@ -13,7 +13,6 @@ public class CSVReader {
   }
 
   public static Optional<CsvObject> getCsv(String csvFile) {
-
     try (Scanner scanner = new Scanner(new File(csvFile))) {
       CsvObject csvObject = new CsvObject().withHead(scanner.nextLine());
       do {

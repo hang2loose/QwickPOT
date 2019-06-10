@@ -2,7 +2,6 @@ package qwickpot.dataservice.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Card;
 import qwickpot.dataservice.repositories.CardRepository;
@@ -28,10 +27,10 @@ public class CardService {
         .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + name));
   }
 
-  public Card getCardFromRepo(UUID uuid) {
-    Optional<Card> card = cardRepository.findById(uuid);
+  public Card getCardFromRepo(Long id) {
+    Optional<Card> card = cardRepository.findById(id);
     return card
-        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + uuid.toString()));
+        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + id.toString()));
   }
 
   public void importCsvObject(CsvObject csvObject) {
@@ -40,16 +39,12 @@ public class CardService {
   }
 
   private Card convertFromCsv(List<String> csvLine) {
-    UUID id = getUuid(csvLine.get(0));
+    Long id = Long.getLong(csvLine.get(0));
     Card card = id == null ? new Card() : getCardFromRepo(id);
 
     card.setName(csvLine.get(1));
     card.setDescription(csvLine.get(2));
     card.setTheme(themeService.getThemeFromRepo(csvLine.get(3)));
     return card;
-  }
-
-  private UUID getUuid(String idString) {
-    return idString == null ? null : UUID.fromString(idString);
   }
 }
