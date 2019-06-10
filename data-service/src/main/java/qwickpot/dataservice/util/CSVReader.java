@@ -1,27 +1,31 @@
 package qwickpot.dataservice.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.LinkedList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Optional;
+import java.util.Scanner;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class CSVReader {
-  public static final String CSV_DELIMITER = ";";
-  public static final int CSV_MIN_COLUMN_COUNT = 3;
 
-  public static LinkedList<String[]> readCSV(String csvFile) {
-    String line = "";
-    LinkedList<String[]> result = new LinkedList<>();
-    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-      while ((line = br.readLine()) != null) {
-        String[] entryArray = line.split(CSV_DELIMITER);
-        if (entryArray.length > CSV_MIN_COLUMN_COUNT - 1) {
-          result.add(entryArray);
-        }
-      }
-    } catch (IOException e) {
+  private CSVReader() {
+  }
+
+  public static Optional<CsvObject> getCsv(String csvFile) {
+
+    try (Scanner scanner = new Scanner(new File(csvFile))) {
+      CsvObject csvObject = new CsvObject().withHead(scanner.nextLine());
+      do {
+        csvObject.addCsvLine(scanner.nextLine());
+      } while (scanner.hasNext());
+      csvObject.getLineIterator()
+          .forEachRemaining(line -> log.info("added: " + line.toString()));
+      return Optional.of(csvObject);
+    } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    return result;
+    return Optional.empty();
   }
+
 }

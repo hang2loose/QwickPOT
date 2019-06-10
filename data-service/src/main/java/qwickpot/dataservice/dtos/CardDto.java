@@ -29,5 +29,3 @@ public class CardDto implements Serializable {
         .build();
   }
 }
-
-// TODO build or ModelMapper
