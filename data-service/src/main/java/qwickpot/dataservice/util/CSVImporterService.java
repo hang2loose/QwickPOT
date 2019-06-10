@@ -1,4 +1,4 @@
-package qwickpot.dataservice.services;
+package qwickpot.dataservice.util;
 
 import java.util.LinkedList;
 import org.slf4j.Logger;
@@ -8,7 +8,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import qwickpot.dataservice.domain.dummys.DummyCard;
 import qwickpot.dataservice.repositories.dummys.DummyCardRepository;
-import qwickpot.dataservice.util.CSVReader;
 
 @Component
 @Order(value = 1)
