@@ -2,10 +2,10 @@ import json
 
 import socketio
 
-import Clients.Bot.HelloBot
+import SimpleChat.Clients.Bot.HelloBot as HelloBot
 
 sio = socketio.Client()
-bot = Clients.Bot.HelloBot.HelloBot("data-service")
+bot = HelloBot.HelloBot("data-service")
 
 
 @sio.event
@@ -40,5 +40,5 @@ def create_message(message: str):
   return json.dumps(tmp_dict)
 
 
-sio.connect('http://chatserver:8080')
+sio.connect('http://127.0.0.1:8080')
 sio.wait()
