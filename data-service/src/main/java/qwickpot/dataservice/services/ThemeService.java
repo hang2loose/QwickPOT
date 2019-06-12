@@ -5,6 +5,7 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Theme;
+import qwickpot.dataservice.exceptions.ThemeNotFoundException;
 import qwickpot.dataservice.repositories.ThemeRepository;
 import qwickpot.dataservice.util.CsvObject;
 
@@ -12,7 +13,7 @@ import qwickpot.dataservice.util.CsvObject;
 @Service
 public class ThemeService {
 
-  private static final String COULD_NOT_FIND_MESSAGE = "Could not find: ";
+  private static final String COULD_NOT_FIND_MESSAGE = "Could not find ";
   private ThemeRepository themeRepository;
 
   public ThemeService(ThemeRepository themeRepository) {
@@ -23,14 +24,16 @@ public class ThemeService {
   public Theme getThemeFromRepo(String name) {
     Optional<Theme> optionalTheme = themeRepository.getThemeByName(name);
     return optionalTheme
-        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + name));
+        .orElseThrow(
+            () -> new ThemeNotFoundException(COULD_NOT_FIND_MESSAGE + "theme: " + name));
   }
 
   // TODO Error Handling Logging
   public Theme getThemeFromRepo(Long id) {
     Optional<Theme> optionalTheme = themeRepository.findById(id);
     return optionalTheme
-        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + id));
+        .orElseThrow(
+            () -> new ThemeNotFoundException(COULD_NOT_FIND_MESSAGE + "theme with id : " + id));
   }
 
 
