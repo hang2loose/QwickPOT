@@ -2,7 +2,7 @@ import json
 
 import socketio
 
-import SimpleChat.Clients.Bot.HelloBot as HelloBot
+import Clients.Bot.HelloBot as HelloBot
 
 sio = socketio.Client()
 bot = HelloBot.HelloBot("data-service")
