@@ -1,6 +1,6 @@
 import React from 'react';
-import SignIn from './SignIn';
-import Dashboard from './Dashboard'
+import SignIn from './components/SignIn';
+import Dashboard from './components/Dashboard'
 import './App.css';
 
 class App extends React.Component{
