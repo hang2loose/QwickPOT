@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -10,14 +8,6 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
     },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-    },
-    dense: {
-        marginTop: 16,
-    },
-
 });
 
 
@@ -29,19 +19,15 @@ class InputBar extends React.Component {
             chatInput: '',
         };
 
-        // React ES6 does not bind 'this' to event handlers by default
         this.submitHandler = this.submitHandler.bind(this);
         this.chatInputHandler = this.chatInputHandler.bind(this);
     }
     
     submitHandler = (event) => {
-        // Stop the form from refreshing the page on submit
         event.preventDefault();
 
-        // Clear chat input field
         this.setState({ chatInput: '' });
 
-        // Call the onSend callback with the chatInput message
         this.props.onSend(this.state.chatInput);
     };
 
@@ -53,7 +39,10 @@ class InputBar extends React.Component {
         const {classes} = this.props;
 
         return (
-            <form className={classes.container} noValidate autoComplete="off" onSubmit={this.submitHandler} ref={this.props.toBottom}>
+            <form className={classes.container}
+                  noValidate autoComplete="off"
+                  onSubmit={this.submitHandler}
+                  ref={this.props.toBottom}>
                 <TextField
                     id="outlined-full-width"
                     label="Chat"
@@ -65,8 +54,6 @@ class InputBar extends React.Component {
                     margin="normal"
                     variant="outlined"
                     autoFocus={true}
-                    multiline={false}
-                    rowsMax={3}
                     InputLabelProps={{
                         shrink: true,
                     }}

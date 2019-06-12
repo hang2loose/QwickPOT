@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Logo from '../images/logo.png'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -32,7 +32,6 @@ const styles = theme => ({
     },
     avatar: {
         margin: theme.spacing.unit,
-        backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -48,10 +47,8 @@ class SignIn extends React.Component {
     constructor(props) {
         super(props);
 
-        // Bind 'this' to event handlers. React ES6 does not do this by default
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
-
     }
 
     usernameChangeHandler = (event) => {
@@ -72,24 +69,26 @@ class SignIn extends React.Component {
             <main className={classes.main}>
                 <CssBaseline/>
                 <Paper className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon/>
-                    </Avatar>
+                    <Avatar src={Logo} className={classes.avatar} />
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} onSubmit={this.usernameSubmitHandler}>
+                    <form className={classes.form}
+                          onSubmit={this.usernameSubmitHandler}>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input id="username" name="username" autoComplete="username" onChange={this.usernameChangeHandler} autoFocus/>
+                            <Input id="username"
+                                   name="username"
+                                   autoComplete="username"
+                                   onChange={this.usernameChangeHandler}
+                                   autoFocus/>
                         </FormControl>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className={classes.submit}
-                        >
+                            className={classes.submit}>
                             Sign in
                         </Button>
                     </form>
