@@ -62,8 +62,8 @@ class QuestionsMode(ModeUtil):
     def __init__(self, service_address: str):
         self.__servie_address = "http://{}:9090".format(service_address)
         self.__connected_restpoints = {
-            "theme_id": RestHandler(self.__servie_address, "getThemeByName"),
-            "theme_name": RestHandler(self.__servie_address, "getThemeByID"),
+            "theme_name": RestHandler(self.__servie_address, "getThemeByName"),
+            "theme_id": RestHandler(self.__servie_address, "getThemeByID"),
         }
         self.__subscribed_events = ("new_user", "error")
         self.__event_handler = {
@@ -71,8 +71,36 @@ class QuestionsMode(ModeUtil):
             "error": self._emit_error_event("error")
         }
 
+        self._users = {}
+
+    def __get_theme_by_name(self, name: str):
+        request = self.__connected_restpoints["theme_name"].call_endpoint({"ThemeName": name})
+        if request.status_code is 200:
+            return request.json()
+        print("Request Error")
+
+        def __get_theme_by_id(self, name: str):
+            request = self.__connected_restpoints["theme_name"].call_endpoint({"ThemeName": name})
+
+        if request.status_code is 200:
+            return request.json()
+        print("Request Error")
+
+    def __create_new_user(self, id):
+        theme_request = self.__get_theme_by_name("rootTheme")
+        return {"id": id,
+                "currentThemeId": theme_request["id"],
+                "ParentThemeId": theme_request["id"],
+                }
+
+    # Events
     def __on_new_user(self, event: dict):
-        return self._bot_event("Hi, {} wie kann ich behilflich sein ??".format(event["load"]))
+        load = self.get_load(event)
+        self._users[load["username"]] = self.__create_new_user(load["username"])
+        return self._bot_event("Hi, {} wie kann ich behilflich sein ??".format(load["username"]))
+
+    def get_load(self, event):
+        return event["load"]
 
     def get_bot_answer(self, event: dict):
         return self._check_event_type(self.__subscribed_events, self.__event_handler, event)
