@@ -2,7 +2,7 @@ import json
 
 import socketio
 
-import Clients.Bot.HelloBot as HelloBot
+import SimpleChat.Clients.Bot.HelloBot as HelloBot
 
 sio = socketio.Client()
 bot = HelloBot.HelloBot("data-service")
@@ -24,12 +24,14 @@ def disconnect():
   print('disconnected from server')
 
 
-@sio.on('message')
+@sio.on('bot_receive')
 def handle_bot(message):
-  print("message recived: {}".format(message))
-  a_message = bot.get_msg(message["message"])
-  print("extracted message: {}".format(a_message))
-  sio.emit('message_bot', create_message(a_message))
+  print("message received: {}".format(message))
+  print("extracted message: {}".format(message["message"]))
+  message["username"] = "🤖 Bot"
+  message["message"] = bot.get_msg(message["message"])
+  print("message to send: {}".format(message))
+  sio.emit('bot_send', message)
 
 
 def create_message(message: str):
@@ -37,8 +39,8 @@ def create_message(message: str):
     "username": "bot",
     "message": message
   }
-  return json.dumps(tmp_dict)
+  return tmp_dict
 
 
-sio.connect('http://chatserver:8080')
+sio.connect('http://localhost:8080')
 sio.wait()
