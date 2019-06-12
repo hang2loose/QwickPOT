@@ -126,21 +126,3 @@ class Qwickpot:
             return self.__change_mode(event["load"])
         return self.__trigger_mode(event)
 
-
-def testBot():
-    bot = Qwickpot("d")
-    msg = {
-        "event_type": "new_user",
-        "load": "chucky"
-    }
-    return bot.trigger_bot(msg)
-
-
-print(testBot())
-
-# while input("again?: ") is not "n":
-#     msg = {
-#         "event_type": input("event: "),
-#         "load": input("load: ")
-#     }
-#     print(bot.trigger_bot(msg))
