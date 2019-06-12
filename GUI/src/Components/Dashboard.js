@@ -158,9 +158,11 @@ class Dashboard extends React.Component {
                 <CssBaseline />
                 <AppBar
                     position="absolute"
-                    className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
+                    className={classNames(classes.appBar,
+                        this.state.open && classes.appBarShift)}
                 >
-                    <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
+                    <Toolbar disableGutters={!this.state.open}
+                             className={classes.toolbar}>
                         <IconButton
                             color="inherit"
                             aria-label="Open drawer"
@@ -191,7 +193,8 @@ class Dashboard extends React.Component {
                 <Drawer
                     variant="permanent"
                     classes={{
-                        paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                        paper: classNames(classes.drawerPaper,
+                            !this.state.open && classes.drawerPaperClose),
                     }}
                     open={this.state.open}
                 >
@@ -207,7 +210,8 @@ class Dashboard extends React.Component {
                 </Drawer>
                 <main className={classes.content} >
                     <ChatWindow messages = {this.state.messages} />
-                    <InputBar onSend = {this.sendHandler} toBottom={this.forceToBottom}/>
+                    <InputBar onSend = {this.sendHandler}
+                              toBottom={this.forceToBottom}/>
                 </main>
             </div>
         );
