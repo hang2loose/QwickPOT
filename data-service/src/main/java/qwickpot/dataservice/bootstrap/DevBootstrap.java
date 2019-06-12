@@ -43,7 +43,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
   private void initDataFromCSV() throws FileNotFoundException {
     File themeFile = ResourceUtils.getFile("classpath:ThemeImport.csv");
     File cardFile = ResourceUtils.getFile("classpath:CardImport.csv");
-    themeRepository.save(generateMasterTheme("masterTheme"));
     themeService.importCsvObject(CSVReader.getCsv(themeFile.getPath())
         .orElseThrow(() -> new IllegalArgumentException("Import Failure no CSV Found")));
     cardService.importCsvObject(CSVReader.getCsv(cardFile.getPath())
