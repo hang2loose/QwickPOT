@@ -49,6 +49,16 @@ class QuestionsMode:
     return "Hello from question Mode"
 
 
+class StatsMode:
+
+  def __init__(self, service_address: str):
+    self.servie_address = "http://{}:9090".format(service_address)
+    self.connected_restpoints = {}
+
+  def get_bot_answer(self, msg):
+    return "Hello from Stats Mode"
+
+
 class Qwickpot:
 
   def __init__(self, start_mode):
