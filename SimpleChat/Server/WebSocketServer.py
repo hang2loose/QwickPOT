@@ -1,37 +1,22 @@
 import eventlet
 import socketio
 
-sio = socketio.Server()
-app = socketio.WSGIApp(sio, static_files={
-  '/': {'content_type': 'text/html', 'filename': 'index.html'}
-})
+from SimpleChat.Server.EventHandler import EventHandler
 
 
-@sio.event
-def connect(sid, environ):
-  print('connect ', sid)
+class WebSocketServer:
+    def start_on_port(self, port):
+        event_handler = EventHandler()
+
+        sio = event_handler.sio
+
+        app = socketio.WSGIApp(sio, static_files={
+          '/': {'content_type': 'text/html', 'filename': 'index.html'}
+        })
+
+        if __name__ == '__main__':
+            eventlet.wsgi.server(eventlet.listen(('', port)), app)
 
 
-@sio.event
-def my_message(sid, data):
-  print('message ', data)
-
-
-@sio.event
-def disconnect(sid):
-  print('disconnect ', sid)
-
-
-@sio.on('message')
-def echo_message(sid, message):
-  print(message)
-  sio.emit('message', message)
-
-
-@sio.on('message_bot')
-def echo_bot(sid, message):
-  print(message)
-  sio.emit('message_bot', message)
-
-if __name__ == '__main__':
-  eventlet.wsgi.server(eventlet.listen(('', 8080)), app)
+web_Server = WebSocketServer()
+web_Server.start_on_port(8080)

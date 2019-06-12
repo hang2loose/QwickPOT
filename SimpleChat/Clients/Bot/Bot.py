@@ -2,10 +2,10 @@ import json
 
 import socketio
 
-import Clients.Bot.HelloBot
+import Clients.Bot.HelloBot as HelloBot
 
 sio = socketio.Client()
-bot = Clients.Bot.HelloBot.HelloBot("data-service")
+bot = HelloBot.HelloBot("data-service")
 
 
 @sio.event
