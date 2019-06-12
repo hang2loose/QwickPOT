@@ -26,57 +26,57 @@ class ModeUtil:
     def _emit_error_event(self, error_message: str):
         return self.event_builder("error", error_message)
 
+    def _handle_event(self, event_handler: dict, event: dict):
+        return event_handler[event["event_type"]].__call__(event)
+
+    def _check_event_type(self, subscribed_events: tuple, event_handler: dict, event: dict):
+        if event["event_type"] in subscribed_events:
+            return self._handle_event(event_handler, event)
+        return self._emit_error_event("event not subscribed")
+
 
 class DummyMode(ModeUtil):
     def __init__(self, service_address: str):
-        self.servie_address = "http://{}:9090".format(service_address)
-
-        self.connected_restpoints = {
-            "chucky": RestHandler(self.servie_address, "chucky")
+        self.__servie_address = "http://{}:9090".format(service_address)
+        self.__connected_restpoints = {
+            "chucky": RestHandler(self.__servie_address, "chucky")
         }
-        self.__tmp_dic = {
-            "hello": "Hello World",
-            "test": "123",
-            "chucky": self.__get_chucky
+        self.__subscribed_events = ("error", "new_user")
+        self.__event_handler = {
+            "error": self._emit_error_event("error"),
+            "new_user": self.__on_chucky
         }
 
-    def __get_chucky(self):
-        return self.connected_restpoints["chucky"].call_endpoint().text
+    def __on_chucky(self, event: dict):
+        joke = self.__connected_restpoints["chucky"].call_endpoint()
+        if joke.status_code is 200:
+            return self._bot_event(joke.text)
+        return self._emit_error_event("bad Request")
 
     def get_bot_answer(self, event: dict):
-        load = event["load"]
-        if load in self.__tmp_dic:
-            if callable(self.__tmp_dic[load]):
-                return self.__bot_event(self.__tmp_dic[load].__call__())
-            else:
-                return self.__tmp_dic[load]
+        return self._check_event_type(self.__subscribed_events, self.__event_handler, event)
 
 
 class QuestionsMode(ModeUtil):
 
     def __init__(self, service_address: str):
         self.__servie_address = "http://{}:9090".format(service_address)
-
         self.__connected_restpoints = {
             "theme_id": RestHandler(self.__servie_address, "getThemeByName"),
             "theme_name": RestHandler(self.__servie_address, "getThemeByID"),
         }
-
-        self.__subscribed_events = ("new_user", "theme")
-
+        self.__subscribed_events = ("new_user", "error")
         self.__event_handler = {
-            "new_user": self.__on_new_user
+            "new_user": self.__on_new_user,
+            "error": self._emit_error_event("error")
         }
 
     def __on_new_user(self, event: dict):
-        return super()._bot_event("Hi, {} wie kann ich behilflich sein ??".format(event["load"]))
-
-    def __handle_event(self, event: dict):
-        return self.__event_handler[event["event_type"]].__call__(event)
+        return self._bot_event("Hi, {} wie kann ich behilflich sein ??".format(event["load"]))
 
     def __check_event_type(self, event: dict):
         if event["event_type"] in self.__subscribed_events:
-            return self.__handle_event(event)
+            return self._handle_event(self.__event_handler, event)
         return self._emit_error_event("event not subscribed")
 
     def get_bot_answer(self, event: dict):
@@ -127,13 +127,11 @@ class Qwickpot:
         return self.__trigger_mode(event)
 
 
-bot = Qwickpot("q")
-
-
 def testBot():
+    bot = Qwickpot("d")
     msg = {
         "event_type": "new_user",
-        "load": "babo"
+        "load": "chucky"
     }
     return bot.trigger_bot(msg)
 
