@@ -48,10 +48,8 @@ class SignIn extends React.Component {
     constructor(props) {
         super(props);
 
-        // Bind 'this' to event handlers. React ES6 does not do this by default
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
-
     }
 
     usernameChangeHandler = (event) => {
@@ -78,18 +76,22 @@ class SignIn extends React.Component {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} onSubmit={this.usernameSubmitHandler}>
+                    <form className={classes.form}
+                          onSubmit={this.usernameSubmitHandler}>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input id="username" name="username" autoComplete="username" onChange={this.usernameChangeHandler} autoFocus/>
+                            <Input id="username"
+                                   name="username"
+                                   autoComplete="username"
+                                   onChange={this.usernameChangeHandler}
+                                   autoFocus/>
                         </FormControl>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className={classes.submit}
-                        >
+                            className={classes.submit}>
                             Sign in
                         </Button>
                     </form>

@@ -11,7 +11,6 @@ class App extends React.Component{
             submitted: false,
         };
 
-        // Bind 'this' to event handlers. React ES6 does not do this by default
         this.submittedCheck = this.submittedCheck.bind(this);
         this.onUsernameChange = this.onUsernameChange.bind(this);
     }
@@ -26,15 +25,14 @@ class App extends React.Component{
 
     render() {
         if (this.state.submitted) {
-            // Form was submitted, now show the main App
             return (
                 <Dashboard username={this.state.username} />
             );
         }
 
-        // Initial page load, show a simple login form
         return (
-            <SignIn submittedCheck={this.submittedCheck} onUsernameChange={this.onUsernameChange}/>
+            <SignIn submittedCheck={this.submittedCheck}
+                    onUsernameChange={this.onUsernameChange}/>
         );
     }
 }

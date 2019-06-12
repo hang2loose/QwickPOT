@@ -26,7 +26,7 @@ const styles = theme => ({
         display: 'flex',
     },
     toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
+        paddingRight: 24,
     },
     toolbarIcon: {
         display: 'flex',
@@ -87,19 +87,7 @@ const styles = theme => ({
         height: '100vh',
         overflow: 'auto',
     },
-    chartContainer: {
-        marginLeft: -22,
-    },
-    tableContainer: {
-        height: 320,
-    },
-    h5: {
-        marginBottom: theme.spacing.unit * 2,
-    },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-    },
+
 });
 
 class Dashboard extends React.Component {
@@ -113,9 +101,6 @@ class Dashboard extends React.Component {
 
       this.socket = io('localhost:8080').connect();
         this.forceToBottom = React.createRef();
-
-
-        // Bind 'this' to event handlers. React ES6 does not do this by default
 
         this.sendHandler = this.sendHandler.bind(this);
         this.addMessage = this.addMessage.bind(this);
@@ -158,7 +143,6 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
-    // Scroll to bottom if a new message is added
     componentDidUpdate() {
         this.forceToBottom.current.scrollIntoView(false);
     }
@@ -166,6 +150,7 @@ class Dashboard extends React.Component {
     render() {
         const { classes } = this.props;
 
+        // Debug Console Log
         console.log(this.state.messages);
 
         return (
