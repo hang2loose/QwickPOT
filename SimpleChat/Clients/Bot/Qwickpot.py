@@ -74,13 +74,8 @@ class QuestionsMode(ModeUtil):
     def __on_new_user(self, event: dict):
         return self._bot_event("Hi, {} wie kann ich behilflich sein ??".format(event["load"]))
 
-    def __check_event_type(self, event: dict):
-        if event["event_type"] in self.__subscribed_events:
-            return self._handle_event(self.__event_handler, event)
-        return self._emit_error_event("event not subscribed")
-
     def get_bot_answer(self, event: dict):
-        return self.__check_event_type(event)
+        return self._check_event_type(self.__subscribed_events, self.__event_handler, event)
 
 
 class StatsMode:
@@ -125,4 +120,3 @@ class Qwickpot:
         if event["event_type"] == "change_mode":
             return self.__change_mode(event["load"])
         return self.__trigger_mode(event)
-
