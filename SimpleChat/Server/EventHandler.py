@@ -1,3 +1,5 @@
+import json
+
 import socketio
 
 
@@ -21,11 +23,12 @@ class EventHandler:
 
     @sio.on('message')
     def echo_message(sid, message):
-        print('Received event: ' + str(message) + ' from user: ' + sid)
+        print('Received event: {} from user: {}'.format(message, sid))
         EventHandler.sio.emit('message', message)
 
     @sio.on('message_bot')
     def echo_bot(sid, message):
-        if message != '{"username": "bot", "message": null}':
-            print('Sent bot answer: ' + message)
+        json_string = json.loads(message)
+        if json_string["message"] is not None:
+            print('Sent bot answer: {}'.format(message))
             EventHandler.sio.emit('message_bot', message)
