@@ -19,7 +19,7 @@ public class Deparment {
 
   private String name;
 
-  // TODO Mapping
+  // TODO Mapping ManyToMany
   private Map<Theme, Integer> themesCalled;
 
   public void incrementThemeStat(Theme theme) {
