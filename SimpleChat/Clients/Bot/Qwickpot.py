@@ -79,9 +79,8 @@ class QuestionsMode(ModeUtil):
             return request.json()
         print("Request Error")
 
-        def __get_theme_by_id(self, name: str):
-            request = self.__connected_restpoints["theme_name"].call_endpoint({"ThemeName": name})
-
+    def __get_theme_by_id(self, name: str):
+        request = self.__connected_restpoints["theme_name"].call_endpoint({"ThemeName": name})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
@@ -93,10 +92,25 @@ class QuestionsMode(ModeUtil):
                 "ParentThemeId": theme_request["id"],
                 }
 
+    def __ask_for_action(self, id):
+        user = self._users[id]
+        theme_request = self.__get_theme_by_id(user["currentThemeId"])
+        # subThemes = theme_request["subThemes"]
+        # cards = theme_request["cards"]
+
+    def convert_subThemes(self, subThemes: dict):
+        # should return a list of tubples (subThemeId, subThemeName)
+        pass
+
+    def convert_cards(self, subThemes: dict):
+        # should return a list of tubples (cardThemeId, cardThemeName)
+        pass
+
     # Events
     def __on_new_user(self, event: dict):
         load = self.get_load(event)
         self._users[load["username"]] = self.__create_new_user(load["username"])
+        self.__ask_for_action(load["username"])
         return self._bot_event("Hi, {} wie kann ich behilflich sein ??".format(load["username"]))
 
     def get_load(self, event):
@@ -148,3 +162,17 @@ class Qwickpot:
         if event["event_type"] == "change_mode":
             return self.__change_mode(event["load"])
         return self.__trigger_mode(event)
+
+
+bot = Qwickpot("q")
+
+
+def testBot():
+    msg = {
+        "event_type": "new_user",
+        "load": {"username": "chucky"}
+    }
+    return bot.trigger_bot(msg)
+
+
+print(testBot())
