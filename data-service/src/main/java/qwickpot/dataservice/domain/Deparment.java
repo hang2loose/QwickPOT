@@ -1,6 +1,5 @@
 package qwickpot.dataservice.domain;
 
-import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +17,10 @@ public class Deparment {
   private Long id;
 
   private String name;
+
+  public Deparment(String name) {
+    this.name = name;
+  }
 
   // TODO Mapping ManyToMany
   /*

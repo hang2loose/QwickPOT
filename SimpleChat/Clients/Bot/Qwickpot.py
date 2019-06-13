@@ -136,7 +136,7 @@ class Qwickpot:
         self.__modes = {
             "d": DummyMode("localhost"),
             "q": QuestionsMode("localhost"),
-            "s": "stats"
+            "s": StatsMode("localhost")
         }
         self.__active_mode = "d"
         if start_mode in self.__modes:
@@ -164,7 +164,7 @@ class Qwickpot:
         return self.__trigger_mode(event)
 
 
-bot = Qwickpot("q")
+bot = Qwickpot("d")
 
 
 def testBot():
