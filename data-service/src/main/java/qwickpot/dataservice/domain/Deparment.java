@@ -1,5 +1,6 @@
 package qwickpot.dataservice.domain;
 
+import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +20,10 @@ public class Deparment {
   private String name;
 
   // TODO Mapping ManyToMany
-  //private Map<Theme, Integer> themesCalled;
-
-  public Deparment(String name) {
-    this.name = name;
-  }
+  /*
+ private Map<Theme, Integer> themesCalled;
 
   public void incrementThemeStat(Theme theme) {
-    //themesCalled.merge(theme, 1, Integer::sum);
-  }
+    themesCalled.merge(theme, 1, Integer::sum);
+  } */
 }
