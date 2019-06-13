@@ -95,10 +95,10 @@ class QuestionsMode(ModeUtil):
     def __ask_for_action(self, id):
         user = self._users[id]
         theme_request = self.__get_theme_by_id(user["currentThemeId"])
-        # subThemes = theme_request["subThemes"]
-        # cards = theme_request["cards"]
+        # subThemes = self.__convert_subThmes(theme_request["subThemes"]
+        # cards = self.__theme_request["cards"]
 
-    def convert_subThemes(self, subThemes: dict):
+    def __convert_subThemes(self, subThemes: dict):
         # should return a list of tubples (subThemeId, subThemeName)
         pass
 
