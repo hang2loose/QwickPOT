@@ -33,7 +33,7 @@ def handle_bot(message):
   sio.emit('bot_send', message)
 
 
-def create_message(message: str):
+def create_message(message):
   message["username"] = "🤖 Bot"
   message["message"] = bot.get_msg(message["message"])
   return message
