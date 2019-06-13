@@ -110,11 +110,6 @@ class Dashboard extends React.Component {
       this.socket.on('user_receive', message => {
         this.addMessage(message);
         });
-
-      this.socket.on('message_bot', message => {
-          this.addMessage(message);
-      });
-
     }
 
     sendHandler = (message) => {
@@ -129,7 +124,6 @@ class Dashboard extends React.Component {
                 message: messageObject.message
             });
         }
-
     };
 
     addMessage = (message) => {
