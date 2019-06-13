@@ -4,12 +4,15 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from "@material-ui/core/MenuItem";
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Logo from '../images/logo.png'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const styles = theme => ({
     main: {
@@ -42,17 +45,34 @@ const styles = theme => ({
     },
 });
 
+const departments = [
+    'Projektmanagement',
+    'Operations/Planung',
+    'Strategie',
+    'Projektleiter-Pool'
+];
+
 class SignIn extends React.Component {
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            dept: ''
+        };
+
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
+        this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
     }
 
     usernameChangeHandler = (event) => {
         this.props.onUsernameChange(event.target.value);
+    };
+
+    departmentChangeHandler = (event) => {
+        this.props.onDepartmentChange(event.target.value);
+        this.setState({ dept: event.target.value });
     };
 
     usernameSubmitHandler = (event) => {
@@ -75,14 +95,30 @@ class SignIn extends React.Component {
                     </Typography>
                     <form className={classes.form}
                           onSubmit={this.usernameSubmitHandler}>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input id="username"
-                                   name="username"
-                                   autoComplete="username"
-                                   onChange={this.usernameChangeHandler}
-                                   autoFocus/>
-                        </FormControl>
+                        <TextField
+                            required
+                            fullWidth
+                            margin="normal"
+                            label="Username"
+                            autoComplete="username"
+                            onChange={this.usernameChangeHandler}
+                            autoFocus
+                        />
+                        <TextField
+                            select
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
+                            label="Abteilung"
+                            value={this.state.dept}
+                            onChange={this.departmentChangeHandler}
+                        >
+                            {departments.map(option => (
+                                <MenuItem key={option}>
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                         <Button
                             type="submit"
                             fullWidth
@@ -97,11 +133,6 @@ class SignIn extends React.Component {
         );
     }
 }
-
-SignIn.defaultProps = {
-    username: 'Anonymous',
-};
-
 
 SignIn.propTypes = {
     classes: PropTypes.object.isRequired,

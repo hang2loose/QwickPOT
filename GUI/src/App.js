@@ -7,12 +7,14 @@ class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            department: '',
             username: '',
             submitted: false,
         };
 
         this.submittedCheck = this.submittedCheck.bind(this);
         this.onUsernameChange = this.onUsernameChange.bind(this);
+        this.onDepartmentChange = this.onDepartmentChange.bind(this);
     }
 
     submittedCheck = () => {
@@ -21,6 +23,11 @@ class App extends React.Component{
 
     onUsernameChange = (input) => {
         this.setState({username: input})
+    };
+
+    onDepartmentChange = (input) => {
+        this.setState({department: input})
+        console.log(input)
     };
 
     render() {
@@ -32,7 +39,8 @@ class App extends React.Component{
 
         return (
             <SignIn submittedCheck={this.submittedCheck}
-                    onUsernameChange={this.onUsernameChange}/>
+                    onUsernameChange={this.onUsernameChange}
+                    onDepartmentChange={this.onDepartmentChange}/>
         );
     }
 }
