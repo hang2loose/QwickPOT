@@ -28,18 +28,15 @@ def disconnect():
 def handle_bot(message):
   print("message received: {}".format(message))
   print("extracted message: {}".format(message["message"]))
-  message["username"] = "🤖 Bot"
-  message["message"] = bot.get_msg(message["message"])
+  create_message(message)
   print("message to send: {}".format(message))
   sio.emit('bot_send', message)
 
 
 def create_message(message: str):
-  tmp_dict = {
-    "username": "bot",
-    "message": message
-  }
-  return tmp_dict
+  message["username"] = "🤖 Bot"
+  message["message"] = bot.get_msg(message["message"])
+  return message
 
 
 sio.connect('http://localhost:8080')
