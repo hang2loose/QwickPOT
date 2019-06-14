@@ -92,30 +92,37 @@ class QuestionsMode(ModeUtil):
                 "currentThemeId": theme_request["id"],
                 "currentTheme": theme_request["name"],
                 "ParentThemeId": theme_request["id"],
+                "sub_themes": self.__convert_sub_themes(theme_request["subThemes"]),
+                "cards": self.__convert_cards(theme_request["cards"])
                 }
 
-    def __ask_for_action(self, id):
+    def __load_sub_theme(self, id, sub_theme_id):
         user = self._users[id]
-        theme_request = self.__get_theme_by_id(user["currentThemeId"])
-        self.__convert_sub_themes(id, theme_request["subThemes"])
-        self.__convert_cards(id, theme_request["cards"])
-        return self.__build_sub_theme_response(id)
+        theme_request = self.__get_theme_by_id(sub_theme_id)
+        user["ParentThemeId"] = user["currentThemeId"]
+        user["currentThemeId"] = theme_request["id"]
+        user["currentTheme"] = theme_request["name"]
+        user["sub_themes"] = self.__convert_sub_themes(theme_request["subThemes"])
+        user["cards"] = self.__convert_cards(theme_request["cards"])
 
-    def __convert_sub_themes(self, id, sub_themes: dict):
+    def __convert_sub_themes(self, sub_themes: dict):
         tmp_sub_themes = {}
         for sub_theme in sub_themes:
             tmp_sub_themes[sub_theme["id"]] = sub_theme["name"]
-        self._users[id]["sub_themes"] = tmp_sub_themes
+        return tmp_sub_themes
 
-    def __convert_cards(self, id,  cards: dict):
+    def __convert_cards(self, cards: dict):
         tmp_cards = {}
         for card in cards:
             tmp_cards[card["id"]] = card["name"]
-        self._users[id]["cards"] = tmp_cards
+        return tmp_cards
 
     def __show_curr_theme(self, id):
         user = self._users[id]
-        return user["currentTheme"]
+        result = user["currentTheme"]
+        if "rootTheme" == result:
+            result = "Projektmanagment"
+        return result
 
     def __show_sub_themes(self, id):
         result = ""
@@ -133,19 +140,48 @@ class QuestionsMode(ModeUtil):
             result += "- " + card + "\n"
         return result
 
-    def __build_sub_theme_response(self, id):
-        response = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
-        response += self.__show_cards(id)
-        response += self.__show_sub_themes(id)
-        print(response)
-        return response
+    def __get_sub_theme_id(self, id, sub_theme_name: str):
+        user = self._users[id]
+        tmp_sub_themes = user["sub_themes"]
+        for key, value in tmp_sub_themes.items():
+            if value == sub_theme_name:
+                return key
+        return None
+
+    def __get_card_id(self, id, card_name: str):
+        user = self._users[id]
+        tmp_cards = user["cards"]
+        for key, value in tmp_cards.items():
+            if value == card_name:
+                return key
+        return None
+
+    def __ask_for_action(self, id):
+        result = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
+        result += self.__show_cards(id)
+        result += self.__show_sub_themes(id)
+        return result
+
+    def __is_user_online(self, id):
+        result = self._users[id] is not None
+        if result:
+            return result
+        print("Request Error")
+
+    def __get_response(self, id, question: str):
+        sub_theme_id = self.__get_sub_theme_id(id, question)
+        if sub_theme_id is not None:
+            self.__load_sub_theme(id, sub_theme_id)
+            return self.__ask_for_action(id)
 
     # Events
     def __on_question(self, event: dict):
-        x = self._bot_event(self.__get_theme_by_name("rootTheme"))
-        sub_themes = x.get("load").get("subThemes")
-        self.__convert_subThemes(sub_themes)
-        return self._bot_event("test")
+        load = self.get_load(event)
+        response = "Entschuldigung, ich habe Sie nicht verstanden."
+        username = load["username"]
+        if self.__is_user_online(username):
+            response = self.__get_response(username, load["question"])
+        return response
 
     def __on_new_user(self, event: dict):
         load = self.get_load(event)
@@ -208,12 +244,20 @@ class Qwickpot:
 bot = Qwickpot("q")
 
 
-def testBot():
+def test_bot():
     msg = {
         "event_type": "new_user",
         "load": {"username": "chucky"}
     }
-    return bot.trigger_bot(msg)
+    print(bot.trigger_bot(msg))
+    question = ""
+    while "kill" != question:
+        question = input("-> ")
+        msg = {
+            "event_type": "question",
+            "load": {"username": "chucky", "question": question}
+        }
+        print(bot.trigger_bot(msg))
 
 
-print(testBot())
+test_bot()
