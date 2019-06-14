@@ -27,13 +27,13 @@ class App extends React.Component{
 
     onDepartmentChange = (input) => {
         this.setState({department: input})
-        console.log(input)
     };
 
     render() {
         if (this.state.submitted) {
             return (
-                <Dashboard username={this.state.username} />
+                <Dashboard username={this.state.username}
+                           department={this.state.department}/>
             );
         }
 

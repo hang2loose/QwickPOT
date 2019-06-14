@@ -58,7 +58,7 @@ class SignIn extends React.Component {
         super(props);
 
         this.state = {
-            dept: ''
+            department: ''
         };
 
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
@@ -72,7 +72,7 @@ class SignIn extends React.Component {
 
     departmentChangeHandler = (event) => {
         this.props.onDepartmentChange(event.target.value);
-        this.setState({ dept: event.target.value });
+        this.setState({ department: event.target.value });
     };
 
     usernameSubmitHandler = (event) => {
@@ -110,11 +110,11 @@ class SignIn extends React.Component {
                             margin="normal"
                             variant="outlined"
                             label="Abteilung"
-                            value={this.state.dept}
+                            value={this.state.department}
                             onChange={this.departmentChangeHandler}
                         >
                             {departments.map(option => (
-                                <MenuItem key={option}>
+                                <MenuItem key={option} value={option}>
                                     {option}
                                 </MenuItem>
                             ))}

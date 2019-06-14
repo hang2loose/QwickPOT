@@ -115,12 +115,14 @@ class Dashboard extends React.Component {
     sendHandler = (message) => {
         const messageObject = {
             username: this.props.username,
+            department: this.props.department,
             message,
         };
 
         if(messageObject.message !== '') {
             this.socket.emit('user_send', {
                 username: messageObject.username,
+                department: messageObject.department,
                 message: messageObject.message
             });
         }
@@ -217,7 +219,8 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.defaultProps = {
-    username: ''
+    username: '',
+    department: ''
 };
 
 Dashboard.propTypes = {
