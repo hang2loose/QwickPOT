@@ -1,7 +1,7 @@
 import eventlet
 import socketio
 
-from SimpleChat.Server.EventHandler import EventHandler
+from Server.EventHandler import EventHandler
 
 
 class WebSocketServer:

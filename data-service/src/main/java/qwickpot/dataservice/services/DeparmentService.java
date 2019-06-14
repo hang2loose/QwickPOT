@@ -4,7 +4,6 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Deparment;
-import qwickpot.dataservice.domain.Theme;
 import qwickpot.dataservice.exceptions.DepartmentNotFoundException;
 import qwickpot.dataservice.repositories.DepartmentRepository;
 
@@ -16,12 +15,8 @@ public class DeparmentService {
 
   private DepartmentRepository departmentRepository;
 
-  private ThemeService themeService;
-
-  public DeparmentService(DepartmentRepository departmentRepository,
-      ThemeService themeService) {
+  public DeparmentService(DepartmentRepository departmentRepository) {
     this.departmentRepository = departmentRepository;
-    this.themeService = themeService;
   }
 
   public Deparment getDepartmentFromRepo(Long id) {
@@ -40,11 +35,7 @@ public class DeparmentService {
     return true;
   }
 
-  public void addStat(Long departmentId, Long themeId) {
-    log.info("adding stat....");
-    Deparment deparment = getDepartmentFromRepo(departmentId);
-    Theme theme = themeService.getThemeFromRepo(themeId);
-    deparment.incrementThemeStat(theme);
+  public void updateDepartment(Deparment deparment) {
     departmentRepository.save(deparment);
   }
 }
