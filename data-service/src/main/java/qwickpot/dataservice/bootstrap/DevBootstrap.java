@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 import qwickpot.dataservice.repositories.ThemeRepository;
 import qwickpot.dataservice.services.CardService;
+import qwickpot.dataservice.services.DeparmentService;
 import qwickpot.dataservice.services.ThemeService;
 import qwickpot.dataservice.util.CSVReader;
 
@@ -19,13 +20,15 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
   private final ThemeRepository themeRepository;
   private final ThemeService themeService;
   private final CardService cardService;
+  private final DeparmentService deparmentService;
 
   public DevBootstrap(
       ThemeRepository themeRepository, ThemeService themeService,
-      CardService cardService) {
+      CardService cardService, DeparmentService deparmentService) {
     this.themeRepository = themeRepository;
     this.themeService = themeService;
     this.cardService = cardService;
+    this.deparmentService = deparmentService;
   }
 
   @Override
@@ -33,6 +36,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     log.info("starting import");
     if (themeRepository.count() == 0L) {
       try {
+        deparmentService.addNewDepartment("dummyDepartmenrt");
         initDataFromCSV();
       } catch (FileNotFoundException e) {
         e.printStackTrace();
