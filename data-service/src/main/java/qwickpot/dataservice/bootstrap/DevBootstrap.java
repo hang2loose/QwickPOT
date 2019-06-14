@@ -2,13 +2,10 @@ package qwickpot.dataservice.bootstrap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
-import qwickpot.dataservice.domain.Card;
-import qwickpot.dataservice.domain.Theme;
 import qwickpot.dataservice.repositories.ThemeRepository;
 import qwickpot.dataservice.services.CardService;
 import qwickpot.dataservice.services.ThemeService;
@@ -47,13 +44,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         .orElseThrow(() -> new IllegalArgumentException("Import Failure no CSV Found")));
     cardService.importCsvObject(CSVReader.getCsv(cardFile.getPath())
         .orElseThrow(() -> new IllegalArgumentException("Import Failure no CSV Found")));
-  }
-
-  private Theme generateMasterTheme(String name, Card... cards) {
-    Theme tempTheme = new Theme();
-    tempTheme.setName(name);
-    tempTheme.setCards(Arrays.asList(cards));
-    return tempTheme;
   }
 
 }
