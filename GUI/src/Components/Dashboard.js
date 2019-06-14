@@ -110,7 +110,6 @@ class Dashboard extends React.Component {
       this.socket.on('user_receive', message => {
         this.addMessage(message);
         });
-
     }
 
     sendHandler = (message) => {
