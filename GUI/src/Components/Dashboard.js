@@ -107,10 +107,10 @@ class Dashboard extends React.Component {
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
 
-      this.socket.on('message_bot', message => {
-        this.addMessage(JSON.parse(message));
-        });
 
+      this.socket.on('user_receive', message => {
+        this.addMessage(message);
+        });
     }
 
     sendHandler = (message) => {
@@ -125,7 +125,6 @@ class Dashboard extends React.Component {
                 message: messageObject.message
             });
         }
-
     };
 
     addMessage = (message) => {
