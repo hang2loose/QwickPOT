@@ -64,6 +64,7 @@ class QuestionsMode(ModeUtil):
         self.__connected_restpoints = {
             "theme_name": RestHandler(self.__servie_address, "getThemeByName"),
             "theme_id": RestHandler(self.__servie_address, "getThemeByID"),
+            "card_id": RestHandler(self.__servie_address, "getCardByID"),
         }
         self.__subscribed_events = ("new_user", "error", "question")
         self.__event_handler = {
@@ -82,6 +83,12 @@ class QuestionsMode(ModeUtil):
 
     def __get_theme_by_id(self, theme_id: str):
         request = self.__connected_restpoints["theme_id"].call_endpoint({"ThemeId": theme_id})
+        if request.status_code is 200:
+            return request.json()
+        print("Request Error")
+
+    def __get_card_by_id(self, card_id: str):
+        request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
@@ -156,6 +163,9 @@ class QuestionsMode(ModeUtil):
                 return key
         return None
 
+    def __show_card(self, card):
+        return "Das ist eine karte"
+
     def __ask_for_action(self, id):
         result = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
         result += self.__show_cards(id)
@@ -163,25 +173,26 @@ class QuestionsMode(ModeUtil):
         return result
 
     def __is_user_online(self, id):
-        result = self._users[id] is not None
-        if result:
-            return result
-        print("Request Error")
+        return self._users[id] is not None
 
     def __get_response(self, id, question: str):
         sub_theme_id = self.__get_sub_theme_id(id, question)
         if sub_theme_id is not None:
             self.__load_sub_theme(id, sub_theme_id)
             return self.__ask_for_action(id)
+        card_id = self.__get_card_id(id, question)
+        if card_id is not None:
+            card = self.__get_card_by_id(card_id)
+            return self.__show_card(card)
+        return "Entschuldigung, ich habe Sie nicht verstanden."
 
     # Events
     def __on_question(self, event: dict):
         load = self.get_load(event)
-        response = "Entschuldigung, ich habe Sie nicht verstanden."
         username = load["username"]
         if self.__is_user_online(username):
-            response = self.__get_response(username, load["question"])
-        return response
+            return self._bot_event(self.__get_response(username, load["question"]))
+        return self._bot_event("Benutzer: \"" + username + "\" ist nicht angemeldet!")
 
     def __on_new_user(self, event: dict):
         load = self.get_load(event)
