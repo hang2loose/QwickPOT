@@ -19,4 +19,11 @@ public class DepartmentController {
   public boolean addDepartment(@RequestParam(name = "Department Name") String name) {
     return deparmentService.addNewDepartment(name);
   }
+
+  @PostMapping("/incrementThemeCount")
+  public void incrementThemeCount(
+      @RequestParam(name = "Department Id") Long departmentId,
+      @RequestParam(name = "Theme Id") Long themeId) {
+    deparmentService.addStat(departmentId, themeId);
+  }
 }
