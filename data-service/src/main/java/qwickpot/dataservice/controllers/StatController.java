@@ -16,7 +16,7 @@ public class StatController {
   public void incrementThemeCount(
       @RequestParam(name = "Department Id") Long departmentId,
       @RequestParam(name = "Theme Id") Long themeId) {
-    statService.addStat(departmentId, themeId);
+    statService.addStatWithTheme(departmentId, themeId);
   }
 
 }

@@ -2,13 +2,14 @@ package qwickpot.dataservice.services;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Card;
 import qwickpot.dataservice.exceptions.CardNotFoundException;
 import qwickpot.dataservice.repositories.CardRepository;
 import qwickpot.dataservice.util.CsvObject;
 
-
+@Slf4j
 @Service
 public class CardService {
 
@@ -31,6 +32,7 @@ public class CardService {
 
   public Card getCardFromRepo(Long id) {
     Optional<Card> card = cardRepository.findById(id);
+    log.info("Getting Card with ID: " + id);
     return card
         .orElseThrow(
             () -> new CardNotFoundException(

@@ -43,7 +43,5 @@ public class Deparment {
 
   public void incrementThemeStat(Theme theme) {
     themesCalled.merge(theme.getId(), 1, Integer::sum);
-    log.info("Department: Theme updated");
-    log.info(themesCalled.toString());
   }
 }

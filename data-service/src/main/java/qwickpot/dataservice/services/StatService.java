@@ -10,15 +10,22 @@ import qwickpot.dataservice.domain.Theme;
 public class StatService {
 
   private ThemeService themeService;
+  private CardService cardService;
   private DeparmentService deparmentService;
 
   public StatService(ThemeService themeService,
-      DeparmentService deparmentService) {
+      DeparmentService deparmentService, CardService cardService) {
     this.themeService = themeService;
     this.deparmentService = deparmentService;
+    this.cardService = cardService;
   }
 
-  public void addStat(Long departmentId, Long themeId) {
+  public void addStatWithFromCard(Long departmentId, Long cardId) {
+    Long themeId = cardService.getCardFromRepo(cardId).getTheme().getId();
+    addStatWithTheme(departmentId, themeId);
+  }
+
+  public void addStatWithTheme(Long departmentId, Long themeId) {
     log.info("adding stat....");
     Deparment deparment = deparmentService.getDepartmentFromRepo(departmentId);
     Theme theme = themeService.getThemeFromRepo(themeId);
