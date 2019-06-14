@@ -27,7 +27,8 @@ class ListElements extends React.Component {
                             {this.props.username[0]}
                         </Avatar>
                     </ListItemIcon>
-                    <ListItemText primary={this.props.username} />
+                    <ListItemText primary={this.props.username}
+                                  secondary={this.props.department}/>
                 </ListItem>
                 <ListItem button>
                     <ListItemIcon>
@@ -42,6 +43,7 @@ class ListElements extends React.Component {
 
 ListElements.defaultProps = {
     username: '',
+    department: '',
 };
 
 ListElements.propTypes = {

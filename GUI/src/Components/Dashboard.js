@@ -204,7 +204,8 @@ class Dashboard extends React.Component {
                     </div>
                     <Divider />
                     <List>
-                        <ListElements username={this.props.username}/>
+                        <ListElements username={this.props.username}
+                                      department={this.props.department}/>
                     </List>
                 </Drawer>
                 <main className={classes.content} >
