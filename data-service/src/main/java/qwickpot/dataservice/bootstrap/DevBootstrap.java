@@ -2,6 +2,7 @@ package qwickpot.dataservice.bootstrap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import qwickpot.dataservice.services.CardService;
 import qwickpot.dataservice.services.ThemeService;
 import qwickpot.dataservice.util.CSVReader;
 
+@Slf4j
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -28,6 +30,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
   @Override
   public void onApplicationEvent(ContextRefreshedEvent event) {
+    log.info("starting import");
     if (themeRepository.count() == 0L) {
       try {
         initDataFromCSV();
