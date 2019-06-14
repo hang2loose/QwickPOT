@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Card;
+import qwickpot.dataservice.exceptions.CardNotFoundException;
 import qwickpot.dataservice.repositories.CardRepository;
 import qwickpot.dataservice.util.CsvObject;
 
@@ -24,13 +25,16 @@ public class CardService {
   public Card getCardFromRepo(String name) {
     Optional<Card> card = cardRepository.getCardByName(name);
     return card
-        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + name));
+        .orElseThrow(
+            () -> new CardNotFoundException(COULD_NOT_FIND_MESSAGE + "card: " + name));
   }
 
   public Card getCardFromRepo(Long id) {
     Optional<Card> card = cardRepository.findById(id);
     return card
-        .orElseThrow(() -> new IllegalArgumentException(COULD_NOT_FIND_MESSAGE + id.toString()));
+        .orElseThrow(
+            () -> new CardNotFoundException(
+                COULD_NOT_FIND_MESSAGE + "card with id : " + id.toString()));
   }
 
   public void importCsvObject(CsvObject csvObject) {
