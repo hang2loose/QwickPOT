@@ -31,5 +31,9 @@ public class Theme {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "theme")
   private List<Card> cards;
 
+  /*
+  @ManyToMany(mappedBy = "themesCalled")
+  private Set<Deparment> deparments;
+  */
 }
 

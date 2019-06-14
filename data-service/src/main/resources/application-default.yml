@@ -9,5 +9,5 @@ spring:
     hibernate:
       ddl-auto: update
     database: mysql
-    show-sql: true
+    show-sql: false
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
