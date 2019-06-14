@@ -107,7 +107,6 @@ class Dashboard extends React.Component {
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
 
-
       this.socket.on('user_receive', message => {
         this.addMessage(message);
         });
@@ -120,7 +119,7 @@ class Dashboard extends React.Component {
         };
 
         if(messageObject.message !== '') {
-            this.socket.emit('message', {
+            this.socket.emit('user_send', {
                 username: messageObject.username,
                 message: messageObject.message
             });
