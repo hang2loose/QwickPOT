@@ -164,7 +164,7 @@ class QuestionsMode(ModeUtil):
         return None
 
     def __show_card(self, card):
-        return "Das ist eine karte"
+        pass
 
     def __ask_for_action(self, id):
         result = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
