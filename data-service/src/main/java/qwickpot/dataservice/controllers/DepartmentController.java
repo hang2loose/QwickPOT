@@ -14,7 +14,6 @@ public class DepartmentController {
     this.deparmentService = deparmentService;
   }
 
-
   @PostMapping("/addDepartment")
   public boolean addDepartment(@RequestParam(name = "Department Name") String name) {
     return deparmentService.addNewDepartment(name);
