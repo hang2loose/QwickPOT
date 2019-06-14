@@ -106,17 +106,22 @@ class SignIn extends React.Component {
                         />
                         <TextField
                             select
+                            required
                             fullWidth
                             margin="normal"
                             variant="outlined"
                             label="Abteilung"
                             value={this.state.department}
                             onChange={this.departmentChangeHandler}
+                            SelectProps={{
+                                native: true
+                            }}
                         >
+                            <option />
                             {departments.map(option => (
-                                <MenuItem key={option} value={option}>
+                                <option key={option} value={option}>
                                     {option}
-                                </MenuItem>
+                                </option>
                             ))}
                         </TextField>
                         <Button
