@@ -27,7 +27,7 @@ public class CardController {
   }
 
   @GetMapping("/getCardById")
-  public CardDto getCardByName(
+  public CardDto getCardById(
       @RequestParam(name = "Card Id") Long cardId,
       @RequestParam(name = "Department Id", required = false) Long departmentId
   ) {
