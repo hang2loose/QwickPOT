@@ -63,8 +63,8 @@ class QuestionsMode(ModeUtil):
         self.__servie_address = "http://{}:9090".format(service_address)
         self.__connected_restpoints = {
             "theme_name": RestHandler(self.__servie_address, "getThemeByName"),
-            "theme_id": RestHandler(self.__servie_address, "getThemeByID"),
-            "card_id": RestHandler(self.__servie_address, "getCardByID"),
+            "theme_id": RestHandler(self.__servie_address, "getThemeById"),
+            "card_id": RestHandler(self.__servie_address, "getCardById"),
         }
         self.__subscribed_events = ("new_user", "error", "question")
         self.__event_handler = {
