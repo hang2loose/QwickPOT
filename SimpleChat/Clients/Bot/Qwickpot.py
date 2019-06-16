@@ -88,7 +88,7 @@ class QuestionsMode(ModeUtil):
         print("Request Error")
 
     def __get_card_by_id(self, card_id: str):
-        request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id})
+        request = self.__connected_restpoints["card_id"].call_endpoint({"Id": card_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
@@ -176,7 +176,7 @@ class QuestionsMode(ModeUtil):
     def __get_response(self, id, question: str):
         sub_theme_id = self.__get_sub_theme_id(id, question)
         if sub_theme_id is not None:
-            self.__load_sub_theme(id, sub_theme_id)
+            self.__load_theme(id, sub_theme_id)
             return self.__ask_for_action(id)
         card_id = self.__get_card_id(id, question)
         if card_id is not None:
