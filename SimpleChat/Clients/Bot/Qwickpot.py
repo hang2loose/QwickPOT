@@ -123,6 +123,12 @@ class QuestionsMode(ModeUtil):
         result = user["currentTheme"]
         return result
 
+    def __show_sub_themes(self, id):
+        return self.__show_sub_nodes(id, "sub_themes")
+
+    def __show_cards(self, id):
+        return self.__show_sub_nodes(id, "cards")
+
     def __show_sub_nodes(self, id, sub_node_type):
         result = ""
         user = self._users[id]
@@ -142,8 +148,8 @@ class QuestionsMode(ModeUtil):
 
     def __ask_for_action(self, id):
         result = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
-        result += self.__show_sub_nodes(id, "cards")
-        result += self.__show_sub_nodes(id, "sub_themes")
+        result += self.__show_cards(id)
+        result += self.__show_sub_themes(id)
         return result
 
     def __is_user_online(self, id):
