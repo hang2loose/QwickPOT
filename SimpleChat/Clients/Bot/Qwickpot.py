@@ -88,7 +88,7 @@ class QuestionsMode(ModeUtil):
         print("Request Error")
 
     def __get_card_by_id(self, card_id: str):
-        request = self.__connected_restpoints["card_id"].call_endpoint({"Id": card_id})
+        request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
@@ -149,7 +149,7 @@ class QuestionsMode(ModeUtil):
         user = self._users[id]
         tmp_sub_themes = user["sub_themes"]
         for key, value in tmp_sub_themes.items():
-            if value == sub_theme_name:
+            if value.lower() == sub_theme_name.lower():
                 return key
         return None
 
@@ -157,12 +157,12 @@ class QuestionsMode(ModeUtil):
         user = self._users[id]
         tmp_cards = user["cards"]
         for key, value in tmp_cards.items():
-            if value == card_name:
+            if value.lower() == card_name.lower():
                 return key
         return None
 
     def __show_card(self, card):
-        pass
+        return "{}:\n{}".format(card["name"], card["description"])
 
     def __ask_for_action(self, id):
         result = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
