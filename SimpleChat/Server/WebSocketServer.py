@@ -1,11 +1,12 @@
 import eventlet
 import socketio
 
-from Server.EventHandler import EventHandler
+from SimpleChat.Server.EventHandler import EventHandler
+from SimpleChat.Server.ServerConfigurator import ServerConfigurator
 
 
 class WebSocketServer:
-    def start_on_port(self, port):
+    def start_on_port(self, address, port):
         event_handler = EventHandler()
 
         sio = event_handler.sio
@@ -15,8 +16,11 @@ class WebSocketServer:
         })
 
         if __name__ == '__main__':
-            eventlet.wsgi.server(eventlet.listen(('', port)), app)
+            eventlet.wsgi.server(eventlet.listen((address, port)), app)
 
+
+configurator = ServerConfigurator()
+lines = configurator.read_file("server-config.yml")
 
 web_Server = WebSocketServer()
-web_Server.start_on_port(8080)
+web_Server.start_on_port(configurator.get_address(lines), configurator.get_port(lines))
