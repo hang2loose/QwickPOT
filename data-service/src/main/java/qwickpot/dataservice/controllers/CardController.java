@@ -22,13 +22,13 @@ public class CardController {
 
   @GetMapping("/getCardByName")
   public CardDto getCardByName(
-      @RequestParam(name = "Card Name") String name) {
+      @RequestParam(name = "CardName") String name) {
     return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(name));
   }
 
   @GetMapping("/getCardById")
   public CardDto getCardById(
-      @RequestParam(name = "Card Id") Long cardId,
+      @RequestParam(name = "CardId") Long cardId,
       @RequestParam(name = "Department Id", required = false) Long departmentId
   ) {
     if (departmentId != null) {
@@ -36,13 +36,5 @@ public class CardController {
       statService.addStatWithFromCard(departmentId, cardId);
     }
     return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(cardId));
-  }
-
-  @GetMapping("/getCardByIdStat")
-  public CardDto getCardByNameAddCallToStat(
-      @RequestParam(name = "ID") Long id,
-      @RequestParam(name = "DepartmentId") Long departmentId) {
-    statService.addStatWithTheme(departmentId, id);
-    return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(id));
   }
 }
