@@ -12,9 +12,6 @@ class EventHandler:
         print(str(EventHandler.users))
         EventHandler.sio.emit('user_connected', sid)
 
-        message = {'username': 'QwickPOT+-', 'message': 'Herzlich Willkommen, wie kann man Ihnen helfen?'}
-        EventHandler.sio.emit('user_receive', message, sid)
-
     @sio.event
     def disconnect(sid):
         print('User disconnected: ', sid)
