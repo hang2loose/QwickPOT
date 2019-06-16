@@ -20,7 +20,6 @@ public class ThemeService {
     this.themeRepository = themeRepository;
   }
 
-  // TODO Error Handling Logging
   public Theme getThemeFromRepo(String name) {
     Optional<Theme> optionalTheme = themeRepository.getThemeByName(name);
     return optionalTheme
@@ -28,7 +27,6 @@ public class ThemeService {
             () -> new ThemeNotFoundException(COULD_NOT_FIND_MESSAGE + "theme: " + name));
   }
 
-  // TODO Error Handling Logging
   public Theme getThemeFromRepo(Long id) {
     Optional<Theme> optionalTheme = themeRepository.findById(id);
     return optionalTheme
