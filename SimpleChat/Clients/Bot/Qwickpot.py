@@ -103,9 +103,9 @@ class QuestionsMode(ModeUtil):
                 "cards": self.__convert_cards(theme_request["cards"])
                 }
 
-    def __load_sub_theme(self, id, sub_theme_id):
+    def __load_theme(self, id, theme_id):
         user = self._users[id]
-        theme_request = self.__get_theme_by_id(sub_theme_id)
+        theme_request = self.__get_theme_by_id(theme_id)
         user["ParentThemeId"] = user["currentThemeId"]
         user["currentThemeId"] = theme_request["id"]
         user["currentTheme"] = theme_request["name"]
@@ -127,8 +127,6 @@ class QuestionsMode(ModeUtil):
     def __show_curr_theme(self, id):
         user = self._users[id]
         result = user["currentTheme"]
-        if "rootTheme" == result:
-            result = "Projektmanagment"
         return result
 
     def __show_sub_themes(self, id):
