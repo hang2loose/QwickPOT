@@ -99,8 +99,8 @@ class QuestionsMode(ModeUtil):
                 "currentThemeId": theme_request["id"],
                 "currentTheme": theme_request["name"],
                 "ParentThemeId": theme_request["id"],
-                "sub_themes": self.__convert_sub_themes(theme_request["subThemes"]),
-                "cards": self.__convert_cards(theme_request["cards"])
+                "sub_themes": self.__convert_sub_nodes(theme_request["subThemes"]),
+                "cards": self.__convert_sub_nodes(theme_request["cards"])
                 }
 
     def __load_theme(self, id, theme_id):
@@ -109,55 +109,31 @@ class QuestionsMode(ModeUtil):
         user["ParentThemeId"] = user["currentThemeId"]
         user["currentThemeId"] = theme_request["id"]
         user["currentTheme"] = theme_request["name"]
-        user["sub_themes"] = self.__convert_sub_themes(theme_request["subThemes"])
-        user["cards"] = self.__convert_cards(theme_request["cards"])
+        user["sub_themes"] = self.__convert_sub_nodes(theme_request["subThemes"])
+        user["cards"] = self.__convert_sub_nodes(theme_request["cards"])
 
-    def __convert_sub_themes(self, sub_themes: dict):
-        tmp_sub_themes = {}
-        for sub_theme in sub_themes:
-            tmp_sub_themes[sub_theme["id"]] = sub_theme["name"]
-        return tmp_sub_themes
-
-    def __convert_cards(self, cards: dict):
-        tmp_cards = {}
-        for card in cards:
-            tmp_cards[card["id"]] = card["name"]
-        return tmp_cards
+    def __convert_sub_nodes(self, sub_nodes: dict):
+        tmp_sub_nodes = {}
+        for sub_node in sub_nodes:
+            tmp_sub_nodes[sub_node["id"]] = sub_node["name"]
+        return tmp_sub_nodes
 
     def __show_curr_theme(self, id):
         user = self._users[id]
         result = user["currentTheme"]
         return result
 
-    def __show_sub_themes(self, id):
+    def __show_sub_nodes(self, id, sub_node_type):
         result = ""
         user = self._users[id]
-        tmp_sub_themes = user["sub_themes"]
-        for sub_theme in tmp_sub_themes.values():
-            result += "- " + sub_theme + "\n"
+        tmp_sub_nodes = user[sub_node_type]
+        for sub_node in tmp_sub_nodes.values():
+            result += "- " + sub_node + "\n"
         return result
 
-    def __show_cards(self, id):
-        result = ""
-        user = self._users[id]
-        tmp_cards = user["cards"]
-        for card in tmp_cards.values():
-            result += "- " + card + "\n"
-        return result
-
-    def __get_sub_theme_id(self, id, sub_theme_name: str):
-        user = self._users[id]
-        tmp_sub_themes = user["sub_themes"]
-        for key, value in tmp_sub_themes.items():
-            if value.lower() == sub_theme_name.lower():
-                return key
-        return None
-
-    def __get_card_id(self, id, card_name: str):
-        user = self._users[id]
-        tmp_cards = user["cards"]
-        for key, value in tmp_cards.items():
-            if value.lower() == card_name.lower():
+    def __get_sub_node_id(self, sub_node_name: str, sub_nodes: dict):
+        for key, value in sub_nodes.items():
+            if value.lower() == sub_node_name.lower():
                 return key
         return None
 
@@ -166,19 +142,20 @@ class QuestionsMode(ModeUtil):
 
     def __ask_for_action(self, id):
         result = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
-        result += self.__show_cards(id)
-        result += self.__show_sub_themes(id)
+        result += self.__show_sub_nodes(id, "cards")
+        result += self.__show_sub_nodes(id, "sub_themes")
         return result
 
     def __is_user_online(self, id):
         return self._users[id] is not None
 
     def __get_response(self, id, question: str):
-        sub_theme_id = self.__get_sub_theme_id(id, question)
+        user = self._users[id]
+        sub_theme_id = self.__get_sub_node_id(question, user["sub_themes"])
         if sub_theme_id is not None:
             self.__load_theme(id, sub_theme_id)
             return self._bot_event(self.__ask_for_action(id))
-        card_id = self.__get_card_id(id, question)
+        card_id = self.__get_sub_node_id(question, user["cards"])
         if card_id is not None:
             card = self.__get_card_by_id(card_id)
             return self._bot_event(self.__show_card(card))
