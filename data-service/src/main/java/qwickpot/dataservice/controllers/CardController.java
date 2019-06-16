@@ -29,7 +29,7 @@ public class CardController {
   @GetMapping("/getCardById")
   public CardDto getCardById(
       @RequestParam(name = "CardId") Long cardId,
-      @RequestParam(name = "Department Id", required = false) Long departmentId
+      @RequestParam(name = "DepartmentId", required = false) Long departmentId
   ) {
     if (departmentId != null) {
       log.info("incrementing Stat for ThemeID: {} in DepartmentID {}", cardId, departmentId);
