@@ -1,5 +1,3 @@
-import json
-
 import socketio
 
 
@@ -12,14 +10,17 @@ class EventHandler:
         print('User connected: ', sid)
         EventHandler.users.append(sid)
         print(str(EventHandler.users))
-        # Send Msg to bot that user has connected, return welcome message
+        EventHandler.sio.emit('user_connected', sid)
+
+        message = {'username': 'QwickPOT+-', 'message': 'Herzlich Willkommen, wie kann man Ihnen helfen?'}
+        EventHandler.sio.emit('user_receive', message, sid)
 
     @sio.event
     def disconnect(sid):
         print('User disconnected: ', sid)
         EventHandler.users.remove(sid)
         print(str(EventHandler.users))
-        # Send Msg to bot that user has disconnected, "unregister" bot
+        EventHandler.sio.emit('user_disconnected', sid)
 
     @sio.on('user_send')
     def echo_message(sid, message):
