@@ -177,19 +177,19 @@ class QuestionsMode(ModeUtil):
         sub_theme_id = self.__get_sub_theme_id(id, question)
         if sub_theme_id is not None:
             self.__load_theme(id, sub_theme_id)
-            return self.__ask_for_action(id)
+            return self._bot_event(self.__ask_for_action(id))
         card_id = self.__get_card_id(id, question)
         if card_id is not None:
             card = self.__get_card_by_id(card_id)
-            return self.__show_card(card)
-        return "Entschuldigung, ich habe Sie nicht verstanden."
+            return self._bot_event(self.__show_card(card))
+        return self._bot_event("Entschuldigung, ich habe Sie nicht verstanden.")
 
     # Events
     def __on_question(self, event: dict):
         load = self.get_load(event)
         username = load["username"]
         if self.__is_user_online(username):
-            return self._bot_event(self.__get_response(username, load["question"]))
+            return self.__get_response(username, load["question"])
         return self._bot_event("Benutzer: \"" + username + "\" ist nicht angemeldet!")
 
     def __on_new_user(self, event: dict):
