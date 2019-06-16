@@ -1,5 +1,9 @@
 package qwickpot.dataservice.domain;
 
+import java.util.Map;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,13 +27,13 @@ public class Deparment {
 
   private String name;
 
+  public Deparment() {
+  }
+
   public Deparment(String name) {
     this.name = name;
   }
 
-  // TODO Mapping ManyToMany
-  /*
- private Map<Theme, Integer> themesCalled;
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "themes_called_by_departments",
       joinColumns = @JoinColumn(name = "department_id"))
@@ -39,5 +43,5 @@ public class Deparment {
 
   public void incrementThemeStat(Theme theme) {
     themesCalled.merge(theme.getId(), 1, Integer::sum);
-  }*/
+  }
 }
