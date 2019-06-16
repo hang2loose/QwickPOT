@@ -100,7 +100,9 @@ class QuestionsMode(ModeUtil):
                 "currentTheme": theme_request["name"],
                 "ParentThemeId": theme_request["id"],
                 "sub_themes": self.__convert_sub_nodes(theme_request["subThemes"]),
-                "cards": self.__convert_sub_nodes(theme_request["cards"])
+                "cards": self.__convert_sub_nodes(theme_request["cards"]),
+                "numeration_to_sub_node": {},
+                "sub_node_to_numeration": {}
                 }
 
     def __load_theme(self, id, theme_id):
@@ -111,6 +113,8 @@ class QuestionsMode(ModeUtil):
         user["currentTheme"] = theme_request["name"]
         user["sub_themes"] = self.__convert_sub_nodes(theme_request["subThemes"])
         user["cards"] = self.__convert_sub_nodes(theme_request["cards"])
+        user["numeration_to_sub_node"] = {}
+        user["sub_node_to_numeration"] = {}
 
     def __convert_sub_nodes(self, sub_nodes: dict):
         tmp_sub_nodes = {}
@@ -133,9 +137,33 @@ class QuestionsMode(ModeUtil):
         result = ""
         user = self._users[id]
         tmp_sub_nodes = user[sub_node_type]
+        sub_node_to_numeration = user["sub_node_to_numeration"]
         for sub_node in tmp_sub_nodes.values():
-            result += "- " + sub_node + "\n"
+            result += "{}. {}\n".format(sub_node_to_numeration[sub_node], sub_node)
         return result
+
+    def __numerate_all_sub_nodes(self, id):
+        self.__numerate_sub_nodes(id, "cards")
+        self.__numerate_sub_nodes(id, "sub_themes")
+
+    def __numerate_sub_nodes(self, id, sub_node_type):
+        user = self._users[id]
+        tmp_sub_nodes = user[sub_node_type]
+        sub_node_to_numeration = user["sub_node_to_numeration"]
+        numeration_to_sub_node = user["numeration_to_sub_node"]
+        sub_node_count = len(numeration_to_sub_node)
+        for sub_node in tmp_sub_nodes.values():
+            sub_node_count += 1
+            numeration_to_sub_node[sub_node_count] = sub_node
+            sub_node_to_numeration[sub_node] = sub_node_count
+
+    def __numeration_to_sub_node(self, id, num: str):
+        user = self._users[id]
+        numeration_to_sub_node = user["numeration_to_sub_node"]
+        tmp_num = int(num)
+        if (tmp_num > 0) and (tmp_num <= len(numeration_to_sub_node)):
+            return numeration_to_sub_node[int(tmp_num)]
+        return num
 
     def __get_sub_node_id(self, sub_node_name: str, sub_nodes: dict):
         for key, value in sub_nodes.items():
@@ -147,6 +175,7 @@ class QuestionsMode(ModeUtil):
         return "{}:\n{}".format(card["name"], card["description"])
 
     def __ask_for_action(self, id):
+        self.__numerate_all_sub_nodes(id)
         result = "Was möchten Sie über \"" + self.__show_curr_theme(id) + "\" wissen?\n"
         result += self.__show_cards(id)
         result += self.__show_sub_themes(id)
@@ -157,6 +186,8 @@ class QuestionsMode(ModeUtil):
 
     def __get_response(self, id, question: str):
         user = self._users[id]
+        if question.isnumeric():
+            question = self.__numeration_to_sub_node(id, question)
         sub_theme_id = self.__get_sub_node_id(question, user["sub_themes"])
         if sub_theme_id is not None:
             self.__load_theme(id, sub_theme_id)
