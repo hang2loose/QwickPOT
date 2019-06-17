@@ -34,7 +34,7 @@ def handle_bot(message):
 
 def create_message(message):
   message["username"] = "🤖 Bot"
-  message["message"] = bot.trigger_bot(message["message"])
+  message["message"] = bot.trigger_bot(message["load"]["question"])
   return message
 
 
