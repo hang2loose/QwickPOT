@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
 import Logo from '../images/logo.png'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -42,17 +40,34 @@ const styles = theme => ({
     },
 });
 
+const departments = [
+    'Projektmanagement',
+    'Operations/Planung',
+    'Strategie',
+    'Projektleiter-Pool'
+];
+
 class SignIn extends React.Component {
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            department: ''
+        };
+
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
+        this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
     }
 
     usernameChangeHandler = (event) => {
         this.props.onUsernameChange(event.target.value);
+    };
+
+    departmentChangeHandler = (event) => {
+        this.props.onDepartmentChange(event.target.value);
+        this.setState({ department: event.target.value });
     };
 
     usernameSubmitHandler = (event) => {
@@ -75,14 +90,35 @@ class SignIn extends React.Component {
                     </Typography>
                     <form className={classes.form}
                           onSubmit={this.usernameSubmitHandler}>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input id="username"
-                                   name="username"
-                                   autoComplete="username"
-                                   onChange={this.usernameChangeHandler}
-                                   autoFocus/>
-                        </FormControl>
+                        <TextField
+                            required
+                            fullWidth
+                            margin="normal"
+                            label="Username"
+                            autoComplete="username"
+                            onChange={this.usernameChangeHandler}
+                            autoFocus
+                        />
+                        <TextField
+                            select
+                            required
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
+                            label="Abteilung"
+                            value={this.state.department}
+                            onChange={this.departmentChangeHandler}
+                            SelectProps={{
+                                native: true
+                            }}
+                        >
+                            <option />
+                            {departments.map(option => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </TextField>
                         <Button
                             type="submit"
                             fullWidth
@@ -97,11 +133,6 @@ class SignIn extends React.Component {
         );
     }
 }
-
-SignIn.defaultProps = {
-    username: 'Anonymous',
-};
-
 
 SignIn.propTypes = {
     classes: PropTypes.object.isRequired,

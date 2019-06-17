@@ -20,7 +20,7 @@
     <java.version>1.8</java.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
-    <checkstyle.version>8.14</checkstyle.version>
+    <checkstyle.version>8.18</checkstyle.version>
     <imageTag>2.0</imageTag>
   </properties>
 
