@@ -93,9 +93,10 @@ class QuestionsMode(ModeUtil):
             return request.json()
         print("Request Error")
 
-    def __create_new_user(self, id):
+    def __create_new_user(self, id, name):
         theme_request = self.__get_theme_by_name("rootTheme")
         return {"id": id,
+                "name": name,
                 "currentThemeId": theme_request["id"],
                 "currentTheme": theme_request["name"],
                 "ParentThemeId": theme_request["id"],
@@ -201,15 +202,15 @@ class QuestionsMode(ModeUtil):
     # Events
     def __on_question(self, event: dict):
         load = self.get_load(event)
-        username = load["username"]
-        if self.__is_user_online(username):
-            return self.__get_response(username, load["question"])
-        return self._bot_event("Benutzer: \"" + username + "\" ist nicht angemeldet!")
+        id = event["ID"]
+        if self.__is_user_online(id):
+            return self.__get_response(id, load["question"])
+        return self._bot_event("Benutzer: \"" + load["username"] + "\" ist nicht angemeldet!")
 
     def __on_new_user(self, event: dict):
         load = self.get_load(event)
-        self._users[load["username"]] = self.__create_new_user(load["username"])
-        quest = self.__ask_for_action(load["username"])
+        self._users[event["ID"]] = self.__create_new_user(event["ID"], load["username"])
+        quest = self.__ask_for_action(event["ID"])
         return self._bot_event("Hallo {}, ich bin Quickpot+-\n{}".format(load["username"], quest))
 
     def get_load(self, event):
@@ -268,19 +269,19 @@ bot = Qwickpot("q")
 
 
 def test_bot():
-    msg = {
-        "event_type": "new_user",
-        "load": {"username": "chucky"}
-    }
+    msg = {'event_type': 'new_user',
+           'load': {'username': 'rggr'},
+           'ID': '7c4eca676b884610b5e2321bc2045889'}
     print(bot.trigger_bot(msg))
     question = ""
     while "kill" != question:
         question = input("-> ")
         msg = {
             "event_type": "question",
-            "load": {"username": "chucky", "question": question}
+            "load": {"username": "chucky", "question": question},
+            "ID": '7c4eca676b884610b5e2321bc2045889'
         }
         print(bot.trigger_bot(msg))
 
 
-test_bot()
+# test_bot()
