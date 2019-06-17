@@ -2,10 +2,12 @@ import json
 
 import socketio
 
-import SimpleChat.Clients.Bot.HelloBot as HelloBot
+import Clients.Bot.Qwickpot as Quickpot
 
 sio = socketio.Client()
-bot = HelloBot.HelloBot("data-service")
+# bot = HelloBot.HelloBot("data-service")
+bot = Quickpot.Qwickpot("q")
+
 
 
 @sio.event
@@ -26,16 +28,13 @@ def disconnect():
 
 @sio.on('bot_receive')
 def handle_bot(message):
-  print("message received: {}".format(message))
-  print("extracted message: {}".format(message["message"]))
   create_message(message)
-  print("message to send: {}".format(message))
   sio.emit('bot_send', message)
 
 
 def create_message(message):
   message["username"] = "🤖 Bot"
-  message["message"] = bot.get_msg(message["message"])
+  message["message"] = bot.trigger_bot(message["message"])
   return message
 
 
