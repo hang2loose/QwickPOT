@@ -115,19 +115,20 @@ class Dashboard extends React.Component {
     sendHandler = (message) => {
         const messageObject = {
             username: this.props.username,
+            department: this.props.department,
             message,
         };
 
         if(messageObject.message !== '') {
             this.socket.emit('user_send', {
                 username: messageObject.username,
+                department: messageObject.department,
                 message: messageObject.message
             });
         }
     };
 
     addMessage = (message) => {
-        // Append the message to the component state
         const messages = this.state.messages;
         messages.push(message);
         this.setState({ messages });
@@ -203,7 +204,8 @@ class Dashboard extends React.Component {
                     </div>
                     <Divider />
                     <List>
-                        <ListElements username={this.props.username}/>
+                        <ListElements username={this.props.username}
+                                      department={this.props.department}/>
                     </List>
                 </Drawer>
                 <main className={classes.content} >
@@ -217,7 +219,8 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.defaultProps = {
-    username: ''
+    username: '',
+    department: ''
 };
 
 Dashboard.propTypes = {
