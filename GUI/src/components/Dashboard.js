@@ -101,7 +101,10 @@ class Dashboard extends React.Component {
 
         this.socket = io('localhost:8080').connect();
         this.socket.emit('user_connect', {
-            username: this.props.username
+            event_type: 'new_user',
+            load: {
+                username: this.props.username
+            }
         });
 
         this.forceToBottom = React.createRef();
@@ -125,9 +128,12 @@ class Dashboard extends React.Component {
 
         if(messageObject.message !== '') {
             this.socket.emit('user_send', {
-                username: messageObject.username,
-                department: messageObject.department,
-                message: messageObject.message
+                event_type: 'question',
+                load: {
+                    username: messageObject.username,
+                    department: messageObject.department,
+                    question: messageObject.message
+                }
             });
         }
     };
