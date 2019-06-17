@@ -1,0 +1,7 @@
+{
+  "event_type": "question",
+  "load": {
+    "username": "username",
+    "question": "message"
+  }
+}
