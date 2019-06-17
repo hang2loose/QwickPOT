@@ -20,7 +20,10 @@ class ModeUtil:
             "load": load
         }
 
-    def _bot_event(self, load):
+    def _bot_event(self, msg):
+        load = {}
+        load["username"] = "🤖 QwickPOT+-"
+        load["question"] = msg
         return self.event_builder("bot_message", load)
 
     def _emit_error_event(self, error_message: str):
