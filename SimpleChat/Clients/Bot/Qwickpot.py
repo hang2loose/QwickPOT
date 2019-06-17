@@ -264,7 +264,6 @@ class Qwickpot:
         print("Input: {} \n".format(event))
 
         if event["event_type"] == "change_mode":
-            print("Output: {} \n".format(self.__change_mode(event["load"])))
             return self.__change_mode(event["load"])
 
         print("Output: {} \n".format(self.__trigger_mode(event)))
