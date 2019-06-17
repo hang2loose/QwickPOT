@@ -20,6 +20,5 @@ class EventHandler:
 
     @sio.on('bot_send')
     def echo_bot(sid, message):
-        if message["message"] is not None:
-            print('Sent bot answer: {}'.format(message))
-            EventHandler.sio.emit('user_receive', message, message.pop("sid"))
+        print('Sent bot answer: {}'.format(message))
+        EventHandler.sio.emit('user_receive', message)

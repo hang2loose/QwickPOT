@@ -1,5 +1,3 @@
-import json
-
 import socketio
 
 import Clients.Bot.Qwickpot as Quickpot
@@ -28,13 +26,11 @@ def disconnect():
 
 @sio.on('bot_receive')
 def handle_bot(message):
-  create_message(message)
-  sio.emit('bot_send', message)
+  sio.emit('bot_send', bot.trigger_bot(message))
 
 
 def create_message(message):
-  message["username"] = "🤖 Bot"
-  message["message"] = bot.trigger_bot(message["load"]["question"])
+  message["message"] = bot.trigger_bot(message)
   return message
 
 
