@@ -96,10 +96,10 @@ class QuestionsMode(ModeUtil):
             return request.json()
         print("Request Error")
 
-    def __create_new_user(self, id, name):
+    def __create_new_user(self, id, username):
         theme_request = self.__get_theme_by_name("rootTheme")
         return {"id": id,
-                "name": name,
+                "name": username,
                 "currentThemeId": theme_request["id"],
                 "currentTheme": theme_request["name"],
                 "ParentThemeId": theme_request["id"],
@@ -262,28 +262,10 @@ class Qwickpot:
 
     def trigger_bot(self, event: dict):
         if event["event_type"] == "change_mode":
+            print("Mode has changed.")
             return self.__change_mode(event["load"])
         return self.__trigger_mode(event)
 
 
 # test dummy:
 bot = Qwickpot("q")
-
-
-def test_bot():
-    msg = {'event_type': 'new_user',
-           'load': {'username': 'rggr'},
-           'ID': '7c4eca676b884610b5e2321bc2045889'}
-    print(bot.trigger_bot(msg))
-    question = ""
-    while "kill" != question:
-        question = input("-> ")
-        msg = {
-            "event_type": "question",
-            "load": {"username": "chucky", "question": question},
-            "ID": '7c4eca676b884610b5e2321bc2045889'
-        }
-        print(bot.trigger_bot(msg))
-
-
-# test_bot()
