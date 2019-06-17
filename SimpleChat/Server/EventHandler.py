@@ -8,7 +8,7 @@ class EventHandler:
     def echo_message(sid, message):
         print('Received event: {} from user: {}'.format(message, sid))
         EventHandler.sio.emit('user_receive', message, sid)
-        message.update({"sid": sid})
+        message.update({"ID": sid})
         EventHandler.sio.emit('bot_receive', message)
 
     @sio.on('user_on_connect')
