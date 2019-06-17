@@ -21,7 +21,7 @@
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle.version>8.14</checkstyle.version>
-    <imageTag>1.0</imageTag>
+    <imageTag>2.0</imageTag>
   </properties>
 
 

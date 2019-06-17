@@ -20,7 +20,7 @@ public class ThemeController {
     return ThemeDto.convertEntityToDto(themeService.getThemeFromRepo(name));
   }
 
-  @GetMapping("/getThemeByID")
+  @GetMapping("/getThemeById")
   public ThemeDto getTheme(
       @RequestParam(name = "ThemeId") Long id) {
     return ThemeDto.convertEntityToDto(themeService.getThemeFromRepo(id));
