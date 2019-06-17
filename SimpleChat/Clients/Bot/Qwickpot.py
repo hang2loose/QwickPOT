@@ -255,8 +255,7 @@ class Qwickpot:
         }
 
     def __trigger_mode(self, event: dict):
-        mode_message = self.__modes[self.__active_mode].get_bot_answer(event)
-        return self.__create_event("bot_answer", mode_message)
+        return self.__modes[self.__active_mode].get_bot_answer(event)
 
     def trigger_bot(self, event: dict):
         if event["event_type"] == "change_mode":
