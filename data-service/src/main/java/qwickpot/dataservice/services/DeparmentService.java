@@ -1,6 +1,8 @@
 package qwickpot.dataservice.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qwickpot.dataservice.domain.Deparment;
@@ -37,5 +39,11 @@ public class DeparmentService {
 
   public void updateDepartment(Deparment deparment) {
     departmentRepository.save(deparment);
+  }
+
+  public List<String> getListOfDepartmentNames() {
+    return departmentRepository.findAll().stream()
+        .map(Deparment::getName)
+        .collect(Collectors.toList());
   }
 }
