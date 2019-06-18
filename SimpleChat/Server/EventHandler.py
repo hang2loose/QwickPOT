@@ -12,7 +12,7 @@ class EventHandler:
         EventHandler.sio.emit('bot_receive', message)
 
     @sio.on('user_on_connect')
-    def foo(sid, message):
+    def connect_msg(sid, message):
         print('User connected: ', sid)
         message.update({"ID": sid})
         print(message)
