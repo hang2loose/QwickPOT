@@ -21,4 +21,4 @@ class EventHandler:
     @sio.on('bot_send')
     def echo_bot(sid, message):
         print('Sent bot answer: {}'.format(message))
-        EventHandler.sio.emit('user_receive', message)
+        EventHandler.sio.emit('user_receive', message, message.pop("ID"))
