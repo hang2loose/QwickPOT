@@ -10,14 +10,14 @@ class ConfigParser:
             print("Can't find or open file")
             return
 
-    def get_address(self, lines):
-        if lines["config"]["address"]:
-            return lines["config"]["address"]
+    def get_address(self, cfg):
+        if cfg["config"]["address"]:
+            return cfg["config"]["address"]
         else:
             return "0.0.0.0"
 
-    def get_port(self, lines):
-        if lines["config"]["port"]:
-            return lines["config"]["port"]
+    def get_port(self, cfg):
+        if cfg["config"]["port"]:
+            return cfg["config"]["port"]
         else:
             return "8080"
