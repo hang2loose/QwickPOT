@@ -24,12 +24,12 @@ class ChatWindow extends React.Component{
 
         const {classes} = this.props;
 
-        const messages = this.props.messages.map((message, i) => {
+        const messages = this.props.messages.map((message, index) => {
             return (
                 <Message
-                    key={i}
-                    username={message.username}
-                    message={message.message}
+                    key={index}
+                    username={message.load.username}
+                    message={message.load.question}
                 />
             );
         });
