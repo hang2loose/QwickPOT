@@ -184,7 +184,7 @@ class QuestionsMode(ModeUtil):
         result += self.__show_sub_themes(id)
         return result
 
-    def __is_user_online(self, id):
+    def __is_user_registerd(self, id):
         return self._users[id] is not None
 
     def __get_response(self, id, question: str):
@@ -205,7 +205,7 @@ class QuestionsMode(ModeUtil):
     def __on_question(self, event: dict):
         load = self.get_load(event)
         id = event["ID"]
-        if self.__is_user_online(id):
+        if self.__is_user_registerd(id):
             return self.__get_response(id, load["question"])
         return self._emit_error_event(id, "Benutzer: \"" + load["username"] + "\" ist nicht angemeldet!")
 
@@ -213,8 +213,8 @@ class QuestionsMode(ModeUtil):
         load = self.get_load(event)
         event_id = event["ID"]
         self._users[event_id] = self.__create_new_user(event_id, load["username"])
-        quest = self.__ask_for_action(event["ID"])
-        return self._bot_event(event_id, "Hallo {}, ich bin Quickpot+-\n{}".format(load["username"], quest))
+        response_message = self.__ask_for_action(event["ID"])
+        return self._bot_event(event_id, "Hallo {}, ich bin Quickpot+-\n{}".format(load["username"], response_message))
 
     def get_load(self, event):
         return event["load"]
@@ -261,10 +261,6 @@ class Qwickpot:
         return self.__modes[self.__active_mode].get_bot_answer(event)
 
     def trigger_bot(self, event: dict):
-        print("Input: {} \n".format(event))
-
         if event["event_type"] == "change_mode":
             return self.__change_mode(event["load"])
-
-        print("Output: {} \n".format(self.__trigger_mode(event)))
         return self.__trigger_mode(event)
