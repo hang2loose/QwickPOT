@@ -34,5 +34,5 @@ def create_message(message):
     return message
 
 
-sio.connect('http://localhost:8080')
+sio.connect('http://chatserver:8080')
 sio.wait()

@@ -3,13 +3,13 @@ version: '3'
 services:
 
   chatserver:
-    image: "hang2loose/qwickpot-chatserver:01"
+    image: "hang2loose/qwickpot-chatserver:02"
     container_name: "chatserver"
     ports:
       - "8080:8080"
 
   qwickpot-gui:
-    image: "hang2loose/qwickpot-gui:01"
+    image: "hang2loose/qwickpot-gui:02"
     container_name: "qwickpot-gui"
     ports:
       - "3000:3000"
@@ -17,7 +17,7 @@ services:
       - chatserver
 
   hellobot:
-    image: "hang2loose/qwickpot-chatbot:01"
+    image: "hang2loose/qwickpot-chatbot:02"
     container_name: "hellobot"
     depends_on:
       - chatserver
