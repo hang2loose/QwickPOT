@@ -2,7 +2,7 @@ import eventlet
 import socketio
 
 from Server.EventHandler import EventHandler
-from Server.ServerConfigurator import ServerConfigurator
+from ConfigParser import ConfigParser
 
 
 class WebSocketServer:
@@ -19,7 +19,7 @@ class WebSocketServer:
             eventlet.wsgi.server(eventlet.listen((address, port)), app)
 
 
-configurator = ServerConfigurator()
+configurator = ConfigParser()
 config = configurator.read_file("server-config.yml")
 
 web_Server = WebSocketServer()
