@@ -1,8 +1,8 @@
 import eventlet
 import socketio
 
-from SimpleChat.Server.EventHandler import EventHandler
-from SimpleChat.Server.ServerConfigurator import ServerConfigurator
+from Server.EventHandler import EventHandler
+from Server.ServerConfigurator import ServerConfigurator
 
 
 class WebSocketServer:
@@ -20,7 +20,7 @@ class WebSocketServer:
 
 
 configurator = ServerConfigurator()
-lines = configurator.read_file("server-config.yml")
+config = configurator.read_file("server-config.yml")
 
 web_Server = WebSocketServer()
-web_Server.start_on_port(configurator.get_address(lines), configurator.get_port(lines))
+web_Server.start_on_port(configurator.get_address(config), configurator.get_port(config))

@@ -1,24 +1,23 @@
+import yaml
+
 class ServerConfigurator:
     def read_file(self, filename):
         try:
-            f = open(filename, "r")
-            lines = f.readlines()
-            f.close()
-
-            lines = [l.strip("\n").strip(" ") for l in lines]
+            with open(filename, 'r') as ymlfile:
+                cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
+                return cfg
         except FileNotFoundError:
             print("Can't find or open file")
             return
-        return lines
 
     def get_address(self, lines):
-        if lines[1].startswith("address"):
-            return lines[1].split(":")[1].strip()
+        if lines["server"]["address"]:
+            return lines["server"]["address"]
         else:
             return "0.0.0.0"
 
     def get_port(self, lines):
-        if lines[2].startswith("port"):
-            return int(lines[2].split(":")[1].strip())
+        if lines["server"]["port"]:
+            return lines["server"]["port"]
         else:
             return "8080"
