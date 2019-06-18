@@ -14,17 +14,19 @@ class RestHandler:
 
 class ModeUtil:
 
-    def event_builder(self, type: str, load: str):
+    def event_builder(self, type: str, id, load: str):
         return {
+            "ID": id,
             "event_type": type,
             "load": load
         }
 
-    def _bot_event(self, load):
-        return self.event_builder("bot_message", load)
+    def _bot_event(self, id, msg):
+        load = {"username": "🤖 QwickPOT+-", "question": msg}
+        return self.event_builder("bot_message", id, load)
 
-    def _emit_error_event(self, error_message: str):
-        return self.event_builder("error", error_message)
+    def _emit_error_event(self, id, error_message: str):
+        return self.event_builder("error", id, error_message)
 
     def _handle_event(self, event_handler: dict, event: dict):
         return event_handler[event["event_type"]].__call__(event)
@@ -43,7 +45,7 @@ class DummyMode(ModeUtil):
         }
         self.__subscribed_events = ("error", "new_user")
         self.__event_handler = {
-            "error": self._emit_error_event("error"),
+            "error": self._emit_error_event(id, "error"),
             "new_user": self.__on_chucky
         }
 
@@ -51,7 +53,7 @@ class DummyMode(ModeUtil):
         joke = self.__connected_restpoints["chucky"].call_endpoint()
         if joke.status_code is 200:
             return self._bot_event(joke.text)
-        return self._emit_error_event("bad Request")
+        return self._emit_error_event(event["ID"], "bad Request")
 
     def get_bot_answer(self, event: dict):
         return self._check_event_type(self.__subscribed_events, self.__event_handler, event)
@@ -70,7 +72,7 @@ class QuestionsMode(ModeUtil):
         self.__event_handler = {
             "new_user": self.__on_new_user,
             "question": self.__on_question,
-            "error": self._emit_error_event("error")
+            "error": self._emit_error_event(id, "error")
         }
 
         self._users = {}
@@ -93,9 +95,10 @@ class QuestionsMode(ModeUtil):
             return request.json()
         print("Request Error")
 
-    def __create_new_user(self, id):
+    def __create_new_user(self, id, username):
         theme_request = self.__get_theme_by_name("rootTheme")
         return {"id": id,
+                "name": username,
                 "currentThemeId": theme_request["id"],
                 "currentTheme": theme_request["name"],
                 "ParentThemeId": theme_request["id"],
@@ -181,7 +184,7 @@ class QuestionsMode(ModeUtil):
         result += self.__show_sub_themes(id)
         return result
 
-    def __is_user_online(self, id):
+    def __is_user_registerd(self, id):
         return self._users[id] is not None
 
     def __get_response(self, id, question: str):
@@ -191,26 +194,27 @@ class QuestionsMode(ModeUtil):
         sub_theme_id = self.__get_sub_node_id(question, user["sub_themes"])
         if sub_theme_id is not None:
             self.__load_theme(id, sub_theme_id)
-            return self._bot_event(self.__ask_for_action(id))
+            return self._bot_event(id, self.__ask_for_action(id))
         card_id = self.__get_sub_node_id(question, user["cards"])
         if card_id is not None:
             card = self.__get_card_by_id(card_id)
-            return self._bot_event(self.__show_card(card))
-        return self._bot_event("Entschuldigung, ich habe Sie nicht verstanden.")
+            return self._bot_event(id, self.__show_card(card))
+        return self._bot_event(id, "Entschuldigung, ich habe Sie nicht verstanden.")
 
     # Events
     def __on_question(self, event: dict):
         load = self.get_load(event)
-        username = load["username"]
-        if self.__is_user_online(username):
-            return self.__get_response(username, load["question"])
-        return self._bot_event("Benutzer: \"" + username + "\" ist nicht angemeldet!")
+        id = event["ID"]
+        if self.__is_user_registerd(id):
+            return self.__get_response(id, load["question"])
+        return self._emit_error_event(id, "Benutzer: \"" + load["username"] + "\" ist nicht angemeldet!")
 
     def __on_new_user(self, event: dict):
         load = self.get_load(event)
-        self._users[load["username"]] = self.__create_new_user(load["username"])
-        quest = self.__ask_for_action(load["username"])
-        return self._bot_event("Hallo {}, ich bin Quickpot+-\n{}".format(load["username"], quest))
+        event_id = event["ID"]
+        self._users[event_id] = self.__create_new_user(event_id, load["username"])
+        response_message = self.__ask_for_action(event["ID"])
+        return self._bot_event(event_id, "Hallo {}, ich bin Quickpot+-\n{}".format(load["username"], response_message))
 
     def get_load(self, event):
         return event["load"]
@@ -254,33 +258,9 @@ class Qwickpot:
         }
 
     def __trigger_mode(self, event: dict):
-        mode_message = self.__modes[self.__active_mode].get_bot_answer(event)
-        return self.__create_event("bot_answer", mode_message)
+        return self.__modes[self.__active_mode].get_bot_answer(event)
 
     def trigger_bot(self, event: dict):
         if event["event_type"] == "change_mode":
             return self.__change_mode(event["load"])
         return self.__trigger_mode(event)
-
-
-# test dummy:
-bot = Qwickpot("q")
-
-
-def test_bot():
-    msg = {
-        "event_type": "new_user",
-        "load": {"username": "chucky"}
-    }
-    print(bot.trigger_bot(msg))
-    question = ""
-    while "kill" != question:
-        question = input("-> ")
-        msg = {
-            "event_type": "question",
-            "load": {"username": "chucky", "question": question}
-        }
-        print(bot.trigger_bot(msg))
-
-
-test_bot()
