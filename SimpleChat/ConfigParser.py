@@ -11,13 +11,13 @@ class ConfigParser:
             return
 
     def get_address(self, lines):
-        if lines["server"]["address"]:
-            return lines["server"]["address"]
+        if lines["config"]["address"]:
+            return lines["config"]["address"]
         else:
             return "0.0.0.0"
 
     def get_port(self, lines):
-        if lines["server"]["port"]:
-            return lines["server"]["port"]
+        if lines["config"]["port"]:
+            return lines["config"]["port"]
         else:
             return "8080"
