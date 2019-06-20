@@ -1,14 +1,14 @@
 import yaml
 
 class ConfigParser:
-    def read_file(self, filename):
+    def __init__(self, filename):
         try:
             with open(filename, 'r') as ymlfile:
                 cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
-                return cfg
+                self.cfg = cfg
         except FileNotFoundError:
             print("Can't find or open file")
-            return
+            self.cfg = {}
 
     def get_address(self, cfg):
         if cfg["config"]["address"]:

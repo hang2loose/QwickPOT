@@ -19,8 +19,8 @@ class WebSocketServer:
             eventlet.wsgi.server(eventlet.listen((address, port)), app)
 
 
-configurator = ConfigParser()
-config = configurator.read_file("server-config.yml")
+configurator = ConfigParser("server-config.yml")
+config = configurator.cfg
 
 web_Server = WebSocketServer()
 web_Server.start_on_port(configurator.get_address(config), configurator.get_port(config))
