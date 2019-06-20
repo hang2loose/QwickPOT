@@ -5,10 +5,13 @@ class ConfigParser:
         try:
             with open(filename, 'r') as ymlfile:
                 cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
-                self.cfg = cfg
+                self.__cfg = cfg
         except FileNotFoundError:
             print("Can't find or open file, using default (0.0.0.0:8080)")
             self.cfg = {'config': {'address': '0.0.0.0', 'port': 8080}}
+
+    def get_config(self):
+        return self.__cfg
 
     def get_address(self, cfg):
         if cfg["config"]["address"]:
