@@ -36,7 +36,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     log.info("starting import");
     if (themeRepository.count() == 0L) {
       try {
-        deparmentService.addNewDepartment("dummyDepartmenrt");
+        addDepartments();
         initDataFromCSV();
       } catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -53,4 +53,10 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         .orElseThrow(() -> new IllegalArgumentException("Import Failure no CSV Found")));
   }
 
+  private void addDepartments() {
+    deparmentService.addNewDepartment("Projektmanagement");
+    deparmentService.addNewDepartment("Operations/Planung");
+    deparmentService.addNewDepartment("Strategie");
+    deparmentService.addNewDepartment("Projektleiter-Pool");
+  }
 }
