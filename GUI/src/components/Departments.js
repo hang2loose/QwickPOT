@@ -1,6 +1,7 @@
 import React from 'react';
+import Config from '../config/config'
 
-const API = 'http://localhost:9090/getAllDepartmentNames';
+const API = Config["data-service"].api + "getAllDepartmentNames";
 
 class Departments extends React.Component {
 

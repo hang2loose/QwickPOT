@@ -1,0 +1,9 @@
+{
+  "chatserver": {
+    "address": "localhost",
+    "port": "8080"
+  },
+  "data-service": {
+    "api": "http://localhost:9090/"
+  }
+}
