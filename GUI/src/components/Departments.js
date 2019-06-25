@@ -1,5 +1,5 @@
 import React from 'react';
-import Config from '../config/config.json'
+import Config from '../config/config'
 
 const API = Config["data-service"].api;
 
