@@ -1,3 +1,3 @@
 config:
-  address: data-service
+  address: localhost
   port: 9090
