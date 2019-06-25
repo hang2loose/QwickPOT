@@ -4,7 +4,11 @@ import Clients.Bot.Qwickpot as Quickpot
 from ConfigParser import ConfigParser
 
 sio = socketio.Client()
-bot = Quickpot.Qwickpot("q")
+
+bot_configurator = ConfigParser("qwickpot-config.yml")
+bot_config = bot_configurator.get_config()
+
+bot = Quickpot.Qwickpot("q", bot_config)
 
 
 @sio.event

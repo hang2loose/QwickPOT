@@ -38,8 +38,8 @@ class ModeUtil:
 
 
 class DummyMode(ModeUtil):
-    def __init__(self, service_address: str):
-        self.__servie_address = "http://{}:9090".format(service_address)
+    def __init__(self, service_address: str, port):
+        self.__servie_address = "http://{}:{}".format(service_address, port)
         self.__connected_restpoints = {
             "chucky": RestHandler(self.__servie_address, "chucky")
         }
@@ -61,8 +61,8 @@ class DummyMode(ModeUtil):
 
 class QuestionsMode(ModeUtil):
 
-    def __init__(self, service_address: str):
-        self.__servie_address = "http://{}:9090".format(service_address)
+    def __init__(self, service_address: str, port):
+        self.__servie_address = "http://{}:{}".format(service_address, port)
         self.__connected_restpoints = {
             "theme_name": RestHandler(self.__servie_address, "getThemeByName"),
             "theme_id": RestHandler(self.__servie_address, "getThemeById"),
@@ -225,8 +225,8 @@ class QuestionsMode(ModeUtil):
 
 class StatsMode:
 
-    def __init__(self, service_address: str):
-        self.servie_address = "http://{}:9090".format(service_address)
+    def __init__(self, service_address: str, port):
+        self.servie_address = "http://{}:{}".format(service_address, port)
         self.connected_restpoints = {}
 
     def get_bot_answer(self, msg):
@@ -235,11 +235,11 @@ class StatsMode:
 
 class Qwickpot:
 
-    def __init__(self, start_mode):
+    def __init__(self, start_mode, config):
         self.__modes = {
-            "d": DummyMode("data-service"),
-            "q": QuestionsMode("data-service"),
-            "s": StatsMode("data-service")
+            "d": DummyMode(config["config"]["address"], config["config"]["port"]),
+            "q": QuestionsMode(config["config"]["address"], config["config"]["port"]),
+            "s": StatsMode(config["config"]["address"], config["config"]["port"])
         }
         self.__active_mode = "d"
         if start_mode in self.__modes:
