@@ -14,10 +14,11 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import InputBar from "./InputBar";
-import ChatWindow from "./ChatWindow";
-import ListElements from "./ListElements";
-import io from "socket.io-client";
+import InputBar from './InputBar';
+import ChatWindow from './ChatWindow';
+import ListElements from './ListElements';
+import Config from '../config/config';
+import io from 'socket.io-client';
 
 const drawerWidth = 240;
 
@@ -99,7 +100,7 @@ class Dashboard extends React.Component {
             messages: [],
         };
 
-        this.socket = io('localhost:8080').connect();
+        this.socket = io(Config.chatserver.address + ':' + Config.chatserver.port).connect();
         this.socket.emit('user_on_connect', {
             event_type: 'new_user',
             load: {
