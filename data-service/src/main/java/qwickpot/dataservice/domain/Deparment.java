@@ -1,5 +1,6 @@
 package qwickpot.dataservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Map;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -30,16 +31,17 @@ public class Deparment {
   public Deparment() {
   }
 
-  public Deparment(String name) {
-    this.name = name;
-  }
-
+  @JsonIgnore
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "themes_called_by_departments",
       joinColumns = @JoinColumn(name = "department_id"))
   @MapKeyJoinColumn(name = "theme_id")
   @Column(name = "count")
   private Map<Long, Integer> themesCalled;
+
+  public Deparment(String name) {
+    this.name = name;
+  }
 
   public void incrementThemeStat(Theme theme) {
     themesCalled.merge(theme.getId(), 1, Integer::sum);

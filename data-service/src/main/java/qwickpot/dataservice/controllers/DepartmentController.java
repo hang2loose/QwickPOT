@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import qwickpot.dataservice.domain.Deparment;
 import qwickpot.dataservice.services.DeparmentService;
 
 @RestController
@@ -24,7 +25,7 @@ public class DepartmentController {
 
   @CrossOrigin
   @GetMapping("/getAllDepartmentNames")
-  public List<String> getAllDepartmentsNames() {
-    return deparmentService.getListOfDepartmentNames();
+  public List<Deparment> getAllDepartmentsNames() {
+    return deparmentService.getListOfDepartmentsWithIds();
   }
 }
