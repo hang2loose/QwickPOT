@@ -49,12 +49,16 @@ class SignIn extends React.Component {
         this.state = {
             error: null,
             department: '',
-            departments: ['buildAll']
+            departments: []
         };
 
         fetch(Config["data-service"].api + "getAllDepartmentNames")
         .then(response => response.json())
-        .then(data => this.setState({departments: data}));
+        .then(data => this.setState({departments: data}),
+                error => this.setState({
+                    error: error,
+                    departments: ['buildAll']
+                }));
 
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
@@ -78,6 +82,8 @@ class SignIn extends React.Component {
     render() {
 
         const {classes} = this.props;
+
+        if (this.state.error) console.log(this.state.error);
 
         return (
             <main className={classes.main}>
