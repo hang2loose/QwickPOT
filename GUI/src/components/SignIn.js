@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Logo from '../images/logo.png'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Departments from './Departments';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
@@ -40,25 +41,20 @@ const styles = theme => ({
     },
 });
 
-const departments = [
-    'Projektmanagement',
-    'Operations/Planung',
-    'Strategie',
-    'Projektleiter-Pool'
-];
-
 class SignIn extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            department: ''
+            department: '',
+            departments: []
         };
 
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
         this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
+        this.departmentsGET = this.departmentsGET.bind(this);
     }
 
     usernameChangeHandler = (event) => {
@@ -70,11 +66,15 @@ class SignIn extends React.Component {
         this.setState({ department: event.target.value });
     };
 
+    departmentsGET = (GET) => {
+        this.setState({departments: GET});
+        console.log(this.state.departments);
+    };
+
     usernameSubmitHandler = (event) => {
         event.preventDefault();
         this.props.submittedCheck();
     };
-
 
     render() {
 
@@ -83,6 +83,7 @@ class SignIn extends React.Component {
         return (
             <main className={classes.main}>
                 <CssBaseline/>
+                <Departments departmentsGET={this.departmentsGET}/>
                 <Paper className={classes.paper}>
                     <Avatar src={Logo} className={classes.avatar} />
                     <Typography component="h1" variant="h5">
@@ -113,7 +114,7 @@ class SignIn extends React.Component {
                             }}
                         >
                             <option />
-                            {departments.map(option => (
+                            {this.state.departments.map(option => (
                                 <option key={option} value={option}>
                                     {option}
                                 </option>
