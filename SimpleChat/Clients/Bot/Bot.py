@@ -1,6 +1,7 @@
 import socketio
 
 import Clients.Bot.Qwickpot as Quickpot
+from ConfigParser import ConfigParser
 
 sio = socketio.Client()
 bot = Quickpot.Qwickpot("q")
@@ -34,5 +35,8 @@ def create_message(message):
     return message
 
 
-sio.connect('http://localhost:8080')
+configurator = ConfigParser("bot-config.yml")
+config = configurator.get_config()
+
+sio.connect('http://' + str(configurator.get_address(config)) + ":" + str(configurator.get_port(config)))
 sio.wait()
