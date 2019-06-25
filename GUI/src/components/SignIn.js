@@ -48,7 +48,7 @@ class SignIn extends React.Component {
 
         this.state = {
             error: null,
-            department: {},
+            department: '',
             departments: []
         };
 
@@ -77,20 +77,12 @@ class SignIn extends React.Component {
             entry => entry.department_id.toString() === event.target.value
         );
 
-        console.log(departmentObject);
-
         this.props.onDepartmentChange(
             departmentObject.department_id,
             departmentObject.department_name
         );
 
-        this.setState({ department: {
-                id: departmentObject.department_id,
-                name: departmentObject.department_name
-            }
-        });
-
-        console.log(this.state.department);
+        this.setState({department: departmentObject.department_id});
 
     };
 
@@ -131,7 +123,7 @@ class SignIn extends React.Component {
                             margin="normal"
                             variant="outlined"
                             label="Abteilung"
-                            value={this.state.department.name}
+                            value={this.state.department.id}
                             onChange={this.departmentChangeHandler}
                             SelectProps={{
                                 native: true
