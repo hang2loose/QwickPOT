@@ -1,9 +1,14 @@
 import socketio
 
 import Clients.Bot.Qwickpot as Quickpot
+from ConfigParser import ConfigParser
 
 sio = socketio.Client()
-bot = Quickpot.Qwickpot("q")
+
+bot_configurator = ConfigParser("qwickpot-config.yml")
+bot_config = bot_configurator.get_config()
+
+bot = Quickpot.Qwickpot("q", bot_config)
 
 
 @sio.event
@@ -34,5 +39,8 @@ def create_message(message):
     return message
 
 
-sio.connect('http://chatserver:8080')
+configurator = ConfigParser("bot-config.yml")
+config = configurator.get_config()
+
+sio.connect('http://' + str(config["config"]["address"]) + ":" + str(config["config"]["port"]))
 sio.wait()

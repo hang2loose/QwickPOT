@@ -23,4 +23,4 @@ configurator = ConfigParser("server-config.yml")
 config = configurator.get_config()
 
 web_Server = WebSocketServer()
-web_Server.start_on_port(configurator.get_address(config), configurator.get_port(config))
+web_Server.start_on_port(config["config"]["address"], config["config"]["port"])
