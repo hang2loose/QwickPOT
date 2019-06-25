@@ -1,6 +1,7 @@
 package qwickpot.dataservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -24,12 +25,11 @@ public class Deparment {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonProperty("department_id")
   private Long id;
 
+  @JsonProperty("department_name")
   private String name;
-
-  public Deparment() {
-  }
 
   @JsonIgnore
   @ElementCollection(fetch = FetchType.EAGER)
@@ -38,6 +38,9 @@ public class Deparment {
   @MapKeyJoinColumn(name = "theme_id")
   @Column(name = "count")
   private Map<Long, Integer> themesCalled;
+
+  public Deparment() {
+  }
 
   public Deparment(String name) {
     this.name = name;
