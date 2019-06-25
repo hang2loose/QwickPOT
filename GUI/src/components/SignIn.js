@@ -57,7 +57,10 @@ class SignIn extends React.Component {
         .then(data => this.setState({departments: data}),
                 error => this.setState({
                     error: error,
-                    departments: ['buildAll']
+                    departments: [{
+                        department_id: null,
+                        department_name: 'buildAll'
+                    }]
                 }));
 
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
@@ -83,6 +86,7 @@ class SignIn extends React.Component {
 
         const {classes} = this.props;
 
+        console.log(this.state.departments);
         if (this.state.error) console.log(this.state.error);
 
         return (
@@ -119,8 +123,8 @@ class SignIn extends React.Component {
                         >
                             <option />
                             {this.state.departments.map(option => (
-                                <option key={option} value={option}>
-                                    {option}
+                                <option key={option.department_id} value={option.department_name}>
+                                    {option.department_name}
                                 </option>
                             ))}
                         </TextField>
