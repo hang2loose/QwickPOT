@@ -38,5 +38,5 @@ def create_message(message):
 configurator = ConfigParser("bot-config.yml")
 config = configurator.get_config()
 
-sio.connect('http://' + str(configurator.get_address(config)) + ":" + str(configurator.get_port(config)))
+sio.connect('http://' + str(config["config"]["address"]) + ":" + str(config["config"]["port"]))
 sio.wait()
