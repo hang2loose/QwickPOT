@@ -8,5 +8,6 @@ RUN pip install python-socketio
 RUN pip install eventlet
 
 COPY WebSocketServer.py .
+COPY EventHandler.py ./Server/
 
 CMD [ "python", "./WebSocketServer.py" ]

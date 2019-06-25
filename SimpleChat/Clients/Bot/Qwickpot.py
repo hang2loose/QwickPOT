@@ -237,9 +237,9 @@ class Qwickpot:
 
     def __init__(self, start_mode):
         self.__modes = {
-            "d": DummyMode("localhost"),
-            "q": QuestionsMode("localhost"),
-            "s": StatsMode("localhost")
+            "d": DummyMode("data-service"),
+            "q": QuestionsMode("data-service"),
+            "s": StatsMode("data-service")
         }
         self.__active_mode = "d"
         if start_mode in self.__modes:
