@@ -74,8 +74,10 @@ class SignIn extends React.Component {
 
     departmentChangeHandler = (event) => {
         const departmentObject = this.state.departments.find(
-            entry => entry.department_id == event.target.value
+            entry => entry.department_id.toString() === event.target.value
         );
+
+        console.log(departmentObject);
 
         this.props.onDepartmentChange(
             departmentObject.department_id,
@@ -87,6 +89,9 @@ class SignIn extends React.Component {
                 name: departmentObject.department_name
             }
         });
+
+        console.log(this.state.department);
+
     };
 
     usernameSubmitHandler = (event) => {
