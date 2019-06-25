@@ -48,7 +48,7 @@ class SignIn extends React.Component {
 
         this.state = {
             error: null,
-            department: '',
+            department: {},
             departments: []
         };
 
@@ -73,8 +73,20 @@ class SignIn extends React.Component {
     };
 
     departmentChangeHandler = (event) => {
-        this.props.onDepartmentChange(event.target.value);
-        this.setState({ department: event.target.value });
+        const departmentObject = this.state.departments.find(
+            entry => entry.department_id == event.target.value
+        );
+
+        this.props.onDepartmentChange(
+            departmentObject.department_id,
+            departmentObject.department_name
+        );
+
+        this.setState({ department: {
+                id: departmentObject.department_id,
+                name: departmentObject.department_name
+            }
+        });
     };
 
     usernameSubmitHandler = (event) => {
@@ -86,7 +98,6 @@ class SignIn extends React.Component {
 
         const {classes} = this.props;
 
-        console.log(this.state.departments);
         if (this.state.error) console.log(this.state.error);
 
         return (
@@ -115,7 +126,7 @@ class SignIn extends React.Component {
                             margin="normal"
                             variant="outlined"
                             label="Abteilung"
-                            value={this.state.department}
+                            value={this.state.department.name}
                             onChange={this.departmentChangeHandler}
                             SelectProps={{
                                 native: true
@@ -123,7 +134,7 @@ class SignIn extends React.Component {
                         >
                             <option />
                             {this.state.departments.map(option => (
-                                <option key={option.department_id} value={option.department_name}>
+                                <option key={option.department_id} value={option.department_id}>
                                     {option.department_name}
                                 </option>
                             ))}
