@@ -1,4 +1,5 @@
-from Clients.Bot.Qwickpot import Qwickpot
+from SimpleChat.Clients.Bot.Qwickpot import Qwickpot
+from SimpleChat.ConfigParser import ConfigParser
 
 
 class TestBot:
@@ -18,5 +19,7 @@ class TestBot:
             bot.trigger_bot(msg)
 
 
-bot = Qwickpot("q")
+configurator = ConfigParser("qwickpot-config.yml")
+config = configurator.get_config()
+bot = Qwickpot("q", config)
 TestBot().test_bot(bot)
