@@ -58,7 +58,7 @@ class SignIn extends React.Component {
                 error => this.setState({
                     error: error,
                     departments: [{
-                        department_id: null,
+                        department_id: 'null',
                         department_name: 'buildAll'
                     }]
                 }));
@@ -123,7 +123,7 @@ class SignIn extends React.Component {
                             margin="normal"
                             variant="outlined"
                             label="Abteilung"
-                            value={this.state.department.id}
+                            value={this.state.department}
                             onChange={this.departmentChangeHandler}
                             SelectProps={{
                                 native: true
