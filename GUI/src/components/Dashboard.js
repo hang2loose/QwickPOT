@@ -126,7 +126,6 @@ class Dashboard extends React.Component {
         };
 
         if(messageObject.message !== '') {
-            console.log(messageObject.department);
             this.socket.emit('user_send', {
                 event_type: 'question',
                 load: {
