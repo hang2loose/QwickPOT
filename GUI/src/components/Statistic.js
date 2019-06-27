@@ -134,19 +134,19 @@ let EnhancedTableToolbar = props => {
             </div>
             <div className={classes.spacer} />
             <div className={classes.actions}>
-
+                <Tooltip title="Abteilungen" disableFocusListener disableTouchListener>
                     <IconButton aria-label="Abteilungen"
                                 aria-owns={props.anchorEl ? 'department-menu' : undefined}
                                 aria-haspopup="true"
-                                onClick={props.handleDepartmentMenu}
+                                onClick={props.openDepartmentMenu}
                     >
                         <FilterListIcon />
                     </IconButton>
-
+                </Tooltip>
                 <Menu id="department-menu"
                       anchorEl={props.anchorEl}
                       open={Boolean(props.anchorEl)}
-                      onClose={props.departmentChangeHandler}
+                      onClose={props.closeDepartmentMenu}
                 >
                     {props.departments.map(option => (
                         <MenuItem key={option.department_id}
@@ -215,22 +215,24 @@ class EnhancedTable extends React.Component {
         .then(data => this.setState({departments: data}),
             error => this.setState({
                 error: error,
-                departments: [{
-                    department_id: 'null',
-                    department_name: 'buildAll'
-                }]
             }));
 
-        this.handleDepartmentMenu = this.handleDepartmentMenu.bind(this);
+        this.openDepartmentMenu = this.openDepartmentMenu.bind(this);
+        this.closeDepartmentMenu = this.closeDepartmentMenu.bind(this);
         this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
         this.handleRequestSort = this.handleRequestSort.bind(this);
         this.handleChangePage = this.handleChangePage.bind(this);
         this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
     };
 
-    handleDepartmentMenu = (event) => {
-        console.log(event.currentTarget);
-        this.setState({ anchorEl: event.currentTarget });
+    openDepartmentMenu = (event) => {
+        this.state.error ?
+            this.setState({anchorEl: null}) :
+            this.setState({ anchorEl: event.currentTarget })
+    };
+
+    closeDepartmentMenu = (event) => {
+        this.setState({ anchorEl: null });
     };
 
     departmentChangeHandler = (event) => {
@@ -276,7 +278,8 @@ class EnhancedTable extends React.Component {
                 <EnhancedTableToolbar department={this.state.department}
                                       departments={this.state.departments}
                                       anchorEl={this.state.anchorEl}
-                                      handleDepartmentMenu={this.handleDepartmentMenu}
+                                      openDepartmentMenu={this.openDepartmentMenu}
+                                      closeDepartmentMenu={this.closeDepartmentMenu}
                                       departmentChangeHandler={this.departmentChangeHandler}
                 />
                 <div className={classes.tableWrapper}>
