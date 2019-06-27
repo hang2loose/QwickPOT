@@ -65,7 +65,7 @@ class QuestionsMode(ModeUtil):
         self.__servie_address = "http://{}:{}".format(service_address, port)
         self.__connected_restpoints = {
             "theme_name": RestHandler(self.__servie_address, "getThemeByName"),
-            "theme_id": RestHandler(self.__servie_address, "getThemeByID"),
+            "theme_id": RestHandler(self.__servie_address, "getThemeById"),
             "card_id": RestHandler(self.__servie_address, "getCardById"),
         }
         self.__subscribed_events = ("new_user", "error", "question", "user_disconnected")
