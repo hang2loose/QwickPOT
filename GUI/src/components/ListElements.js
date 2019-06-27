@@ -3,7 +3,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import SettingsIcon from '@material-ui/icons/Settings';
+import TimelineIcon from '@material-ui/icons/Timeline';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
@@ -32,9 +32,9 @@ class ListElements extends React.Component {
                 </ListItem>
                 <ListItem button>
                     <ListItemIcon>
-                        <SettingsIcon className={classes.iconTap}/>
+                        <TimelineIcon className={classes.iconTap}/>
                     </ListItemIcon>
-                    <ListItemText primary="Settings" />
+                    <ListItemText primary="Statistik" />
                 </ListItem>
             </div>
         );
