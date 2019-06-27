@@ -21,7 +21,7 @@ class ListElements extends React.Component {
 
         return (
             <div>
-                <ListItem button>
+                <ListItem button onClick={() => this.props.changeViewComponent('chat')}>
                     <ListItemIcon>
                         <Avatar aria-label={this.props.username} className={classes.avatar}>
                             {this.props.username[0]}
@@ -30,7 +30,7 @@ class ListElements extends React.Component {
                     <ListItemText primary={this.props.username}
                                   secondary={this.props.department}/>
                 </ListItem>
-                <ListItem button>
+                <ListItem button onClick={() => this.props.changeViewComponent('statistic')}>
                     <ListItemIcon>
                         <TimelineIcon className={classes.iconTap}/>
                     </ListItemIcon>

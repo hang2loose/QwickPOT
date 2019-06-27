@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             open: false,
-            view_component: 'statistic',
+            viewComponent: 'chat',
             messages: [],
         };
 
@@ -106,11 +106,16 @@ class Dashboard extends React.Component {
         this.addMessage = this.addMessage.bind(this);
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
+        this.changeViewComponent = this.changeViewComponent.bind(this);
 
         this.socket.on('user_receive', message => {
             this.addMessage(message);
         });
     }
+
+    changeViewComponent = (value) => {
+        this.setState({viewComponent: value})
+    };
 
     sendHandler = (message) => {
         const messageObject = {
@@ -146,7 +151,7 @@ class Dashboard extends React.Component {
     };
 
     componentDidUpdate() {
-        if(this.state.view_component === 'chat') {
+        if(this.state.viewComponent === 'chat') {
             this.forceToBottom.current.scrollIntoView(false);
         }
     }
@@ -205,11 +210,13 @@ class Dashboard extends React.Component {
                     <Divider />
                     <List>
                         <ListElements username={this.props.username}
-                                      department={this.props.department}/>
+                                      department={this.props.department}
+                                      changeViewComponent={this.changeViewComponent}
+                        />
                     </List>
                 </Drawer>
-                <Content messages={this.state.messages}
-                         viewComponent={this.state.view_component}
+                <Content viewComponent={this.state.viewComponent}
+                         messages={this.state.messages}
                          sendHandler={this.sendHandler}
                          forceToBottom={this.forceToBottom}
                 />
