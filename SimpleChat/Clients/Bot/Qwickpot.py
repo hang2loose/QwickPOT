@@ -90,8 +90,11 @@ class QuestionsMode(ModeUtil):
             return request.json()
         print("Request Error")
 
-    def __get_card_by_id(self, card_id: str):
-        request = self.__connected_restpoints["card_id"].call_endpoint({"Card Id": card_id})
+    def __get_card_by_id(self, card_id: str, department_id=None):
+        if department_id is None:
+            request = self.__connected_restpoints["card_id"].call_endpoint({"Card Id": card_id})
+        else:
+            request = self.__connected_restpoints["card_id"].call_endpoint({"Card Id": card_id, "Department Id": department_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
@@ -201,7 +204,10 @@ class QuestionsMode(ModeUtil):
             return self._bot_event(id, self.__ask_for_action(id))
         card_id = self.__get_sub_node_id(question, user["cards"])
         if card_id is not None:
-            card = self.__get_card_by_id(card_id)
+            if "department_id" in user:
+                card = self.__get_card_by_id(card_id, int(user["department_id"]))
+            else:
+                card = self.__get_card_by_id(card_id)
             return self._bot_event(id, self.__show_card(card))
         return self._bot_event(id, "Entschuldigung, ich habe Sie nicht verstanden.")
 
