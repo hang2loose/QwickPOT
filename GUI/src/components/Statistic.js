@@ -173,7 +173,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit + 50,
     },
     table: {
-        minWidth: 1020,
+        minWidth: 384,
     },
     tableWrapper: {
         overflowX: 'auto',
@@ -231,7 +231,7 @@ class EnhancedTable extends React.Component {
             this.setState({ anchorEl: event.currentTarget })
     };
 
-    closeDepartmentMenu = (event) => {
+    closeDepartmentMenu = () => {
         this.setState({ anchorEl: null });
     };
 
