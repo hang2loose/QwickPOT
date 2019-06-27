@@ -96,18 +96,21 @@ class QuestionsMode(ModeUtil):
             return request.json()
         print("Request Error")
 
-    def __create_new_user(self, id, username):
+    def __create_new_user(self, id, load: dict):
         theme_request = self.__get_theme_by_name("rootTheme")
-        return {"id": id,
-                "name": username,
-                "currentThemeId": theme_request["id"],
-                "currentTheme": theme_request["name"],
-                "ParentThemeId": theme_request["id"],
-                "sub_themes": self.__convert_sub_nodes(theme_request["subThemes"]),
-                "cards": self.__convert_sub_nodes(theme_request["cards"]),
-                "numeration_to_sub_node": {},
-                "sub_node_to_numeration": {}
-                }
+        new_user = {"id": id,
+                    "name": load["username"],
+                    "currentThemeId": theme_request["id"],
+                    "currentTheme": theme_request["name"],
+                    "ParentThemeId": theme_request["id"],
+                    "sub_themes": self.__convert_sub_nodes(theme_request["subThemes"]),
+                    "cards": self.__convert_sub_nodes(theme_request["cards"]),
+                    "numeration_to_sub_node": {},
+                    "sub_node_to_numeration": {}
+                    }
+        if "departmentId" in load:
+            new_user["department_id"] = load["departmentId"]
+        return new_user
 
     def __load_theme(self, id, theme_id):
         user = self._users[id]
@@ -213,7 +216,7 @@ class QuestionsMode(ModeUtil):
     def __on_new_user(self, event: dict):
         load = self.get_load(event)
         event_id = event["ID"]
-        self._users[event_id] = self.__create_new_user(event_id, load["username"])
+        self._users[event_id] = self.__create_new_user(event_id, load)
         response_message = self.__ask_for_action(event["ID"])
         return self._bot_event(event_id, "Hallo {}, ich bin Quickpot+-\n{}".format(load["username"], response_message))
 
