@@ -28,7 +28,7 @@ class ListElements extends React.Component {
                         </Avatar>
                     </ListItemIcon>
                     <ListItemText primary={this.props.username}
-                                  secondary={this.props.department}/>
+                                  secondary={this.props.department.name}/>
                 </ListItem>
                 <ListItem button onClick={() => this.props.changeViewComponent('statistic')}>
                     <ListItemIcon>
@@ -43,7 +43,7 @@ class ListElements extends React.Component {
 
 ListElements.defaultProps = {
     username: '',
-    department: '',
+    department: {},
 };
 
 ListElements.propTypes = {
