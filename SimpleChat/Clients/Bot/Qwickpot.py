@@ -68,11 +68,12 @@ class QuestionsMode(ModeUtil):
             "theme_id": RestHandler(self.__servie_address, "getThemeById"),
             "card_id": RestHandler(self.__servie_address, "getCardById"),
         }
-        self.__subscribed_events = ("new_user", "error", "question")
+        self.__subscribed_events = ("new_user", "error", "question", "user_disconnected")
         self.__event_handler = {
             "new_user": self.__on_new_user,
             "question": self.__on_question,
-            "error": self._emit_error_event(id, "error")
+            "error": self._emit_error_event(id, "error"),
+            "user_disconnected": self.__on_user_disconnected
         }
 
         self._users = {}
@@ -215,6 +216,10 @@ class QuestionsMode(ModeUtil):
         self._users[event_id] = self.__create_new_user(event_id, load["username"])
         response_message = self.__ask_for_action(event["ID"])
         return self._bot_event(event_id, "Hallo {}, ich bin Quickpot+-\n{}".format(load["username"], response_message))
+
+    def __on_user_disconnected(self, event: dict):
+        if self.__is_user_registerd(event["ID"]):
+            del self._users[event["ID"]]
 
     def get_load(self, event):
         return event["load"]
