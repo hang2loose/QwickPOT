@@ -2,6 +2,7 @@
   "ID": "id",
   "event_type": "new_user",
   "load": {
-    "username": "username"
+    "username": "username",
+    "departmentId": "did"
   }
 }
