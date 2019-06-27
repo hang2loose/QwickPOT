@@ -1,4 +1,5 @@
-from Clients.Bot.Qwickpot import Qwickpot
+from SimpleChat.Clients.Bot.Qwickpot import Qwickpot
+from SimpleChat.ConfigParser import ConfigParser
 
 
 class TestBot:
@@ -16,7 +17,14 @@ class TestBot:
                 "ID": '7c4eca676b884610b5e2321bc2045889'
             }
             bot.trigger_bot(msg)
+        msg = {
+            "ID": "7c4eca676b884610b5e2321bc2045889",
+            "event_type": "user_disconnected"
+        }
+        bot.trigger_bot(msg)
 
 
-bot = Qwickpot("q")
+configurator = ConfigParser("qwickpot-config.yml")
+config = configurator.get_config()
+bot = Qwickpot("q", config)
 TestBot().test_bot(bot)
