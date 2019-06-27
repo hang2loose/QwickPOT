@@ -12,9 +12,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import InputBar from './InputBar';
-import ChatWindow from './ChatWindow';
 import ListElements from './ListElements';
+import Content from './Content';
 import Config from '../config/config';
 import io from 'socket.io-client';
 
@@ -80,12 +79,6 @@ const styles = theme => ({
         },
     },
     appBarSpacer: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing.unit * 3,
-        height: '100vh',
-        overflow: 'auto',
-    },
 
 });
 
@@ -95,6 +88,7 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             open: false,
+            view_component: 'statistic',
             messages: [],
         };
 
@@ -152,7 +146,9 @@ class Dashboard extends React.Component {
     };
 
     componentDidUpdate() {
-        this.forceToBottom.current.scrollIntoView(false);
+        if(this.state.view_component === 'chat') {
+            this.forceToBottom.current.scrollIntoView(false);
+        }
     }
 
     render() {
@@ -212,11 +208,11 @@ class Dashboard extends React.Component {
                                       department={this.props.department}/>
                     </List>
                 </Drawer>
-                <main className={classes.content} >
-                    <ChatWindow messages = {this.state.messages} />
-                    <InputBar onSend = {this.sendHandler}
-                              toBottom={this.forceToBottom}/>
-                </main>
+                <Content messages={this.state.messages}
+                         viewComponent={this.state.view_component}
+                         sendHandler={this.sendHandler}
+                         forceToBottom={this.forceToBottom}
+                />
             </div>
         );
     }
