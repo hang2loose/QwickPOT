@@ -219,6 +219,7 @@ class Dashboard extends React.Component {
                          messages={this.state.messages}
                          sendHandler={this.sendHandler}
                          forceToBottom={this.forceToBottom}
+                         department={this.props.department}
                 />
             </div>
         );
