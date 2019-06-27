@@ -65,7 +65,7 @@ class QuestionsMode(ModeUtil):
         self.__servie_address = "http://{}:{}".format(service_address, port)
         self.__connected_restpoints = {
             "theme_name": RestHandler(self.__servie_address, "getThemeByName"),
-            "theme_id": RestHandler(self.__servie_address, "getThemeById"),
+            "theme_id": RestHandler(self.__servie_address, "getThemeByID"),
             "card_id": RestHandler(self.__servie_address, "getCardById"),
         }
         self.__subscribed_events = ("new_user", "error", "question", "user_disconnected")
@@ -91,7 +91,7 @@ class QuestionsMode(ModeUtil):
         print("Request Error")
 
     def __get_card_by_id(self, card_id: str):
-        request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id})
+        request = self.__connected_restpoints["card_id"].call_endpoint({"Card Id": card_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
