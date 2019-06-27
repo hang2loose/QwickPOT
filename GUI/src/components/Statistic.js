@@ -15,6 +15,9 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Config from "../config/config";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 let counter = 0;
 function createData(name, count) {
@@ -131,11 +134,28 @@ let EnhancedTableToolbar = props => {
             </div>
             <div className={classes.spacer} />
             <div className={classes.actions}>
-                    <Tooltip title="Abteilungen">
-                        <IconButton aria-label="Abteilungen">
-                            <FilterListIcon />
-                        </IconButton>
-                    </Tooltip>
+
+                    <IconButton aria-label="Abteilungen"
+                                aria-owns={props.anchorEl ? 'department-menu' : undefined}
+                                aria-haspopup="true"
+                                onClick={props.handleDepartmentMenu}
+                    >
+                        <FilterListIcon />
+                    </IconButton>
+
+                <Menu id="department-menu"
+                      anchorEl={props.anchorEl}
+                      open={Boolean(props.anchorEl)}
+                      onClose={props.departmentChangeHandler}
+                >
+                    {props.departments.map(option => (
+                        <MenuItem key={option.department_id}
+                                  value={option.department_id}
+                                  onClick={props.departmentChangeHandler}>
+                            {option.department_name}
+                        </MenuItem>
+                    ))}
+                </Menu>
             </div>
         </Toolbar>
     );
@@ -184,7 +204,47 @@ class EnhancedTable extends React.Component {
             ],
             page: 0,
             rowsPerPage: 5,
-        }
+            department: this.props.department,
+            departments: [],
+            error: '',
+            anchorEl: null
+        };
+
+        fetch(Config["data-service"].api + "DepartmentController/getAllDepartmentNames")
+        .then(response => response.json())
+        .then(data => this.setState({departments: data}),
+            error => this.setState({
+                error: error,
+                departments: [{
+                    department_id: 'null',
+                    department_name: 'buildAll'
+                }]
+            }));
+
+        this.handleDepartmentMenu = this.handleDepartmentMenu.bind(this);
+        this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
+        this.handleRequestSort = this.handleRequestSort.bind(this);
+        this.handleChangePage = this.handleChangePage.bind(this);
+        this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
+    };
+
+    handleDepartmentMenu = (event) => {
+        console.log(event.currentTarget);
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+    departmentChangeHandler = (event) => {
+        const departmentObject = this.state.departments.find(
+            entry => entry.department_id === event.target.value
+        );
+
+        this.setState({
+            department: {
+                    name: departmentObject.department_name,
+                    id: departmentObject.department_id
+                },
+            anchorEl: null
+        });
     };
 
     handleRequestSort = (event, property) => {
@@ -213,7 +273,12 @@ class EnhancedTable extends React.Component {
 
         return (
             <Paper className={classes.root}>
-                <EnhancedTableToolbar department={this.props.department} />
+                <EnhancedTableToolbar department={this.state.department}
+                                      departments={this.state.departments}
+                                      anchorEl={this.state.anchorEl}
+                                      handleDepartmentMenu={this.handleDepartmentMenu}
+                                      departmentChangeHandler={this.departmentChangeHandler}
+                />
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
