@@ -52,7 +52,7 @@ class SignIn extends React.Component {
             departments: []
         };
 
-        fetch(Config["data-service"].api + "getAllDepartmentNames")
+        fetch(Config["data-service"].api + "DepartmentController/getAllDepartmentNames")
         .then(response => response.json())
         .then(data => this.setState({departments: data}),
                 error => this.setState({
