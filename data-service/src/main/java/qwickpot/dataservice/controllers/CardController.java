@@ -33,6 +33,7 @@ public class CardController {
     if (departmentId != null) {
       log.info("incrementing Stat for ThemeID: {} in DepartmentID {}", cardId, departmentId);
       statService.addStatWithFromCard(departmentId, cardId);
+      statService.safeCalltoStatistic(departmentId, cardId);
     }
     return CardDto.convertToDtoFromEntity(cardService.getCardFromRepo(cardId));
   }
