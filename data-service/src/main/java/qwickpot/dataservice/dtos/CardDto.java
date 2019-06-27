@@ -1,5 +1,7 @@
 package qwickpot.dataservice.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +11,7 @@ import qwickpot.dataservice.dtos.builder.ThemeDtoBuilder;
 
 @Setter
 @Getter
+@JsonInclude(Include.NON_NULL)
 public class CardDto implements Serializable {
 
   private Long id;
