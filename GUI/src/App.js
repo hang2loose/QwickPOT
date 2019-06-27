@@ -7,7 +7,7 @@ class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            department: '',
+            department: {},
             username: '',
             submitted: false,
         };
@@ -25,8 +25,12 @@ class App extends React.Component{
         this.setState({username: input})
     };
 
-    onDepartmentChange = (input) => {
-        this.setState({department: input})
+    onDepartmentChange = (id, value) => {
+        this.setState({department: {
+                id: id,
+                name: value
+            }
+        })
     };
 
     render() {

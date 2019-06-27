@@ -121,7 +121,7 @@ class Dashboard extends React.Component {
     sendHandler = (message) => {
         const messageObject = {
             username: this.props.username,
-            department: this.props.department,
+            department: this.props.department.id,
             message,
         };
 
@@ -224,7 +224,7 @@ class Dashboard extends React.Component {
 
 Dashboard.defaultProps = {
     username: '',
-    department: ''
+    department: {}
 };
 
 Dashboard.propTypes = {
