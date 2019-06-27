@@ -32,7 +32,7 @@ class Content extends React.Component {
             case 'statistic':
                 return (
                     <main className={classes.content} >
-                        <Statistic />
+                        <Statistic department={this.props.department}/>
                     </main>
                 );
         }
