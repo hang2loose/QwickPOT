@@ -15,9 +15,9 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import Config from "../config/config";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import Config from '../config/config';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 let counter = 0;
 function createData(name, count) {
@@ -73,7 +73,7 @@ class EnhancedTableHead extends React.Component {
                                 sortDirection={orderBy === row.id ? order : false}
                             >
                                 <Tooltip
-                                    title="Sortieren"
+                                    title='Sortieren'
                                     placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                                     enterDelay={300}
                                 >
@@ -125,25 +125,25 @@ let EnhancedTableToolbar = props => {
             className={classNames(classes.root)}
         >
             <div className={classes.title}>
-                    <Typography variant="title" id="tableTitle">
+                    <Typography variant='title' id='tableTitle'>
                         {props.department.name}
                     </Typography>
-                    <Typography variant="caption">
+                    <Typography variant='caption'>
                         {'Erfasst seit 2019'}
                     </Typography>
             </div>
             <div className={classes.spacer} />
             <div className={classes.actions}>
-                <Tooltip title="Abteilungen" disableFocusListener disableTouchListener>
-                    <IconButton aria-label="Abteilungen"
+                <Tooltip title='Abteilungen' disableFocusListener disableTouchListener>
+                    <IconButton aria-label='Abteilungen'
                                 aria-owns={props.anchorEl ? 'department-menu' : undefined}
-                                aria-haspopup="true"
+                                aria-haspopup='true'
                                 onClick={props.openDepartmentMenu}
                     >
                         <FilterListIcon />
                     </IconButton>
                 </Tooltip>
-                <Menu id="department-menu"
+                <Menu id='department-menu'
                       anchorEl={props.anchorEl}
                       open={Boolean(props.anchorEl)}
                       onClose={props.closeDepartmentMenu}
@@ -210,7 +210,7 @@ class EnhancedTable extends React.Component {
             anchorEl: null
         };
 
-        fetch(Config["data-service"].api + "DepartmentController/getAllDepartmentNames")
+        fetch(Config['data-service'].api + 'DepartmentController/getAllDepartmentNames')
         .then(response => response.json())
         .then(data => this.setState({departments: data}),
             error => this.setState({
@@ -247,6 +247,11 @@ class EnhancedTable extends React.Component {
                 },
             anchorEl: null
         });
+
+        /* Fetch Stats here and setState for data[]
+        fetch(Config['data-service'].api + 'getDepartmentStatsById?department_id=this.state.department.id')
+        .then(response => response.json())
+        .then(data => this.setState({data: [data.forEach{}]}));*/
     };
 
     handleRequestSort = (event, property) => {
@@ -283,7 +288,7 @@ class EnhancedTable extends React.Component {
                                       departmentChangeHandler={this.departmentChangeHandler}
                 />
                 <div className={classes.tableWrapper}>
-                    <Table className={classes.table} aria-labelledby="tableTitle">
+                    <Table className={classes.table} aria-labelledby='tableTitle'>
                         <EnhancedTableHead
                             order={order}
                             orderBy={orderBy}
@@ -298,7 +303,7 @@ class EnhancedTable extends React.Component {
                                         <TableCell>
                                             {value.name}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell align='right'>
                                             {value.count}
                                         </TableCell>
                                     </TableRow>
@@ -314,7 +319,7 @@ class EnhancedTable extends React.Component {
                 </div>
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
+                    component='div'
                     count={data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
