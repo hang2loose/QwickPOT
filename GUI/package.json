@@ -5,12 +5,13 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "classnames": "latest",
     "prop-types": "latest",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "socket.io-client": "^2.2.0",
-    "classnames": "latest"
+    "typeface-roboto": "0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",
