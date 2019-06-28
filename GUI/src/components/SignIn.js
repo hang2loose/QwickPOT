@@ -8,7 +8,6 @@ import Logo from '../images/logo.png'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Config from '../config/config'
-import 'typeface-roboto';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({

@@ -16,7 +16,6 @@ import ListElements from './ListElements';
 import Content from './Content';
 import Config from '../config/config';
 import io from 'socket.io-client';
-import 'typeface-roboto';
 
 const drawerWidth = 240;
 
