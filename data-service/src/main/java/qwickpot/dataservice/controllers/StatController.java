@@ -1,6 +1,5 @@
 package qwickpot.dataservice.controllers;
 
-import java.time.LocalDate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +22,4 @@ public class StatController {
     return statService.getStatisticsFromDepartmentId(departmentId);
   }
 
-  @GetMapping("/fof")
-  public LocalDate fof() {
-    return LocalDate.now();
-  }
 }
