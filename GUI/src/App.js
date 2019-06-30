@@ -1,4 +1,5 @@
 import React from 'react';
+import 'typeface-roboto';
 import SignIn from './components/SignIn';
 import Dashboard from './components/Dashboard'
 import './App.css';
