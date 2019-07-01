@@ -2,6 +2,7 @@ package qwickpot.dataservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDateTime;
 import java.util.Map;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.MapKeyJoinColumn;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Slf4j
 @Entity
@@ -38,6 +40,9 @@ public class Deparment {
   @MapKeyJoinColumn(name = "theme_id")
   @Column(name = "count")
   private Map<Long, Integer> themesCalled;
+
+  @CreationTimestamp
+  private LocalDateTime creationDate;
 
   public Deparment() {
   }

@@ -32,4 +32,5 @@ public class StatPost {
     this.deparmentId = deparment.getId();
     this.themeId = card.getTheme().getId();
   }
+
 }
