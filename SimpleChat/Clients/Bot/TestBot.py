@@ -9,7 +9,7 @@ class TestBot:
                         'departmentId': '1'
                         },
                'ID': '7c4eca676b884610b5e2321bc2045889'}
-        bot.trigger_bot(msg)
+        print(bot.trigger_bot(msg))
         question = ""
         while "kill" != question:
             question = input("-> ")
@@ -18,12 +18,12 @@ class TestBot:
                 "load": {"username": "chucky", "question": question},
                 "ID": '7c4eca676b884610b5e2321bc2045889'
             }
-            bot.trigger_bot(msg)
+            print(bot.trigger_bot(msg))
         msg = {
             "ID": "7c4eca676b884610b5e2321bc2045889",
             "event_type": "user_disconnected"
         }
-        bot.trigger_bot(msg)
+        print(bot.trigger_bot(msg))
 
 
 configurator = ConfigParser("qwickpot-config.yml")
