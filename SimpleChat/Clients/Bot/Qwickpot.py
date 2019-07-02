@@ -92,9 +92,9 @@ class QuestionsMode(ModeUtil):
 
     def __get_card_by_id(self, card_id: str, department_id=None):
         if department_id is None:
-            request = self.__connected_restpoints["card_id"].call_endpoint({"Card Id": card_id})
+            request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id})
         else:
-            request = self.__connected_restpoints["card_id"].call_endpoint({"Card Id": card_id, "Department Id": department_id})
+            request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id, "Department Id": department_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
@@ -103,8 +103,8 @@ class QuestionsMode(ModeUtil):
         theme_request = self.__get_theme_by_name("rootTheme")
         new_user = {"id": id,
                     "name": load["username"],
-                    "currentThemeId": theme_request["id"],
-                    "currentTheme": theme_request["name"],
+                    "currentNodeId": theme_request["id"],
+                    "currentNode": theme_request["name"],
                     "ParentThemeId": theme_request["id"],
                     "sub_themes": self.__convert_sub_nodes(theme_request["subThemes"]),
                     "cards": self.__convert_sub_nodes(theme_request["cards"]),
@@ -119,9 +119,9 @@ class QuestionsMode(ModeUtil):
     def __load_theme(self, id, theme_id):
         user = self._users[id]
         theme_request = self.__get_theme_by_id(theme_id)
-        user["ParentThemeId"] = user["currentThemeId"]
-        user["currentThemeId"] = theme_request["id"]
-        user["currentTheme"] = theme_request["name"]
+        user["ParentThemeId"] = user["currentNodeId"]
+        user["currentNodeId"] = theme_request["id"]
+        user["currentNode"] = theme_request["name"]
         user["sub_themes"] = self.__convert_sub_nodes(theme_request["subThemes"])
         user["cards"] = self.__convert_sub_nodes(theme_request["cards"])
         user["numeration_to_sub_node"] = {}
@@ -133,9 +133,9 @@ class QuestionsMode(ModeUtil):
             card = self.__get_card_by_id(card_id, int(user["department_id"]))
         else:
             card = self.__get_card_by_id(card_id)
-        user["ParentThemeId"] = user["currentThemeId"]
-        user["currentThemeId"] = card["id"]
-        user["currentTheme"] = card["name"]
+        user["ParentThemeId"] = user["currentNodeId"]
+        user["currentNodeId"] = card["id"]
+        user["currentNode"] = card["name"]
         user["sub_themes"] = None
         user["cards"] = None
         user["options"] = {self.OPT_CARD_HELPED: 'Ja', self.OPT_CARD_NOT_HELPED: 'Nein'}
@@ -151,7 +151,7 @@ class QuestionsMode(ModeUtil):
 
     def __show_curr_theme(self, id):
         user = self._users[id]
-        result = user["currentTheme"]
+        result = user["currentNode"]
         return result
 
     def __show_sub_themes(self, id):
@@ -241,7 +241,8 @@ class QuestionsMode(ModeUtil):
         self.__load_theme(id, root_theme_id)
         return self._bot_event(id, self.__ask_for_action(id))
 
-    def __say_thank_you(self):
+    def __say_thank_you(self, id):
+        self._users[id]["options"] = {}
         return "Dankeschön, dass Sie Quickpot+- verwendet haben. \nViel Spaß mit Ihrem Projekt!"
 
     def __is_user_registerd(self, id):
@@ -260,7 +261,7 @@ class QuestionsMode(ModeUtil):
         if self.OPT_RETRY == option:
             return self.__restart(id)
         if self.OPT_NO_RETRY == option:
-            return self.__say_thank_you()
+            return self.__say_thank_you(id)
 
     def __get_response(self, id, question: str):
         user = self._users[id]

@@ -2,7 +2,7 @@ version: '3'
 
 services:
   data-service:
-    image: "hang2loose/qwickpot-data-service:1.0"
+    image: "hang2loose/qwickpot-data-service:3.0"
     container_name: "data-service"
     ports:
       - "9090:9090"
