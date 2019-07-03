@@ -160,7 +160,7 @@ class Dashboard extends React.Component {
         const { classes } = this.props;
 
         // Debug Console Log
-        // console.log(this.state.messages);
+        console.log(this.state.messages);
 
         return (
             <div className={classes.root}>

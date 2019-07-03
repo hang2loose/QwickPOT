@@ -275,8 +275,6 @@ class EnhancedTable extends React.Component {
         const { classes } = this.props;
         const { data, order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-        console.log(this.state.data);
-        console.log(this.state.department);
 
         return (
             <Paper className={classes.root}>
