@@ -1,5 +1,6 @@
 package qwickpot.dataservice.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ public class StatController {
   }
 
   @GetMapping("/GetStatsFromDepartment")
+  @CrossOrigin
   public StatDto getStatsFromDepartment(@RequestParam(name = "departmenId") Long departmentId) {
     return statService.getStatisticsFromDepartmentId(departmentId);
   }
