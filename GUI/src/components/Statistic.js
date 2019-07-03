@@ -187,24 +187,20 @@ class EnhancedTable extends React.Component {
         this.state = {
             order: 'asc',
             orderBy: 'name',
-            dataFetch: {},
-            data: [],
             page: 0,
             rowsPerPage: 5,
+            data: [],
             department: this.props.department,
             departments: [],
-            error: '',
+            departmentDate: '',
             anchorEl: null,
-            departmentDate: ''
+            error: ''
         };
 
         fetch(Config['data-service'].api + 'DepartmentController/getAllDepartmentNames')
         .then(response => response.json())
         .then(data => this.setState({departments: data}),
-            error => this.setState({
-                error: error,
-            }));
-
+            error => this.setState({error: error}));
 
         this.fetchData = this.fetchData.bind(this);
         this.openDepartmentMenu = this.openDepartmentMenu.bind(this);
@@ -221,22 +217,14 @@ class EnhancedTable extends React.Component {
             + this.state.department.id)
         .then(response => response.json())
         .then(data => this.setState({
-            dataFetch: data["statMap"],
+            data: Object.keys(data["statMap"])
+            .map(name => createData(name, data["statMap"][name])),
             departmentDate: data["creationDate"]
-        }))
+        }));
     };
 
     componentDidMount() {
-        this.fetchData();
-
-        console.log(this.state.dataFetch);
-        console.log(this.state.departmentDate);
-
-        Object.keys(this.state.dataFetch)
-        .forEach(key => this.setState(prevState => (
-            {data: [...prevState.data, createData(key, this.state.dataFetch[key])]}
-            ))
-        );
+        this.fetchData()
     }
 
     openDepartmentMenu = (event) => {
@@ -254,31 +242,14 @@ class EnhancedTable extends React.Component {
             entry => entry.department_id === event.target.value
         );
 
-        console.log(departmentObject);
-
         this.setState({
             department: {
                     name: departmentObject.department_name,
                     id: departmentObject.department_id
                 },
             anchorEl: null,
-            data: [],
-            dataFetch: {},
-            departmentDate: ''
-        });
+        }, () => this.fetchData());
 
-        this.fetchData();
-
-        console.log(this.state.departmentDate);
-        console.log(this.state.dataFetch);
-
-        Object.keys(this.state.dataFetch)
-        .forEach(key => this.setState( prevState => (
-            {data: [...prevState.data, createData(key, this.state.dataFetch[key])]}
-            ))
-        );
-
-        console.log(this.state.data)
     };
 
     handleRequestSort = (event, property) => {
@@ -304,6 +275,8 @@ class EnhancedTable extends React.Component {
         const { classes } = this.props;
         const { data, order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+        console.log(this.state.data);
+        console.log(this.state.department);
 
         return (
             <Paper className={classes.root}>
