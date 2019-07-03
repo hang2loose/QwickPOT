@@ -273,9 +273,9 @@ class EnhancedTable extends React.Component {
         console.log(this.state.dataFetch);
 
         Object.keys(this.state.dataFetch)
-        .forEach(key => this.setState(
-            {data: [createData(key, this.state.dataFetch[key])]}
-            )
+        .forEach(key => this.setState( prevState => (
+            {data: [...prevState.data, createData(key, this.state.dataFetch[key])]}
+            ))
         );
 
         console.log(this.state.data)
