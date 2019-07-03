@@ -205,14 +205,6 @@ class EnhancedTable extends React.Component {
                 error: error,
             }));
 
-        /*fetch(Config['data-service'].api + 'StatsController/GetStatsFromDepartment?departmenId=' + this.state.department.id)
-        .then(response => response.json())
-        .then(data =>  Object.keys(data.statMap)
-            .forEach(key => this.setState(
-                {data: [createData(key, data.statMap[key])]}
-                )
-            )
-        );*/
 
         this.fetchData = this.fetchData.bind(this);
         this.openDepartmentMenu = this.openDepartmentMenu.bind(this);
@@ -223,14 +215,14 @@ class EnhancedTable extends React.Component {
         this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
     };
 
-    fetchData = async () => {
-        await fetch(Config['data-service'].api
+    fetchData = () => {
+        fetch(Config['data-service'].api
             + 'StatsController/GetStatsFromDepartment?departmenId='
             + this.state.department.id)
         .then(response => response.json())
         .then(data => this.setState({
-            dataFetch: data.statMap,
-            departmentDate: data.creationDate
+            dataFetch: data["statMap"],
+            departmentDate: data["creationDate"]
         }))
     };
 
@@ -238,6 +230,7 @@ class EnhancedTable extends React.Component {
         this.fetchData();
 
         console.log(this.state.dataFetch);
+        console.log(this.state.departmentDate);
 
         Object.keys(this.state.dataFetch)
         .forEach(key => this.setState(
@@ -261,17 +254,22 @@ class EnhancedTable extends React.Component {
             entry => entry.department_id === event.target.value
         );
 
+        console.log(departmentObject);
+
         this.setState({
             department: {
                     name: departmentObject.department_name,
                     id: departmentObject.department_id
                 },
             anchorEl: null,
-            data: []
+            data: [],
+            dataFetch: {},
+            departmentDate: ''
         });
 
         this.fetchData();
 
+        console.log(this.state.departmentDate);
         console.log(this.state.dataFetch);
 
         Object.keys(this.state.dataFetch)
