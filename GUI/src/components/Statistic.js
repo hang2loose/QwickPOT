@@ -129,7 +129,7 @@ let EnhancedTableToolbar = props => {
                         {props.department.name}
                     </Typography>
                     <Typography variant='caption'>
-                        {'Erfasst seit 2019'}
+                        {'Erfasst seit ' + props.departmentDate}
                     </Typography>
             </div>
             <div className={classes.spacer} />
@@ -187,36 +187,22 @@ class EnhancedTable extends React.Component {
         this.state = {
             order: 'asc',
             orderBy: 'name',
-            data: [
-                createData('Cupcake', 305),
-                createData('Donut', 452),
-                createData('Eclair', 262),
-                createData('Frozen yoghurt', 159),
-                createData('Gingerbread', 356),
-                createData('Honeycomb', 408),
-                createData('Ice cream sandwich', 237),
-                createData('Jelly Bean', 375),
-                createData('KitKat', 518),
-                createData('Lollipop', 392),
-                createData('Marshmallow', 318),
-                createData('Nougat', 360),
-                createData('Oreo', 437),
-            ],
             page: 0,
             rowsPerPage: 5,
+            data: [],
             department: this.props.department,
             departments: [],
-            error: '',
-            anchorEl: null
+            departmentDate: '',
+            anchorEl: null,
+            error: ''
         };
 
         fetch(Config['data-service'].api + 'DepartmentController/getAllDepartmentNames')
         .then(response => response.json())
         .then(data => this.setState({departments: data}),
-            error => this.setState({
-                error: error,
-            }));
+            error => this.setState({error: error}));
 
+        this.fetchData = this.fetchData.bind(this);
         this.openDepartmentMenu = this.openDepartmentMenu.bind(this);
         this.closeDepartmentMenu = this.closeDepartmentMenu.bind(this);
         this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
@@ -224,6 +210,22 @@ class EnhancedTable extends React.Component {
         this.handleChangePage = this.handleChangePage.bind(this);
         this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
     };
+
+    fetchData = () => {
+        fetch(Config['data-service'].api
+            + 'StatsController/GetStatsFromDepartment?departmenId='
+            + this.state.department.id)
+        .then(response => response.json())
+        .then(data => this.setState({
+            data: Object.keys(data["statMap"])
+            .map(name => createData(name, data["statMap"][name])),
+            departmentDate: data["creationDate"]
+        }));
+    };
+
+    componentDidMount() {
+        this.fetchData()
+    }
 
     openDepartmentMenu = (event) => {
         this.state.error ?
@@ -245,13 +247,9 @@ class EnhancedTable extends React.Component {
                     name: departmentObject.department_name,
                     id: departmentObject.department_id
                 },
-            anchorEl: null
-        });
+            anchorEl: null,
+        }, () => this.fetchData());
 
-        /* Fetch Stats here and setState for data[]
-        fetch(Config['data-service'].api + 'getDepartmentStatsById?department_id=this.state.department.id')
-        .then(response => response.json())
-        .then(data => this.setState({data: [data.forEach{}]}));*/
     };
 
     handleRequestSort = (event, property) => {
@@ -282,6 +280,7 @@ class EnhancedTable extends React.Component {
             <Paper className={classes.root}>
                 <EnhancedTableToolbar department={this.state.department}
                                       departments={this.state.departments}
+                                      departmentDate={this.state.departmentDate}
                                       anchorEl={this.state.anchorEl}
                                       openDepartmentMenu={this.openDepartmentMenu}
                                       closeDepartmentMenu={this.closeDepartmentMenu}
