@@ -62,8 +62,7 @@ class SignIn extends React.Component {
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
         this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
-        this.departmentChangeMenuElement = this.departmentChangeMenuElement.bind(
-            this);
+        this.departmentChangeMenuElement = this.departmentChangeMenuElement.bind(this);
     }
 
     usernameChangeHandler = (event) => {
