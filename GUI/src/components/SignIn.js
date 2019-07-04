@@ -99,18 +99,10 @@ class SignIn extends React.Component {
                     variant="outlined"
                     label="Abteilung"
                     value={this.state.department}
-                    onChange={this.departmentChangeHandler}
                     SelectProps={{
                         native: true
                     }}
-                >
-                    {this.state.departments.map(option => (
-                        <option key={option.department_id}
-                                value={option.department_id}>
-                            {option.department_name}
-                        </option>
-                    ))}
-                </TextField>
+                />
             )
         } else {
             return (
