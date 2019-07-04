@@ -62,6 +62,8 @@ class SignIn extends React.Component {
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
         this.departmentChangeHandler = this.departmentChangeHandler.bind(this);
+        this.departmentChangeMenuElement = this.departmentChangeMenuElement.bind(
+            this);
     }
 
     usernameChangeHandler = (event) => {
@@ -85,6 +87,56 @@ class SignIn extends React.Component {
     usernameSubmitHandler = (event) => {
         event.preventDefault();
         this.props.submittedCheck();
+    };
+
+    departmentChangeMenuElement = () => {
+        if (this.state.error) {
+            return (
+                < TextField
+                    select
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                    label="Abteilung"
+                    value={this.state.department}
+                    onChange={this.departmentChangeHandler}
+                    SelectProps={{
+                        native: true
+                    }}
+                >
+                    {this.state.departments.map(option => (
+                        <option key={option.department_id}
+                                value={option.department_id}>
+                            {option.department_name}
+                        </option>
+                    ))}
+                </TextField>
+            )
+        } else {
+            return (
+                < TextField
+                    select
+                    required
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                    label="Abteilung"
+                    value={this.state.department}
+                    onChange={this.departmentChangeHandler}
+                    SelectProps={{
+                        native: true
+                    }}
+                >
+                    <option/>
+                    {this.state.departments.map(option => (
+                        <option key={option.department_id}
+                                value={option.department_id}>
+                            {option.department_name}
+                        </option>
+                    ))}
+                </TextField>
+            )
+        }
     };
 
     render() {
@@ -114,48 +166,7 @@ class SignIn extends React.Component {
                             onChange={this.usernameChangeHandler}
                             autoFocus
                         />
-                        {this.state.error ?
-                            < TextField
-                                select
-                                fullWidth
-                                margin="normal"
-                                variant="outlined"
-                                label="Abteilung"
-                                value={this.state.department}
-                                onChange={this.departmentChangeHandler}
-                                SelectProps={{
-                                    native: true
-                                }}
-                            >
-                                {this.state.departments.map(option => (
-                                    <option key={option.department_id}
-                                            value={option.department_id}>
-                                        {option.department_name}
-                                    </option>
-                                ))}
-                            </TextField> :
-                            < TextField
-                                select
-                                required
-                                fullWidth
-                                margin="normal"
-                                variant="outlined"
-                                label="Abteilung"
-                                value={this.state.department}
-                                onChange={this.departmentChangeHandler}
-                                SelectProps={{
-                                    native: true
-                                }}
-                            >
-                                <option/>
-                                {this.state.departments.map(option => (
-                                    <option key={option.department_id}
-                                            value={option.department_id}>
-                                        {option.department_name}
-                                    </option>
-                                ))}
-                            </TextField>
-                        }
+                        {this.departmentChangeMenuElement()}
                         <Button
                             type="submit"
                             fullWidth
