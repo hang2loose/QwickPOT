@@ -91,10 +91,7 @@ class QuestionsMode(ModeUtil):
         print("Request Error")
 
     def __get_card_by_id(self, card_id: str, department_id=None):
-        if department_id is None:
-            request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id})
-        else:
-            request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id, "Department Id": department_id})
+        request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id, "Department Id": department_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
