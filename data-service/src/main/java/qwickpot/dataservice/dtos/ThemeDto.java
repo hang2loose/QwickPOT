@@ -1,5 +1,7 @@
 package qwickpot.dataservice.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +13,7 @@ import qwickpot.dataservice.dtos.builder.ThemeDtoBuilder;
 
 @Getter
 @Setter
+@JsonInclude(Include.NON_NULL)
 public class ThemeDto implements Serializable {
 
   private Long id;

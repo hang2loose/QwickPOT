@@ -52,12 +52,15 @@ class SignIn extends React.Component {
             departments: []
         };
 
-        fetch(Config["data-service"].api + "getAllDepartmentNames")
+        fetch(Config["data-service"].api + "DepartmentController/getAllDepartmentNames")
         .then(response => response.json())
         .then(data => this.setState({departments: data}),
                 error => this.setState({
                     error: error,
-                    departments: ['buildAll']
+                    departments: [{
+                        department_id: 'null',
+                        department_name: 'buildAll'
+                    }]
                 }));
 
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
@@ -70,8 +73,17 @@ class SignIn extends React.Component {
     };
 
     departmentChangeHandler = (event) => {
-        this.props.onDepartmentChange(event.target.value);
-        this.setState({ department: event.target.value });
+        const departmentObject = this.state.departments.find(
+            entry => entry.department_id.toString() === event.target.value
+        );
+
+        this.props.onDepartmentChange(
+            departmentObject.department_id,
+            departmentObject.department_name
+        );
+
+        this.setState({department: departmentObject.department_id});
+
     };
 
     usernameSubmitHandler = (event) => {
@@ -119,8 +131,8 @@ class SignIn extends React.Component {
                         >
                             <option />
                             {this.state.departments.map(option => (
-                                <option key={option} value={option}>
-                                    {option}
+                                <option key={option.department_id} value={option.department_id}>
+                                    {option.department_name}
                                 </option>
                             ))}
                         </TextField>

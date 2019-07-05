@@ -40,6 +40,10 @@ public class ThemeService {
         .forEachRemaining(line -> themeRepository.save(convertFromCsv(line)));
   }
 
+  protected String getThemeNameFromId(Long themeId) {
+    return getThemeFromRepo(themeId).getName();
+  }
+
   private Theme convertFromCsv(List<String> csvLine) {
     Long id = Long.getLong(csvLine.get(0));
     Theme theme = id == null ? new Theme() : getThemeFromRepo(id);
