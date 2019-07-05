@@ -1,9 +1,15 @@
 package qwickpot.dataservice.controllers;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import qwickpot.dataservice.dtos.StatDto;
 import qwickpot.dataservice.services.StatService;
 
+@RestController
+@RequestMapping("/StatsController")
 public class StatController {
 
   private StatService statService;
@@ -12,11 +18,10 @@ public class StatController {
     this.statService = statService;
   }
 
-  @PostMapping("/incrementThemeCount")
-  public void incrementThemeCount(
-      @RequestParam(name = "Department Id") Long departmentId,
-      @RequestParam(name = "Theme Id") Long themeId) {
-    statService.addStatWithTheme(departmentId, themeId);
+  @GetMapping("/GetStatsFromDepartment")
+  @CrossOrigin
+  public StatDto getStatsFromDepartment(@RequestParam(name = "departmenId") Long departmentId) {
+    return statService.getStatisticsFromDepartmentId(departmentId);
   }
 
 }

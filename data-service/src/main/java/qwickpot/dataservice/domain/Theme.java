@@ -18,7 +18,7 @@ import lombok.Setter;
 public class Theme {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
 
