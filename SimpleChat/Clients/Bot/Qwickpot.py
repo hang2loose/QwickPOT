@@ -148,8 +148,7 @@ class QuestionsMode(ModeUtil):
 
     def __show_curr_theme(self, id):
         user = self._users[id]
-        result = user["currentNode"]
-        return result
+        return user["currentNode"]
 
     def __show_sub_themes(self, id):
         return self.__show_sub_nodes(id, "sub_themes")
