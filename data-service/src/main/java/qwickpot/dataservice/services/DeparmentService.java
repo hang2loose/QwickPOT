@@ -40,7 +40,7 @@ public class DeparmentService {
     departmentRepository.save(deparment);
   }
 
-  public List<Deparment> getListOfDepartmentsWithIds() {
+  public List<Deparment> getListOfDepartments() {
     return departmentRepository.findAll();
   }
 }

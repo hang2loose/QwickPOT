@@ -28,6 +28,6 @@ public class DepartmentController {
   @CrossOrigin
   @GetMapping("/getAllDepartmentNames")
   public List<Deparment> getAllDepartmentsNames() {
-    return deparmentService.getListOfDepartmentsWithIds();
+    return deparmentService.getListOfDepartments();
   }
 }

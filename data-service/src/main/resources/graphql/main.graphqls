@@ -1,0 +1,26 @@
+type Query {
+    getCard(cardId: ID!): Card
+    getTheme(themeId: ID!): Theme
+    getDepartments: [Department]
+}
+
+type Card {
+    id: Int
+    name: String
+    description: String
+    Theme: Theme
+}
+
+type Theme {
+    id: ID!
+    name: String
+    parentTheme: Theme
+    subThemes: [Theme]
+    cards: [Card]
+}
+
+type Department {
+    id: ID!
+    name: String
+    creationDate: String
+}

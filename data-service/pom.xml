@@ -22,6 +22,7 @@
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle.version>8.18</checkstyle.version>
     <imageTag>latest</imageTag>
+    <graphql.kickstart.version>5.9.0</graphql.kickstart.version>
   </properties>
 
 
@@ -75,6 +76,29 @@
       <groupId>guru.springframework</groupId>
       <artifactId>chuck-norris-for-actuator</artifactId>
       <version>0.0.2</version>
+    </dependency>
+
+
+    <!--
+    GraphQL Java Kickstart
+ -->
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphql-spring-boot-starter</artifactId>
+      <version>${graphql.kickstart.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphiql-spring-boot-starter</artifactId>
+      <!-- subscriptions don't work in the current version -->
+      <version>5.0.6</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphql-spring-boot-starter-test</artifactId>
+      <version>${graphql.kickstart.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
