@@ -6,8 +6,9 @@ EXPOSE 8080
 
 RUN pip install python-socketio
 RUN pip install eventlet
+RUN pip install PyYaml
 
-COPY WebSocketServer.py .
-COPY EventHandler.py ./Server/
+COPY Server .
+COPY ConfigParser.py .
 
 CMD [ "python", "./WebSocketServer.py" ]

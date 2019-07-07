@@ -4,8 +4,9 @@ WORKDIR /usr/src/app
 
 RUN pip install requests
 RUN pip install python-socketio
+RUN pip install PyYaml
 
-COPY Qwickpot.py ./Clients/Bot/
-COPY Bot.py .
+COPY ConfigParser.py .
+COPY Clients/Bot .
 
 CMD [ "python", "./Bot.py"]
