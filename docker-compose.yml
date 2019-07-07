@@ -3,7 +3,7 @@ version: '3'
 services:
 
   chatserver:
-    image: "hang2loose/qwickpot-chatserver:03"
+    image: "hang2loose/qwickpot-chatserver:02"
     container_name: "chatserver"
     ports:
       - "8080:8080"
