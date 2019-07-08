@@ -219,8 +219,8 @@ class EnhancedTable extends React.Component {
         .then(data => this.setState({
             data: Object.keys(data["statMap"])
             .map(name => createData(name, data["statMap"][name])),
-            departmentDate: data["creationDate"]
-        }));
+            departmentDate: data["creationDate"]}))
+        .catch(error => console.log(error));
     };
 
     componentDidMount() {
