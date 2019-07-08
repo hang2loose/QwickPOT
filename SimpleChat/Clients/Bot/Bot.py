@@ -5,10 +5,8 @@ from ConfigParser import ConfigParser
 
 sio = socketio.Client()
 
-bot_configurator = ConfigParser("qwickpot-config.yml")
-bot_config = bot_configurator.get_config()
-
-bot = Quickpot.Qwickpot("q", bot_config)
+config = ConfigParser("bot-config.yml").get_config()
+bot = Quickpot.Qwickpot("q", config)
 
 
 @sio.event
@@ -39,8 +37,5 @@ def create_message(message):
     return message
 
 
-configurator = ConfigParser("bot-config.yml")
-config = configurator.get_config()
-
-sio.connect('http://' + str(config["config"]["address"]) + ":" + str(config["config"]["port"]))
+sio.connect('http://' + str(config["server"]["address"]) + ":" + str(config["server"]["port"]))
 sio.wait()
