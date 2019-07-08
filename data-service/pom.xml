@@ -21,8 +21,9 @@
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle.version>8.18</checkstyle.version>
-    <imageTag>latest</imageTag>
+    <imageTag>graphql</imageTag>
     <graphql.kickstart.version>5.9.0</graphql.kickstart.version>
+    <kotlin.version>1.3.10</kotlin.version>
   </properties>
 
 
@@ -79,26 +80,25 @@
     </dependency>
 
 
-    <!--
-    GraphQL Java Kickstart
- -->
+    <!--GraphQL Java Kickstart-->
     <dependency>
       <groupId>com.graphql-java-kickstart</groupId>
       <artifactId>graphql-spring-boot-starter</artifactId>
       <version>${graphql.kickstart.version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.graphql-java-kickstart</groupId>
-      <artifactId>graphiql-spring-boot-starter</artifactId>
-      <!-- subscriptions don't work in the current version -->
-      <version>5.0.6</version>
-      <scope>runtime</scope>
-    </dependency>
+
     <dependency>
       <groupId>com.graphql-java-kickstart</groupId>
       <artifactId>graphql-spring-boot-starter-test</artifactId>
       <version>${graphql.kickstart.version}</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphiql-spring-boot-starter</artifactId>
+      <version>5.0.6</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 

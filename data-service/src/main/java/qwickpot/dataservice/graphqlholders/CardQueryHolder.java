@@ -1,4 +1,4 @@
-package qwickpot.test;
+package qwickpot.dataservice.graphqlholders;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
