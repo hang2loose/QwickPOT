@@ -3,6 +3,6 @@
   "event_type": "new_user",
   "load": {
     "username": "username",
-    "departmentId": "did"
+    "department": "did"
   }
 }
