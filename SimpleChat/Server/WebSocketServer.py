@@ -1,8 +1,8 @@
 import eventlet
 import socketio
 
-from Server.EventHandler import EventHandler
 from ConfigParser import ConfigParser
+from Server.EventHandler import EventHandler
 
 
 class WebSocketServer:
@@ -23,4 +23,4 @@ configurator = ConfigParser("server-config.yml")
 config = configurator.get_config()
 
 web_Server = WebSocketServer()
-web_Server.start_on_port(config["config"]["address"], config["config"]["port"])
+web_Server.start_on_port(config["address"], config["port"])
