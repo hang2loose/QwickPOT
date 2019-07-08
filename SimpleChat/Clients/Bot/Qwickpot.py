@@ -301,23 +301,12 @@ class QuestionsMode(ModeUtil):
         return self._check_event_type(self.__subscribed_events, self.__event_handler, event)
 
 
-class StatsMode:
-
-    def __init__(self, service_address: str, port):
-        self.servie_address = "http://{}:{}".format(service_address, port)
-        self.connected_restpoints = {}
-
-    def get_bot_answer(self, msg):
-        return "Hello from Stats Mode"
-
-
 class Qwickpot:
 
     def __init__(self, start_mode, config):
         self.__modes = {
-            "d": DummyMode(config["config"]["address"], config["config"]["port"]),
-            "q": QuestionsMode(config["config"]["address"], config["config"]["port"]),
-            "s": StatsMode(config["config"]["address"], config["config"]["port"])
+            "d": DummyMode(config["data-service"]["address"], config["data-service"]["port"]),
+            "q": QuestionsMode(config["data-service"]["address"], config["data-service"]["port"]),
         }
         self.__active_mode = "d"
         if start_mode in self.__modes:
