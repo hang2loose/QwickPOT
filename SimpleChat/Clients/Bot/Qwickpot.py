@@ -235,7 +235,7 @@ class QuestionsMode(ModeUtil):
     def __restart(self, id):
         root_theme_id = 1
         self.__load_theme(id, root_theme_id)
-        return self._bot_event(id, self.__ask_for_action(id))
+        return self.__ask_for_action(id)
 
     def __say_thank_you(self, id):
         self._users[id]["options"] = {}
