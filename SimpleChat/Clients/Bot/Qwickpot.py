@@ -91,7 +91,8 @@ class QuestionsMode(ModeUtil):
         print("Request Error")
 
     def __get_card_by_id(self, card_id: str, department_id=None):
-        request = self.__connected_restpoints["card_id"].call_endpoint({"CardId": card_id, "Department Id": department_id})
+        request = self.__connected_restpoints["card_id"].call_endpoint(
+            {"CardId": card_id, "DepartmentId": department_id})
         if request.status_code is 200:
             return request.json()
         print("Request Error")
@@ -107,10 +108,11 @@ class QuestionsMode(ModeUtil):
                     "cards": self.__convert_sub_nodes(theme_request["cards"]),
                     "options": None,
                     "numeration_to_sub_node": {},
-                    "sub_node_to_numeration": {}
+                    "sub_node_to_numeration": {},
+                    "department_id": None
                     }
-        if "departmentId" in load:
-            new_user["department_id"] = load["departmentId"]
+        if "department" in load:
+            new_user["department_id"] = int(load["department"])
         return new_user
 
     def __load_theme(self, id, theme_id):
@@ -126,10 +128,7 @@ class QuestionsMode(ModeUtil):
 
     def __load_card(self, id, card_id):
         user = self._users[id]
-        if "department_id" in user:
-            card = self.__get_card_by_id(card_id, int(user["department_id"]))
-        else:
-            card = self.__get_card_by_id(card_id)
+        card = self.__get_card_by_id(card_id, user["department_id"])
         user["ParentThemeId"] = user["currentNodeId"]
         user["currentNodeId"] = card["id"]
         user["currentNode"] = card["name"]

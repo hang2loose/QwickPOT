@@ -96,7 +96,8 @@ class Dashboard extends React.Component {
         this.socket.emit('user_on_connect', {
             event_type: 'new_user',
             load: {
-                username: this.props.username
+                username: this.props.username,
+                department: this.props.department.id
             }
         });
 
