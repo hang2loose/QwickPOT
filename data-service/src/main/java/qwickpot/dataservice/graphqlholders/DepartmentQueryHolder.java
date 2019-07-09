@@ -18,7 +18,6 @@ public class DepartmentQueryHolder implements GraphQLQueryResolver {
   DeparmentService deparmentService;
 
   public List<Deparment> getDepartments() {
-    log.info("PIZZA");
     return deparmentService.getListOfDepartments();
   }
 }
