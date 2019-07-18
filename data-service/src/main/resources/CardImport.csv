@@ -1,9 +1,43 @@
-﻿ID;NAME;DESCRIPTION;THEME
+ID;NAME;DESCRIPTION;THEME
 ;Buendelung von Know-how;Experten aus verschiedenen Fachrichtungen kommen im Projekt zusammen und können ihr Wissen einbringen;Projektwirtschaft
 ;Arbeitsteilung ;Jeder der im Projekt mitarbeitet übernimmt Aufgaben, die seinem Fachwissen und Erfahrung entsprechen. Dadurch können einzelen Schritte parallel durchgeführt werden.;Projektwirtschaft
 ;definierter Auftrag;Der Projektauftrag muss klar sein und der Auftrag sollte klar abgegrenzt sein. ;Projektwirtschaft
 ;Projektspezifische Ablauf- und Aufbauorganisation;Für jedes Projekt gibt es bestimmte Regeln und Teamstrukturen. Diese regeln die Ansprechpartner, Abläufe und Entscheidungshierachien.;Projektwirtschaft
 ;Buendelung von Chancen auf dynamischen Märkten;Durch die Teamstrukturen können Entscheidungen getroffen und nötige Veränderunge bewirkt werden.;Projektwirtschaft
-;Projekt ist innovativ, ggf. komplex;Test 1;Abgrenzung des Projekts
-;definierter Auftrag;Test 2;Abgrenzung des Projekts
-;interdisziplinäres Team;Test 3;Abgrenzung des Projekts
+;Projekt ist innovativ, ggf. komplex;Da ein Projekt eine Veränderung schaffen soll, sind Projekte innovativ und in vielen Füllen auch komplex.;Abgrenzung des Projekts
+;definierter Auftrag;Der Projektauftrag sollte klar definiert sein. Hier bietet es sich an eine SMART- Formulierung des Ziels zu verwenden;Abgrenzung des Projekts
+;interdisziplinäres Team;Das Team besteht aus Mitgliedern aus verschiedenen Bereichen und Abteilungen. Jeder bringt sein Input ein und ist Experte auf seinem Gebiet;Abgrenzung des Projekts
+;spezielle Ablauforganisation;Im Team bestehen Regeln und Absprachen, die anders sein können als in der Hauptorganisation;Abgrenzung des Projekts
+;spezielle Aufbauforganisation;Im Team bestehen Teamstrukturen, die anders sein können als in der Hauptorganisation;Abgrenzung des Projekts
+;Ergebnisziele und Vorgehensziele sind erreicht;Sowohl die Ziele die das Projekt erreichen wollte, sowie die Ziele im Projekt wurden erreicht.;Projekterfolg
+;PM-Erfolg bedeutet Abwicklungs- und Anwendungs-Erfolg sind gegeben;Ein Projekt ist erfolgreich, wenn es von Stakeholdern in maßgeblichen Kriterien als Erfolg wahrgenommen wird!;Projekterfolg
+;Magisches Dreieck (Leistung-Termine Kosten);Ale Elemente im Dreieck hängen zusammen. Das Einhalten von 2 Elementen hat immer auch Auswirkungen auf die anderen Elemente.;Projekterfolg
+;Leistung;Der Leistungsumfang muss klar definiert sein und im Lastenheft festghalten werden.;Projekterfolg
+;Termine;Termine müssen klar defineirt sein und eingehalten werden. Können Termine nicht wahrgenommen werden, muss dies mit den betroffenen Stakeholdern besprochen werden.;Projekterfolg
+;Kosten;Mit Kosten sind alle nötigen Projekt Ressourcen gemeint. Also Finanzen, Arbeitszeit, Know-How usw.;Projekterfolg
+;Inhalte;Die Projektinhalte müssen definiert sein;Projektsteckbrief
+;Auftraggeber, Projektleiter;Die Ansprechpartner werden genannnt. Ggf sollten auch Vertretungen ernnant werden. ;Projektsteckbrief
+;Ziele und nicht Ziele wesentliche Ergebnisse;Die Ziele und nicht Ziele müssen klar abgegrenzt sein. Sonst enstehen Unklarheiten in den Absprachen und den Projektabläufen;Projektsteckbrief
+;Start Ende Phasen und Meilensteine ;Wesentliche Zeitpunkte sollten aufgelistet werden. Dazu gehört der Projektbeginn, das Ende und wichtige Meilensteine, die klar definiert sein müssen.;Projektsteckbrief
+;Budget Sach-/ Personal Investitionen Risikorueckstellungen;Der finanzielle und personelle Aufwand fürs Projekt wird hier definiert;Projektsteckbrief
+;Risikien/k.o. Kriterien;Mögliche Risiken (soweit man diese abschätzen kann) sollten hier genannt werden.;Projektsteckbrief
+;zukünftiges Berichtwesen;Hier muss definiert werden wer wann über den Projektzwischenstand unterrichtet werden muss. ;Projektsteckbrief
+;Investitionsprojekt;Ziel/Ergebnis:Neues aus vorhandenen Elementen generieren, Spezifik Ergebnis im ganzen und in Teilergebnissen planbar, messbar steuerbar, PM z.T. erhebliche Investitionen,z.T. lange Laufzeiten, hoher Anteil fach - und branchenspezifischer Normen und Regelwerke, Projektorganisation ARGE, Rolle Projektsteuerer;Projektarten
+;Forschung und Entwicklung;Ziel/Ergebnis: neue Konzepte, neue Produkte/ Dientsleistungen,Neue Eigenschaften/Elemente, SpezifiK: Ergebnis schlecht vorhersehbar, Erfüllung schwer messbar, PM: spezisfischer Phasenplan, Meilensteine zur Steuerung, spezisfischer Phasenplan, Meilensteine zur Steuerung,z.T. hohe Investitionen, z.T. lange Laufzeiten;Projektarten
+;Organisationsprojekt;"Ziel/Ergebnis: neue Ablauforganisation, z. B. Prozesse, neue Aufbauorgaisation, z.B. Rollen, auch Events, Kampagnen, Spezifik: verändert ""Gewohntes, deshalb meist verbunden mit ""Veränderungsmanagement, PM: große Bedeutung von SH-Erwartungen";Projektarten
+;Phasen allgemein;Es gibt vershiedene Phasen im Projekt;Produktlebenszyklus
+;Entwicklung Weg von Idee zu Produkt;Aus einer Idee wird ein Projekt;Produktlebenszyklus
+;Einführung Aktivitäten zur Marktdurchdringung;Alle Aktivitäten um das Produkt am Markt zu platzieren;Produktlebenszyklus
+;Wachstum Gewährleistung von hohem Marktvolumen;Aktivitäten um das Produkt besser zu verkaufen;Produktlebenszyklus
+;Reife/Sättigung Verbesserung Effizenz;Aktivitäten um das Produkt zu verbessern;Produktlebenszyklus
+;Degeneration Ablösung oder Weiterentwiklung des Produktes;Neues Produkt entwickeln oder vorhandenes Produkt weiter entwickeln;Produktlebenszyklus
+;Projekt im Sinne des Produktlebenszykluses;Aktivitäten zur Umsetzung des jeweiligen Phasenziels im Produktlebenszyklus;Produktlebenszyklus
+;Teilprozess Initailisierung;Ziele skizzieren, Zuständigkeit klären, PM-Prozesse auswählen;PM-Phasen
+;Teilprozess Definition;Ziele definieren, Projektinhalte abgrenzen, Projektkernteam bilden, Meilensteine definieren;PM-Phasen
+;Teilprozess Planung;Projektpläne erarbeiten, PSP erstellen, Vorgänge beschreiben, Risiko Anlayse erstellen;PM-Phasen
+;Teilprozess Steuerung;Umsetzung kontrollieren, Zielerreichung steuern, Termine steuern, Änderungen steuern;PM-Phasen
+;Teilprozess Abschluß;Abschl.- Bespr. Durchführen, Leistungen würdigen, Projektdoku archivieren, Verträge beenden;PM-Phasen
+;Lastenheft;Anforderungen: Eindeutigkeit, Konsistenz, Geltung, Priorisierung, Verifizierbarkeit, Realisierbarkeit;PM-Dokumente
+;Phasenplan und Meilensteine;Vorgang mit Dauer, Ergebnis, Entscheidung, Ereignis, Liste in Übersichtsdiagramm;PM-Dokumente
+;Projektstrukturplan;Mehrwert PSP: gewährleistet einheitliches Verständnis über alle Lieferungen und Leistungen, Grundlage für alle Management Pläne;PM-Dokumente
+;Aufbau Projektstrukturplan;Wurzelelemente, Teilaufgabe, Arbeitspakete;PM-Dokumente
