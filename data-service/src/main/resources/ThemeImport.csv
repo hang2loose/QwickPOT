@@ -1,15 +1,10 @@
 ID;NAME;PARENTTHEME
 ;rootTheme;master
+;Projekterfolg;rootTheme
 ;Projektwirtschaft;rootTheme
 ;Abgrenzung des Projekts;Projektwirtschaft
-;Projekt Erfolgskriterien;Projektwirtschaft
 ;Projektsteckbrief;Projektwirtschaft
 ;Projektarten;rootTheme
-;Investitionsprojekt;Projektarten
-;F&E Projekt;Projektarten
-;Organisationsprojekt;Projektarten
-;Produktlebenszyklus;Projektarten
-;Kompetenzelemente;rootTheme
-;PM-Fachliche Kompetenzen;Kompetenzelemente
-;PM- Verhaltenskompetenz;Kompetenzelemente
-;PM-Kontextkompetenz;Kompetenzelemente
+;Produktlebenszyklus;rootTheme
+;PM-Phasen;rootTheme
+;PM-Dokumente;rootTheme
